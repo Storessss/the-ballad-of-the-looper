@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://7vv71sj61141"]
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+
+[node name="CastPoint" type="Node2D" parent="."]
+
+[node name="ModulateTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="FSM" type="Node" parent="."]

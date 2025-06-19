@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dij626x8edncs"]
+
+[ext_resource type="PackedScene" uid="uid://4lfdmwtiwq14" path="res://scenes/weapons/charged_weapon.tscn" id="1_58ehi"]
+[ext_resource type="Texture2D" uid="uid://bq6al6bmp2upa" path="res://sprites/sword.png" id="2_3pnln"]
+[ext_resource type="Script" uid="uid://by17wjew6csw1" path="res://scenes/weapons/ChargedWeapon.gd" id="2_gwb47"]
+[ext_resource type="PackedScene" uid="uid://bl7xqw2wigobk" path="res://scenes/bullets/slash.tscn" id="3_gwb47"]
+
+[node name="Sword" instance=ExtResource("1_58ehi")]
+script = ExtResource("2_gwb47")
+charge_time = 0.75
+fire_rate = 0.55
+damage = 1
+bullet_scene = ExtResource("3_gwb47")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_3pnln")
+
+[node name="CastPoint" parent="." index="1"]
+position = Vector2(0, -4)

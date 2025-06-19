@@ -1,0 +1,109 @@
+[gd_scene load_steps=15 format=3 uid="uid://cdk5w7djq0rc0"]
+
+[ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_3c0ac"]
+[ext_resource type="Texture2D" uid="uid://djvtfxyhpgr7t" path="res://sprites/spitter_attack.png" id="2_4twq5"]
+[ext_resource type="Script" uid="uid://cdrrrtcqcmqe1" path="res://scenes/enemies/Enemy.gd" id="2_u88rj"]
+[ext_resource type="Texture2D" uid="uid://cdq2eqsvdaonp" path="res://sprites/spitter.png" id="3_q027y"]
+[ext_resource type="Texture2D" uid="uid://mmxiuufaceo0" path="res://sprites/spitter_walk1.png" id="4_5i83b"]
+[ext_resource type="Texture2D" uid="uid://dtxyj8k7e5eig" path="res://sprites/spitter_walk2.png" id="5_cb8vx"]
+[ext_resource type="Script" uid="uid://b7rm1wc1o05fq" path="res://scenes/enemies/state_machine/states/FollowPlayer.gd" id="6_cb8vx"]
+[ext_resource type="Script" uid="uid://cufrwcyr1jai8" path="res://scenes/enemies/state_machine/state_machine.gd" id="7_iw4wr"]
+[ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="7_u88rj"]
+[ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="8_80hpj"]
+[ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="9_80hpj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u88rj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4twq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q027y")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 1.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q027y")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_5i83b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cb8vx")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4twq5"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q027y"]
+radius = 4.0
+
+[node name="Spitter" instance=ExtResource("1_3c0ac")]
+script = ExtResource("2_u88rj")
+health = 2
+speed = 120
+contact_damage = true
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_u88rj")
+animation = &"attack"
+frame_progress = 0.332617
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_4twq5")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_q027y")
+
+[node name="CastPoint" parent="." index="4"]
+position = Vector2(0, 2)
+
+[node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("7_iw4wr")
+initial_state = NodePath("FollowPlayer")
+
+[node name="FollowPlayer" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("enemy")]
+script = ExtResource("6_cb8vx")
+enemy = NodePath("../..")
+state_duration_min = 2.0
+state_duration_max = 4.0
+animation = "walk"
+next_state = "Idle1"
+
+[node name="Idle1" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("enemy")]
+script = ExtResource("8_80hpj")
+enemy = NodePath("../..")
+state_duration_min = 1.0
+state_duration_max = 2.0
+animation = "idle"
+next_state = "ShootBullet"
+
+[node name="ShootBullet" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("enemy")]
+script = ExtResource("7_u88rj")
+enemy = NodePath("../..")
+bullet_scene = ExtResource("9_80hpj")
+animation = "attack"
+final_frame = 1
+next_state = "Idle2"
+
+[node name="Idle2" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("enemy")]
+script = ExtResource("8_80hpj")
+enemy = NodePath("../..")
+state_duration_min = 1.0
+state_duration_max = 2.0
+animation = "idle"
+next_state = "FollowPlayer"

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://4lfdmwtiwq14"]
+
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_g2lqr"]
+
+[node name="ChargedWeapon" instance=ExtResource("1_g2lqr")]
+
+[node name="ChargeTimer" type="Timer" parent="." index="4"]
+one_shot = true

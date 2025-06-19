@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://ddufykptqanl7"]
+
+[ext_resource type="Script" uid="uid://b4c8q2fvhicv8" path="res://scenes/game/player.gd" id="1_68xwl"]
+[ext_resource type="Texture2D" uid="uid://c5thlea8t0ru3" path="res://sprites/zaine_idle1.png" id="1_nybob"]
+[ext_resource type="Texture2D" uid="uid://dgbxs4niigp66" path="res://sprites/zaine_idle2.png" id="2_68xwl"]
+[ext_resource type="PackedScene" uid="uid://dij626x8edncs" path="res://scenes/weapons/sword.tscn" id="2_m5ugi"]
+[ext_resource type="Texture2D" uid="uid://6ofbi85nmftt" path="res://sprites/blank.png" id="3_t8yk2"]
+[ext_resource type="Texture2D" uid="uid://bfv2ipk7utf85" path="res://sprites/zaine_walk1.png" id="3_wwvfn"]
+[ext_resource type="Texture2D" uid="uid://rh38gmteeaha" path="res://sprites/zaine_walk2.png" id="4_t8yk2"]
+[ext_resource type="Texture2D" uid="uid://rs3clmqas3l3" path="res://sprites/crosshair.png" id="7_t8yk2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m5ugi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nybob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_t8yk2")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 8.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nybob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_68xwl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wwvfn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_t8yk2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 2.5
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3vq1g"]
+radius = 4.0
+
+[node name="Player" type="CharacterBody2D" groups=["players"]]
+collision_layer = 2
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_68xwl")
+inventory = Array[PackedScene]([ExtResource("2_m5ugi")])
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -3)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_m5ugi")
+animation = &"hit"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3vq1g")
+
+[node name="Dash" type="Node" parent="."]
+
+[node name="DashTimer" type="Timer" parent="Dash"]
+wait_time = 0.1
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="Dash"]
+wait_time = 0.6
+one_shot = true
+
+[node name="GraceTimer" type="Timer" parent="Dash"]
+wait_time = 0.2
+one_shot = true
+
+[node name="DashSound" type="AudioStreamPlayer2D" parent="Dash"]
+
+[node name="Reticle" type="Sprite2D" parent="."]
+texture = ExtResource("7_t8yk2")
+
+[node name="Weapon" type="Node2D" parent="."]
+
+[node name="Point" type="Node2D" parent="Weapon"]
+position = Vector2(0, -16)
+
+[node name="IFrames" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)

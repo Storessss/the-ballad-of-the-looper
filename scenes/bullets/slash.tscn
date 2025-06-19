@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bl7xqw2wigobk"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_ym2bv"]
+[ext_resource type="Texture2D" uid="uid://06ambbgo248i" path="res://sprites/slash.png" id="2_rfcfn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rfcfn"]
+radius = 5.09902
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vs5fl"]
+radius = 6.08276
+
+[node name="Slash" instance=ExtResource("1_ym2bv")]
+speed = 150
+destroy_time = 0.2
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_rfcfn")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_rfcfn")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_vs5fl")
