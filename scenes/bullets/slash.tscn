@@ -6,18 +6,20 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rfcfn"]
 radius = 5.09902
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vs5fl"]
-radius = 6.08276
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfcfn"]
+size = Vector2(20, 9)
 
 [node name="Slash" instance=ExtResource("1_ym2bv")]
 speed = 150
 destroy_time = 0.2
 
 [node name="Sprite2D" parent="." index="0"]
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("2_rfcfn")
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_rfcfn")
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
-shape = SubResource("CircleShape2D_vs5fl")
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_rfcfn")

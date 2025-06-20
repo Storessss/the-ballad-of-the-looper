@@ -34,6 +34,6 @@ func _process(_delta: float) -> void:
 			shoot()
 				
 	if charging and $ChargeTimer.is_stopped():
-		modulate = Color.RED
+		modulate = Color.BLUE
 	else:
 		modulate = Color.WHITE

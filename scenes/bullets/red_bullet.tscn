@@ -10,7 +10,7 @@ radius = 1.0
 radius = 2.0
 
 [node name="RedBullet" instance=ExtResource("1_221yf")]
-speed = 105
+speed = 115
 destroy_time = 5.0
 
 [node name="Sprite2D" parent="." index="0"]

@@ -51,10 +51,7 @@ func _process(_delta: float) -> void:
 				
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and player_bullet:
-		if deflected:
-			body.take_damage(25)
-		else:
-			body.take_damage(damage)
+		body.take_damage(damage)
 		queue_free()
 	elif body.is_in_group("players") and not player_bullet:
 		if not GlobalVariables.dashing and not GlobalVariables.graced:
@@ -66,7 +63,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	elif body.is_in_group("bullets") and deflective:
 		if body.player_bullet != player_bullet:
 			if body.deflectable:
-				body.angle = angle
+				body.angle -= PI
+				body.damage = damage / 4
+				body.speed *= 2
 				body.change_alignment()
 
 func _on_destroy_timer_timeout() -> void:
