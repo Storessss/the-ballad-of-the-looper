@@ -6,6 +6,7 @@ class_name Bullet
 @export var destroy_time: float
 @export var bouncing: bool
 @export var transparent: bool
+@export var deflectable: bool = true
 
 var angle: float
 var damage: int
@@ -50,7 +51,10 @@ func _process(_delta: float) -> void:
 				
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and player_bullet:
-		body.take_damage(damage)
+		if deflected:
+			body.take_damage(25)
+		else:
+			body.take_damage(damage)
 		queue_free()
 	elif body.is_in_group("players") and not player_bullet:
 		if not GlobalVariables.dashing and not GlobalVariables.graced:
@@ -61,8 +65,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			queue_free()
 	elif body.is_in_group("bullets") and deflective:
 		if body.player_bullet != player_bullet:
-			body.angle = angle
-			body.change_alignment()
+			if body.deflectable:
+				body.angle = angle
+				body.change_alignment()
 
 func _on_destroy_timer_timeout() -> void:
 	queue_free()
@@ -72,10 +77,8 @@ func change_alignment() -> void:
 		deflected = true
 		player_bullet = not player_bullet
 		var shader_material : ShaderMaterial = ShaderMaterial.new()
-	
 		if player_bullet:
 			shader_material.shader = preload("res://styles/outline_blue.gdshader")
 		else:
 			shader_material.shader = preload("res://styles/outline_red.gdshader")
-			
 		$Sprite2D.material = shader_material

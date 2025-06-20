@@ -50,7 +50,6 @@ radius = 4.0
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 collision_layer = 2
-collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_68xwl")
 inventory = Array[PackedScene]([ExtResource("2_m5ugi")])
@@ -95,3 +94,5 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
+limit_left = 0
+limit_top = 0

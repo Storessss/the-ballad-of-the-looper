@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cdk5w7djq0rc0"]
+[gd_scene load_steps=14 format=3 uid="uid://cdk5w7djq0rc0"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_3c0ac"]
 [ext_resource type="Texture2D" uid="uid://djvtfxyhpgr7t" path="res://sprites/spitter_attack.png" id="2_4twq5"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://mmxiuufaceo0" path="res://sprites/spitter_walk1.png" id="4_5i83b"]
 [ext_resource type="Texture2D" uid="uid://dtxyj8k7e5eig" path="res://sprites/spitter_walk2.png" id="5_cb8vx"]
 [ext_resource type="Script" uid="uid://b7rm1wc1o05fq" path="res://scenes/enemies/state_machine/states/FollowPlayer.gd" id="6_cb8vx"]
-[ext_resource type="Script" uid="uid://cufrwcyr1jai8" path="res://scenes/enemies/state_machine/state_machine.gd" id="7_iw4wr"]
 [ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="7_u88rj"]
 [ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="8_80hpj"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="9_80hpj"]
@@ -53,8 +52,8 @@ radius = 4.0
 
 [node name="Spitter" instance=ExtResource("1_3c0ac")]
 script = ExtResource("2_u88rj")
-health = 2
-speed = 120
+health = 100
+speed = 100
 contact_damage = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]
@@ -69,11 +68,7 @@ shape = SubResource("CircleShape2D_4twq5")
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 shape = SubResource("CircleShape2D_q027y")
 
-[node name="CastPoint" parent="." index="4"]
-position = Vector2(0, 2)
-
 [node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
-script = ExtResource("7_iw4wr")
 initial_state = NodePath("FollowPlayer")
 
 [node name="FollowPlayer" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("enemy")]

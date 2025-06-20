@@ -4,17 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://cbh13ktrbb7cl" path="res://sprites/bullet.png" id="2_d2tq3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lrqli"]
-radius = 2.0
+radius = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_frhlo"]
-radius = 3.0
+radius = 2.0
 
 [node name="RedBullet" instance=ExtResource("1_221yf")]
-speed = 90
+speed = 105
 destroy_time = 5.0
 
 [node name="Sprite2D" parent="." index="0"]
-scale = Vector2(0.65, 0.65)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_d2tq3")
 
 [node name="CollisionShape2D" parent="." index="1"]

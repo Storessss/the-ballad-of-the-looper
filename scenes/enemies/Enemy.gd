@@ -11,8 +11,8 @@ class_name Enemy
 var direction: Vector2
 var target_position: Vector2
 
-
 var can_die: bool = true
+var death_particles_scene = preload("res://scenes/particles/death_particles.tscn")
 
 func _ready() -> void:
 	$ModulateTimer.connect("timeout", Callable(self, "_on_modulate_timer_timeout"))
@@ -31,7 +31,8 @@ func _on_modulate_timer_timeout() -> void:
 	
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("players") and contact_damage:
-		body.take_damage()
+		if not GlobalVariables.dashing and not GlobalVariables.graced:
+			body.take_damage()
 	
 func _process(_delta: float) -> void:
 	velocity = direction * speed
@@ -43,6 +44,9 @@ func _process(_delta: float) -> void:
 func die() -> void:
 	if can_die:
 		can_die = false
+		var particles = death_particles_scene.instantiate()
+		particles.global_position = global_position
+		get_tree().current_scene.add_child(particles)
 		queue_free()
 	
 func line_of_sight(from: Vector2, to: Vector2) -> bool:

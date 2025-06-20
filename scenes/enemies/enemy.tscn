@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://7vv71sj61141"]
+[gd_scene load_steps=2 format=3 uid="uid://7vv71sj61141"]
+
+[ext_resource type="Script" uid="uid://cufrwcyr1jai8" path="res://scenes/enemies/state_machine/state_machine.gd" id="1_6xk8f"]
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 4
@@ -24,3 +26,4 @@ wait_time = 0.05
 one_shot = true
 
 [node name="FSM" type="Node" parent="."]
+script = ExtResource("1_6xk8f")

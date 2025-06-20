@@ -9,7 +9,7 @@
 script = ExtResource("2_gwb47")
 charge_time = 0.75
 fire_rate = 0.55
-damage = 1
+damage = 50
 bullet_scene = ExtResource("3_gwb47")
 
 [node name="Sprite2D" parent="." index="0"]

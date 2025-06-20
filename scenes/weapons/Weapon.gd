@@ -26,7 +26,6 @@ func shoot() -> void:
 			bullet.global_position = $CastPoint.global_position
 			bullet.damage = damage
 			bullet.player_bullet = true
-			bullet.modulate = modulate
 			bullet.deflective = deflective_shots
 			get_tree().current_scene.add_child(bullet)
 			$AttackSound.play()

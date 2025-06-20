@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://54t4h2g1rclk"]
+[gd_scene load_steps=9 format=4 uid="uid://54t4h2g1rclk"]
 
 [ext_resource type="PackedScene" uid="uid://ddufykptqanl7" path="res://scenes/game/player.tscn" id="1_n2tev"]
-[ext_resource type="Texture2D" uid="uid://m0uksj3wgu0p" path="res://sprites/tilemap.png" id="2_du33l"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="3_wide6"]
 [ext_resource type="PackedScene" uid="uid://cdk5w7djq0rc0" path="res://scenes/enemies/spitter.tscn" id="4_5afu8"]
+[ext_resource type="PackedScene" uid="uid://0u5v283l3bi8" path="res://scenes/enemies/crusher.tscn" id="5_3jxpy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_wide6"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -11,8 +11,11 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
 agent_radius = 0.0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5afu8"]
+load_path = "res://.godot/imported/tilemap.png-5afcb044bcaaf721941b7d5e7e0e18aa.ctex"
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5afu8"]
-texture = ExtResource("2_du33l")
+texture = SubResource("CompressedTexture2D_5afu8")
 0:0/0 = 0
 0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wide6")
 1:0/0 = 0
@@ -36,3 +39,6 @@ position = Vector2(-198, 46)
 
 [node name="Spitter" parent="." instance=ExtResource("4_5afu8")]
 position = Vector2(178, 47)
+
+[node name="Crusher" parent="." instance=ExtResource("5_3jxpy")]
+position = Vector2(78, 22)

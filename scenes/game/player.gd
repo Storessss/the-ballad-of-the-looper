@@ -10,6 +10,8 @@ var deadzone: float = 0.1
 
 @export var inventory: Array[PackedScene]
 
+@onready var camera: Camera2D = $Camera2D
+
 func _ready() -> void:
 	InputMap.action_set_deadzone("look_up", deadzone)
 	InputMap.action_set_deadzone("look_down", deadzone)
