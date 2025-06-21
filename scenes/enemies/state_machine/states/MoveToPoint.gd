@@ -8,7 +8,7 @@ class_name MoveToPoint
 @export var next_state: State
 
 func Enter() -> void:
-	await get_tree().process_frame
+	await get_tree().process_frame$
 	var point = points.pick_random()
 	var move_point = Vector2(GlobalVariables.right * point.x, GlobalVariables.bottom * point.y)
 	enemy.nav.target_position = move_point

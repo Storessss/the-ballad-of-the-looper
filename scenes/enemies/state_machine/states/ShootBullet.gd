@@ -16,7 +16,7 @@ func shoot() -> void:
 		var bullet = bullet_scene.instantiate()
 		var point = GlobalVariables.player_position - enemy.cast_point.global_position
 		bullet.angle = point.angle() + deg_to_rad(pos)
-		bullet.position = Vector2(enemy.cast_point.global_position.x, enemy.cast_point.global_position.y + pos)
+		bullet.position = Vector2(enemy.cast_point.global_position.x, enemy.cast_point.global_position.y)
 		pos += bullet_spread
 		get_tree().current_scene.add_child(bullet)
 			
