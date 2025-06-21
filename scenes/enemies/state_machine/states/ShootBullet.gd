@@ -2,13 +2,13 @@ extends State
 
 class_name ShootBullet
 
-@export var enemy: Enemy
+@onready var enemy: Enemy = get_parent().get_parent()
 @export var bullet_scene: PackedScene
 @export var bullet_count: int = 1
 @export var bullet_spread: int = 5
 @export var animation: String
 @export var final_frame: int
-@export var next_state: String
+@export var next_state: State
 
 func shoot() -> void:
 	var pos = round(-bullet_spread * (bullet_count / 2))
@@ -21,6 +21,7 @@ func shoot() -> void:
 		get_tree().current_scene.add_child(bullet)
 			
 func Enter() -> void:
+	await get_tree().process_frame
 	if enemy.line_of_sight(enemy.cast_point.global_position, enemy.nav.target_position):
 		shoot()
 		if animation:

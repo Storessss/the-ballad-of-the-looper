@@ -56,19 +56,17 @@ shape = SubResource("CircleShape2D_f7xcx")
 [node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("enemy")]
+[node name="Idle" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
 script = ExtResource("5_cp7y7")
-enemy = NodePath("../..")
 state_duration_min = 2.5
 state_duration_max = 2.5
 animation = "idle"
-next_state = "ShootRing"
+next_state = NodePath("../ShootRing")
 
-[node name="ShootRing" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("enemy")]
+[node name="ShootRing" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state")]
 script = ExtResource("6_ki70e")
-enemy = NodePath("../..")
 bullet_scene = ExtResource("7_akuy1")
 bullet_count = 15
 animation = "attack"
 final_frame = 1
-next_state = "Idle"
+next_state = NodePath("../Idle")

@@ -2,13 +2,13 @@ extends State
 
 class_name ShootRing
 
-@export var enemy: Enemy
+@onready var enemy: Enemy = get_parent().get_parent()
 @export var bullet_scene: PackedScene
 @export var bullet_count: int = 7
 @export var offset: int
 @export var animation: String
 @export var final_frame: int
-@export var next_state: String
+@export var next_state: State
 
 var can_attack: bool
 

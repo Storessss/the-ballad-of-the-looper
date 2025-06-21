@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://vphukb2po6r7"]
+
+[ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="1_pq0bs"]
+
+[node name="FastRedBullet" instance=ExtResource("1_pq0bs")]
+speed = 200

@@ -82,6 +82,10 @@ func _process(_delta: float) -> void:
 		GlobalVariables.inventory_index = ((GlobalVariables.inventory_index + 1) % inventory.size() \
 		+ inventory.size()) % inventory.size()
 		instantiate_weapon()
+		
+	# CAMERA ---------------------------------------------------------------------------------------
+	camera.limit_right = GlobalVariables.right
+	camera.limit_bottom = GlobalVariables.bottom
 	
 func take_damage():
 	if $IFrames.is_stopped():

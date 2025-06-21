@@ -3,12 +3,12 @@ extends Node
 @export var initial_state: State
 
 var current_state: State
-var states: Dictionary = {}
+var states: Array[State] = []
 
 func _ready() -> void:
 	for child in get_children():
 		if child is State:
-			states[child.name.to_lower()] = child
+			states.append(child)
 			child.Transitioned.connect(_on_child_transition)
 	if initial_state:
 		initial_state.Enter()
@@ -22,16 +22,12 @@ func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.Physics_Update(delta)
 
-func _on_child_transition(state, new_state_name) -> void:
+func _on_child_transition(state: State, new_state: State) -> void:
 	if state != current_state:
 		return
-		
-	var new_state: State = states.get(new_state_name.to_lower())
-	if not new_state:
+	if new_state == null or not states.has(new_state):
 		return
-		
 	if current_state:
 		current_state.Exit()
-		
 	current_state = new_state
-	new_state.Enter()
+	current_state.Enter()
