@@ -91,6 +91,8 @@ func take_damage():
 	if $IFrames.is_stopped():
 		GlobalVariables.player_health -= 1
 		$IFrames.start()
+		$HitSound.play()
+		GlobalVariables.player_hit.emit()
 		
 func instantiate_weapon():
 	for child in $Weapon/Point.get_children():

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://lidthfxyvbu6"]
+
+[ext_resource type="Script" uid="uid://d00vwye47hh2y" path="res://scenes/game/hud.gd" id="1_77e6q"]
+[ext_resource type="Texture2D" uid="uid://dwm18c3vnli83" path="res://sprites/heart_full.png" id="1_kqgwg"]
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_77e6q")
+
+[node name="HealthBar" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="HealthBar"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("1_kqgwg")

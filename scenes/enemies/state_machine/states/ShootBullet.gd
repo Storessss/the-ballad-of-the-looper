@@ -7,6 +7,7 @@ class_name ShootBullet
 @export var bullet_count: int = 1
 @export var bullet_spread: int = 5
 @export var animation: String
+@export var sound: AudioStreamPlayer2D
 @export var final_frame: int
 @export var next_state: State
 
@@ -19,6 +20,8 @@ func shoot() -> void:
 		bullet.position = Vector2(enemy.cast_point.global_position.x, enemy.cast_point.global_position.y)
 		pos += bullet_spread
 		get_tree().current_scene.add_child(bullet)
+		if sound:
+			sound.play()
 			
 func Enter() -> void:
 	await get_tree().process_frame

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://1q4lm30f8rfs"
+path="res://.godot/imported/Blinded By Fight And Greed.ogg-7eb1232963999501a4086459561a8ba2.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/Blinded By Fight And Greed.ogg"
+dest_files=["res://.godot/imported/Blinded By Fight And Greed.ogg-7eb1232963999501a4086459561a8ba2.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

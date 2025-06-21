@@ -25,6 +25,7 @@ func Enter() -> void:
 	if not staggered:
 		if (previous_health - enemy.health) >= health_treshold:
 			staggered = true
+			MusicPlayer.boss_stagger()
 		else:
 			previous_health = enemy.health
 			Transitioned.emit(self, next_state)

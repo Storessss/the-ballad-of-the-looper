@@ -4,7 +4,7 @@ class_name Backstep
 
 @onready var enemy: Enemy = get_parent().get_parent()
 @export var distance: int
-@export var speed_multiplier: float
+@export var speed_multiplier: float = 1.0
 @export var animation: String
 @export var next_state: State
 

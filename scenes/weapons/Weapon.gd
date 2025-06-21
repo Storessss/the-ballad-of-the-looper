@@ -28,7 +28,6 @@ func shoot() -> void:
 			bullet.player_bullet = true
 			bullet.deflective = deflective_shots
 			get_tree().current_scene.add_child(bullet)
-			$AttackSound.play()
 	
 func line_of_sight(from: Vector2, to: Vector2) -> bool:
 	var space_state = get_world_2d().direct_space_state

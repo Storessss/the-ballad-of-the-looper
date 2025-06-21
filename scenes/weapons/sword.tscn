@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dij626x8edncs"]
+[gd_scene load_steps=8 format=3 uid="uid://dij626x8edncs"]
 
 [ext_resource type="PackedScene" uid="uid://4lfdmwtiwq14" path="res://scenes/weapons/charged_weapon.tscn" id="1_58ehi"]
 [ext_resource type="Texture2D" uid="uid://bq6al6bmp2upa" path="res://sprites/sword.png" id="2_3pnln"]
 [ext_resource type="Script" uid="uid://by17wjew6csw1" path="res://scenes/weapons/ChargedWeapon.gd" id="2_gwb47"]
 [ext_resource type="PackedScene" uid="uid://bl7xqw2wigobk" path="res://scenes/bullets/slash.tscn" id="3_gwb47"]
+[ext_resource type="AudioStream" uid="uid://chnxw64m4w6jo" path="res://sounds/slash.mp3" id="5_xs7jb"]
+[ext_resource type="AudioStream" uid="uid://b7v1f627l0pg2" path="res://sounds/charged_sound.wav" id="6_w46s4"]
+[ext_resource type="AudioStream" uid="uid://bp76cl53ekv0d" path="res://sounds/charged_slash_sound.wav" id="7_lax51"]
 
 [node name="Sword" instance=ExtResource("1_58ehi")]
 script = ExtResource("2_gwb47")
@@ -17,3 +20,15 @@ texture = ExtResource("2_3pnln")
 
 [node name="CastPoint" parent="." index="1"]
 position = Vector2(0, -4)
+
+[node name="AttackSound" parent="." index="3"]
+stream = ExtResource("5_xs7jb")
+volume_db = 4.0
+
+[node name="ChargedSound" parent="." index="5"]
+stream = ExtResource("6_w46s4")
+volume_db = 5.0
+
+[node name="ChargedAttackSound" parent="." index="6"]
+stream = ExtResource("7_lax51")
+volume_db = -7.0

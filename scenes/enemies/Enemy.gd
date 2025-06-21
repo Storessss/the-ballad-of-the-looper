@@ -5,9 +5,11 @@ class_name Enemy
 @export var health: int
 @export var speed: int
 @export var contact_damage: bool
+@export var boss: bool
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var animations: AnimatedSprite2D = $AnimatedSprite2D
 @onready var cast_point: Node2D = $CastPoint
+@onready var attack_sound: AudioStreamPlayer2D = $AttackSound
 var direction: Vector2
 var target_position: Vector2
 
@@ -25,6 +27,7 @@ func take_damage(damage: int) -> void:
 		die()
 	modulate = Color(5,5,5,1)
 	$ModulateTimer.start()
+	MusicPlayer.enemy_hit()
 		
 func _on_modulate_timer_timeout() -> void:
 	modulate = Color.WHITE
@@ -47,6 +50,10 @@ func die() -> void:
 		var particles = death_particles_scene.instantiate()
 		particles.global_position = global_position
 		get_tree().current_scene.add_child(particles)
+		if boss:
+			MusicPlayer.boss_defeat()
+		else:
+			MusicPlayer.enemy_defeat()
 		queue_free()
 	
 func line_of_sight(from: Vector2, to: Vector2) -> bool:

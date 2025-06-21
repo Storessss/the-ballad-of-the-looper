@@ -6,3 +6,9 @@
 
 [node name="ChargeTimer" type="Timer" parent="." index="4"]
 one_shot = true
+
+[node name="ChargedSound" type="AudioStreamPlayer2D" parent="." index="5"]
+bus = &"Sounds"
+
+[node name="ChargedAttackSound" type="AudioStreamPlayer2D" parent="." index="6"]
+bus = &"Sounds"

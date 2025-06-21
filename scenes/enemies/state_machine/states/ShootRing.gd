@@ -7,6 +7,7 @@ class_name ShootRing
 @export var bullet_count: int = 7
 @export var offset: int
 @export var animation: String
+@export var sound: AudioStreamPlayer2D
 @export var final_frame: int
 @export var next_state: State
 
@@ -22,6 +23,8 @@ func bullet_ring():
 		bullet.angle = angle
 		bullet.position = enemy.cast_point.global_position
 		get_tree().current_scene.add_child(bullet)
+		if sound:
+			sound.play()
 
 func Enter() -> void:
 	can_attack = true

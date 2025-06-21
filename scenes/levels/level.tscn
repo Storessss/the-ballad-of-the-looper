@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://hdyymp4tfp5u"]
+[gd_scene load_steps=5 format=4 uid="uid://hdyymp4tfp5u"]
 
 [ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://tilemap.tscn" id="1_377w7"]
 [ext_resource type="Script" uid="uid://b71sbhy8sb1sg" path="res://scenes/levels/level.gd" id="1_b2cq8"]
 [ext_resource type="PackedScene" uid="uid://ddufykptqanl7" path="res://scenes/game/player.tscn" id="2_bovvr"]
+[ext_resource type="PackedScene" uid="uid://lidthfxyvbu6" path="res://scenes/game/hud.tscn" id="4_xb4v1"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_b2cq8")
@@ -17,3 +18,5 @@ tile_map_data = PackedByteArray("AAAwAAAAAAAWAAYAAAAwAAEAAAAWAAYAAAAwAAIAAAAWAAY
 position = Vector2(265, 154)
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="Hud" parent="." instance=ExtResource("4_xb4v1")]

@@ -66,6 +66,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				body.angle -= PI
 				body.damage = damage / 4
 				body.speed *= 2
+				MusicPlayer.bullet_deflect()
 				body.change_alignment()
 
 func _on_destroy_timer_timeout() -> void:

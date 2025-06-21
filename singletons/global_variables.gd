@@ -9,7 +9,9 @@ var inventory_index: int
 
 var player: CharacterBody2D
 var player_position: Vector2
-var player_health: int = 5
+var player_max_health: int = 6
+var player_health: int = player_max_health
+signal player_hit
 
 var left: int
 var top: int

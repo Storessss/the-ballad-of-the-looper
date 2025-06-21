@@ -30,10 +30,14 @@ func _process(_delta: float) -> void:
 			shoot()
 			deflective_shots = false
 			damage /= 2
+			$ChargedAttackSound.play()
 		else:
 			shoot()
+			$AttackSound.play()
 				
 	if charging and $ChargeTimer.is_stopped():
+		if modulate == Color.WHITE:
+			$ChargedSound.play()
 		modulate = Color.BLUE
 	else:
 		modulate = Color.WHITE
