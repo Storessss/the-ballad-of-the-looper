@@ -402,4 +402,5 @@ sources/1 = SubResource("TileSetAtlasSource_3qqdj")
 sources/0 = SubResource("TileSetAtlasSource_dqtar")
 
 [node name="Tilemap" type="TileMapLayer"]
+z_index = -5
 tile_set = SubResource("TileSet_dqtar")

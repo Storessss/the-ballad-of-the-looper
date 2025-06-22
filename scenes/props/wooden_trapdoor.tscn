@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://lihuro2y1afi"]
+
+[ext_resource type="PackedScene" uid="uid://b45mjgfbv3jnd" path="res://scenes/props/trapdoor.tscn" id="1_vuoe5"]
+[ext_resource type="Texture2D" uid="uid://b1s7je0uf2q6t" path="res://sprites/closed_trapdoor.png" id="2_o6yeq"]
+[ext_resource type="Script" uid="uid://laikfvg3nwxs" path="res://scenes/props/wooden_trapdoor.gd" id="2_vmbs5"]
+[ext_resource type="Texture2D" uid="uid://b174wskgw1eeo" path="res://sprites/half_open_trapdoor.png" id="3_bfqbj"]
+[ext_resource type="Texture2D" uid="uid://bbcr3qt5wmy8" path="res://sprites/open_trapdoor.png" id="4_vmbs5"]
+[ext_resource type="AudioStream" uid="uid://bywrpsajd7iv5" path="res://sounds/trapdoor_sound.wav" id="5_bfqbj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bmv41"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_o6yeq")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bfqbj")
+}],
+"loop": true,
+"name": &"half_open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_vmbs5")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6yeq"]
+size = Vector2(32, 32)
+
+[node name="WoodenTrapdoor" instance=ExtResource("1_vuoe5")]
+script = ExtResource("2_vmbs5")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_bmv41")
+animation = &"closed"
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_o6yeq")
+
+[node name="OpeningSound" parent="." index="3"]
+stream = ExtResource("5_bfqbj")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="OpeningTimer" to="." method="_on_opening_timer_timeout"]

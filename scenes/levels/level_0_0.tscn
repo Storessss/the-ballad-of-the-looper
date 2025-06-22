@@ -39,6 +39,8 @@ position = Vector2(-198, 46)
 
 [node name="Spitter" parent="." instance=ExtResource("4_5afu8")]
 position = Vector2(178, 47)
+motion_mode = 0
 
 [node name="Crusher" parent="." instance=ExtResource("5_3jxpy")]
 position = Vector2(78, 22)
+motion_mode = 0

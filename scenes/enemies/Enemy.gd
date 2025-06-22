@@ -9,7 +9,6 @@ class_name Enemy
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var animations: AnimatedSprite2D = $AnimatedSprite2D
 @onready var cast_point: Node2D = $CastPoint
-@onready var attack_sound: AudioStreamPlayer2D = $AttackSound
 var direction: Vector2
 var target_position: Vector2
 
@@ -19,6 +18,7 @@ var death_particles_scene = preload("res://scenes/particles/death_particles.tscn
 func _ready() -> void:
 	$ModulateTimer.connect("timeout", Callable(self, "_on_modulate_timer_timeout"))
 	$Area2D.connect("body_entered", Callable(self, "_on_area_2d_body_entered"))
+	nav.connect("velocity_computed", Callable(self, "_on_nav_velocity_computed"))
 	
 
 func take_damage(damage: int) -> void:
@@ -38,7 +38,9 @@ func _on_area_2d_body_entered(body):
 			body.take_damage()
 	
 func _process(_delta: float) -> void:
-	velocity = direction * speed
+	var new_velocity = direction * speed
+	nav.set_velocity(new_velocity)
+	
 	move_and_slide()
 	
 	if velocity.x != 0:
@@ -82,3 +84,6 @@ func line_of_bullet_sight(from: Vector2, to: Vector2) -> bool:
 	if result.size() > 0:
 		return false
 	return true
+
+func _on_nav_velocity_computed(safe_velocity: Vector2) -> void:
+	velocity = safe_velocity

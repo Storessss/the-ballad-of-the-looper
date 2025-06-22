@@ -63,7 +63,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	elif body.is_in_group("bullets") and deflective:
 		if body.player_bullet != player_bullet:
 			if body.deflectable:
-				body.angle -= PI
+				body.angle = angle
+				#body.angle -= PI
 				body.damage = damage / 4
 				body.speed *= 2
 				MusicPlayer.bullet_deflect()

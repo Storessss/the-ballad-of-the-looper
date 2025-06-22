@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://2i7vjx8e4n84"]
+
+[ext_resource type="PackedScene" uid="uid://hdyymp4tfp5u" path="res://scenes/levels/level.tscn" id="1_fqoy0"]
+[ext_resource type="PackedScene" uid="uid://6wkw1e4btx03" path="res://scenes/enemies/triple_shooter.tscn" id="2_tapf5"]
+[ext_resource type="PackedScene" uid="uid://cdk5w7djq0rc0" path="res://scenes/enemies/spitter.tscn" id="3_op67l"]
+[ext_resource type="PackedScene" uid="uid://lihuro2y1afi" path="res://scenes/props/wooden_trapdoor.tscn" id="4_17dki"]
+
+[node name="LevelTestTestLevelLevel" instance=ExtResource("1_fqoy0")]
+
+[node name="TripleShooter" parent="Enemies" index="0" instance=ExtResource("2_tapf5")]
+position = Vector2(150, 117)
+speed = 170
+
+[node name="Spitter" parent="Enemies" index="1" instance=ExtResource("3_op67l")]
+position = Vector2(112, 162)
+
+[node name="WoodenTrapdoor" parent="." index="5" instance=ExtResource("4_17dki")]
+position = Vector2(75, 104)

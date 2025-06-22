@@ -10,3 +10,4 @@ tile_map_data = PackedByteArray("AAAwAAAAAQAAAAAAAAAwAAEAAQAAAAAAAAAwAAIAAQAAAAA
 
 [node name="LittleDevil" parent="Enemies" index="0" instance=ExtResource("2_lw4g3")]
 position = Vector2(64, 72)
+motion_mode = 0

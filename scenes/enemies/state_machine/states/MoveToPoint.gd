@@ -16,7 +16,6 @@ func Enter() -> void:
 
 func Update(delta: float) -> void:
 	if enemy.nav.is_navigation_finished():
-		print("okokokokok")
 		Transitioned.emit(self, next_state)
 	if animation:
 		enemy.animations.play(animation)

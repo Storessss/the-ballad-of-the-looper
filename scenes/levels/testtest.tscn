@@ -7,3 +7,4 @@
 
 [node name="LittleDevil" parent="Enemies" index="0" instance=ExtResource("2_xmndq")]
 position = Vector2(98, 85)
+motion_mode = 0

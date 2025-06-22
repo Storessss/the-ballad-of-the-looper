@@ -59,7 +59,7 @@ radius = 4.0
 
 [node name="LittleDevil" instance=ExtResource("1_vc5lh")]
 script = ExtResource("2_b4w7c")
-health = 3000
+health = 2500
 speed = 150
 boss = true
 

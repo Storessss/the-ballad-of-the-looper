@@ -51,6 +51,7 @@ func boss_defeat() -> void:
 	var sound_player = new_sound_player(-6)
 	sound_player.stream = preload("res://sounds/boss_defeat.mp3")
 	sound_player.play()
+	music_player.stop()
 	
 func boss_stagger() -> void:
 	var sound_player = new_sound_player(0)
