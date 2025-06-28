@@ -9,6 +9,7 @@ func _ready() -> void:
 	update_health()
 	
 	DialogueManager.show_dialogue.connect(Callable(self, "_on_dialogue_show"))
+	DialogueManager.hide_dialogue.connect(Callable(self, "_on_dialogue_hide"))
 
 func update_health() -> void:
 	for heart in $HealthBar.get_children():
@@ -32,7 +33,8 @@ func update_health() -> void:
 func _on_player_hit() -> void:
 	update_health()
 
-func _on_dialogue_show(character_name: String, text: String, image: Texture, choices: Array):
+func _on_dialogue_show(character_name: String, image: Texture, text: String, choices: Array):
+	$DialogueBox.visible = true
 	$DialogueBox/Name.text = character_name
 	$DialogueBox/Image.texture = image
 	await type_text(text)
@@ -52,3 +54,7 @@ func show_choices(choices: Array):
 			button.next = choice["next"]
 			$Choices.add_child(button)
 		$Choices.get_child(0).grab_focus()
+		
+func _on_dialogue_hide():
+	$DialogueBox.visible = false
+	print("ok")

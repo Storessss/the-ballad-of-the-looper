@@ -17,6 +17,8 @@ var shake_fade = 5.0
 var rnd = RandomNumberGenerator.new()
 var shake_strength = 0.0
 
+var movement_enabled: bool = true
+
 func _ready() -> void:
 	InputMap.action_set_deadzone("look_up", deadzone)
 	InputMap.action_set_deadzone("look_down", deadzone)
@@ -25,9 +27,13 @@ func _ready() -> void:
 	
 	instantiate_weapon()
 	
+	DialogueManager.show_dialogue.connect(Callable(self, "_on_dialogue_show"))
+	DialogueManager.hide_dialogue.connect(Callable(self, "_on_dialogue_hide"))
+	
 func _process(delta: float) -> void:
-	direction = Input.get_vector("left", "right", "up", "down")
-	move_and_slide()
+	if movement_enabled:
+		direction = Input.get_vector("left", "right", "up", "down")
+		move_and_slide()
 	
 	# DASH -----------------------------------------------------------------------------------------
 	if $Dash/DashTimer.is_stopped() and GlobalVariables.dashing:
@@ -117,3 +123,9 @@ func instantiate_weapon():
 		child.queue_free()
 	var weapon = inventory[GlobalVariables.inventory_index].instantiate()
 	$Weapon/Point.add_child(weapon)
+	
+func _on_dialogue_show(_character_name: String, _image: Texture, _text: String, _choices: Array):
+	movement_enabled = false
+	
+func _on_dialogue_hide():
+	movement_enabled = true

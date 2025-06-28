@@ -13,5 +13,10 @@ func _on_body_exited(body: Node2D) -> void:
 		can_interact = false
 
 func _process(_delta: float) -> void:
-	if can_interact and Input.is_action_just_pressed("interact"):
-		DialogueManager.play_dialogue(event, self)
+	if can_interact and Input.is_action_just_pressed("interact") and not DialogueManager.choice:
+		if DialogueManager.end_dialogue:
+			DialogueManager.hide_dialogue.emit()
+			DialogueManager.end_dialogue = false
+		else:
+			DialogueManager.play_dialogue(event, self)
+			

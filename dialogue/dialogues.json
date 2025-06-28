@@ -4,7 +4,8 @@
 		"image": "spitter.png",
 		"dialogue": [
 			{
-				"text": "text1"
+				"text": "text1",
+				"next": 1
 			},
 			{
 				"text": "text2",
@@ -20,10 +21,13 @@
 				]
 			},
 			{
-				"text": "text3"
+				"text": "text3",
+				"next": 1,
 			},
 			{
-				"text": "text4"
+				"text": "text4",
+				"next": 0,
+				"end": true
 			}
 		]
 	}
