@@ -1,7 +1,11 @@
 extends Node2D
 
+@export var music: AudioStream
+
 func _ready() -> void:
 	set_camera_limits()
+	if music:
+		MusicPlayer.change_music(music)
 
 func set_camera_limits() -> void:
 	var map_limits = $Tilemap.get_used_rect()

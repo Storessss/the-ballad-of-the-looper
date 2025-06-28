@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbdogl32o3j5e"]
+
+[ext_resource type="PackedScene" uid="uid://bqswx2ymqtmh0" path="res://scenes/levels/small_level.tscn" id="1_orbw8"]
+[ext_resource type="Texture2D" uid="uid://cdq2eqsvdaonp" path="res://sprites/spitter.png" id="2_dudud"]
+[ext_resource type="AudioStream" uid="uid://5l3owhah538u" path="res://music/Friendly Place.ogg" id="2_qkl3v"]
+[ext_resource type="PackedScene" uid="uid://b131k714aba0c" path="res://dialogue/dialogue_trigger.tscn" id="3_qkl3v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lufot"]
+radius = 48.0
+
+[node name="JackiesRoom" instance=ExtResource("1_orbw8")]
+music = ExtResource("2_qkl3v")
+
+[node name="Player" parent="." index="2"]
+position = Vector2(56, 152)
+
+[node name="Jackie" type="Sprite2D" parent="." index="5"]
+position = Vector2(448, 144)
+texture = ExtResource("2_dudud")
+
+[node name="DialogueTrigger" parent="Jackie" index="0" instance=ExtResource("3_qkl3v")]
+event = "jackie2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jackie/DialogueTrigger" index="0"]
+shape = SubResource("CircleShape2D_lufot")

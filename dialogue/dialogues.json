@@ -30,5 +30,96 @@
 				"end": true
 			}
 		]
+	},
+	"jackie1": {
+		"name": "Jackie",
+		"image": "spitter.png",
+		"dialogue": [
+			{
+				"text": "Oh... Hello",
+				"next": 1,
+			},
+			{
+				"text": "I'm Jackie, the intelligent spitter",
+				"next": 1,
+			},
+			{
+				"text": "I once consumed this artifact that gave me near Shadekin level intelligence",
+				"next": 1,
+			},
+			{
+				"text": "My family stayed the same though",
+				"next": 1,
+			},
+			{
+				"text": "It's been really hard since then...",
+				"next": 0,
+				"end": true
+			}
+		]
+	},
+	"jackie2": {
+		"name": "Jackie",
+		"image": "spitter.png",
+		"dialogue": [
+			{
+				"text": "Oh... Hello again",
+				"next": 1,
+			},
+			{
+				"text": "We've been going pretty deep, huh?",
+				"next": 1,
+			},
+			{
+				"text": "...",
+				"next": 1,
+			},
+			{
+				"text": "Do you seek it too?",
+				"next": 1,
+			},
+			{
+				"text": "The artifact that can change the past?",
+				"choices": [
+					{
+						"text": "Yes",
+						"next": 1
+					},
+					{
+						"text": "No",
+						"next": 3
+					}
+				]
+			},
+			{
+				"text": "If we both reach the bottom...",
+				"next": 1,
+			},
+			{
+				"text": "...I hope the artifact has multiple uses, you know?",
+				"next": 3,
+			},
+			{
+				"text": "I hope you find whatever you seek then",
+				"next": 1,
+			},
+			{
+				"text": "I know it's hard to be here",
+				"next": 1,
+			},
+			{
+				"text": "...",
+				"next": 1,
+			},
+			{
+				"text": "Hey, thanks for talking to me...",
+				"next": 1,
+			},
+			{
+				"text": "...This whole thing has been pretty lonely",
+				"next": 0,
+				"end": true
+			}
+		]
 	}
 }

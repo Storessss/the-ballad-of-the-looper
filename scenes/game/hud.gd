@@ -2,6 +2,8 @@ extends CanvasLayer
 
 var heart_size: Vector2 = Vector2(50, 50)
 
+var typing: bool
+var skip_text: bool
 var choice_button: PackedScene = preload("res://dialogue/choice_button.tscn")
 
 func _ready() -> void:
@@ -38,13 +40,25 @@ func _on_dialogue_show(character_name: String, image: Texture, text: String, cho
 	$DialogueBox/Name.text = character_name
 	$DialogueBox/Image.texture = image
 	await type_text(text)
+	DialogueManager.end_text = true
 	show_choices(choices)
 	
 func type_text(full_text: String) -> void:
+	typing = true
 	$DialogueBox/Text.text = ""
 	for i in range(full_text.length()):
 		$DialogueBox/Text.text += full_text[i]
+		MusicPlayer.text_sound()
 		await get_tree().create_timer(0.03).timeout
+		if skip_text:
+			$DialogueBox/Text.text = full_text
+			skip_text = false
+			break
+	typing = false
+		
+func _process(_delta: float) -> void:
+	if typing and Input.is_action_just_pressed("interact"):
+		skip_text = true
 		
 func show_choices(choices: Array):
 	if choices:
@@ -57,4 +71,4 @@ func show_choices(choices: Array):
 		
 func _on_dialogue_hide():
 	$DialogueBox.visible = false
-	print("ok")
+	
