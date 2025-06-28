@@ -11,6 +11,11 @@ var deadzone: float = 0.1
 @export var inventory: Array[PackedScene]
 
 @onready var camera: Camera2D = $Camera2D
+var shake = false
+var random_strength = 30.0
+var shake_fade = 5.0
+var rnd = RandomNumberGenerator.new()
+var shake_strength = 0.0
 
 func _ready() -> void:
 	InputMap.action_set_deadzone("look_up", deadzone)
@@ -20,7 +25,7 @@ func _ready() -> void:
 	
 	instantiate_weapon()
 	
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	direction = Input.get_vector("left", "right", "up", "down")
 	move_and_slide()
 	
@@ -86,6 +91,19 @@ func _process(_delta: float) -> void:
 	# CAMERA ---------------------------------------------------------------------------------------
 	camera.limit_right = GlobalVariables.right
 	camera.limit_bottom = GlobalVariables.bottom
+	
+	if shake:
+		apply_shake()
+		shake = false
+	if shake_strength > 0:
+		shake_strength = lerpf(shake_strength, 0, shake_fade * delta)
+		
+	camera.offset = randomOffset()
+		
+func apply_shake():
+	shake_strength = random_strength
+func randomOffset():
+	return Vector2(rnd.randf_range(- shake_strength, shake_strength), randf_range(- shake_strength, shake_strength))
 	
 func take_damage():
 	if $IFrames.is_stopped():

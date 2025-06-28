@@ -9,7 +9,7 @@ func _process(_delta):
 func _on_opening_timer_timeout():
 	$CollisionShape2D.disabled = false
 	$AnimatedSprite2D.play("open")
-	ShakeManager.add_shake(20.0, GlobalVariables.player.get_node("Camera2D"), 5.0)
+	GlobalVariables.player.shake = true
 
 func _on_body_entered(body: Node2D) -> void:
 	#RoomManager.call_deferred("change_room")

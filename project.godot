@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 GlobalVariables="*res://singletons/global_variables.gd"
 MusicPlayer="*res://singletons/music_player.gd"
 RoomManager="*res://singletons/room_manager.gd"
-ShakeManager="*res://singletons/shake_manager.gd"
+DialogueManager="*res://singletons/dialogue_manager.gd"
 
 [display]
 

@@ -1,0 +1,30 @@
+{
+	"test": {
+		"name": "John Test",
+		"image": "spitter.png",
+		"dialogue": [
+			{
+				"text": "text1"
+			},
+			{
+				"text": "text2",
+				"choices": [
+					{
+						"text": "choice 3",
+						"next": 1
+					},
+					{
+						"text": "choice 4",
+						"next": 2
+					}
+				]
+			},
+			{
+				"text": "text3"
+			},
+			{
+				"text": "text4"
+			}
+		]
+	}
+}

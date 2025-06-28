@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://2i7vjx8e4n84"]
+[gd_scene load_steps=8 format=3 uid="uid://2i7vjx8e4n84"]
 
 [ext_resource type="PackedScene" uid="uid://hdyymp4tfp5u" path="res://scenes/levels/level.tscn" id="1_fqoy0"]
 [ext_resource type="PackedScene" uid="uid://6wkw1e4btx03" path="res://scenes/enemies/triple_shooter.tscn" id="2_tapf5"]
 [ext_resource type="PackedScene" uid="uid://cdk5w7djq0rc0" path="res://scenes/enemies/spitter.tscn" id="3_op67l"]
 [ext_resource type="PackedScene" uid="uid://lihuro2y1afi" path="res://scenes/props/wooden_trapdoor.tscn" id="4_17dki"]
+[ext_resource type="Texture2D" uid="uid://dhod71bu7wbuh" path="res://icon.svg" id="5_1ge0f"]
+[ext_resource type="PackedScene" uid="uid://b131k714aba0c" path="res://dialogue/dialogue_trigger.tscn" id="6_1ge0f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gnq7v"]
+radius = 61.4003
 
 [node name="LevelTestTestLevelLevel" instance=ExtResource("1_fqoy0")]
 
@@ -16,3 +21,13 @@ position = Vector2(112, 162)
 
 [node name="WoodenTrapdoor" parent="." index="5" instance=ExtResource("4_17dki")]
 position = Vector2(75, 104)
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="6"]
+position = Vector2(632, 370)
+texture = ExtResource("5_1ge0f")
+
+[node name="DialogueTrigger" parent="Sprite2D" index="0" instance=ExtResource("6_1ge0f")]
+event = "test"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/DialogueTrigger" index="0"]
+shape = SubResource("CircleShape2D_gnq7v")
