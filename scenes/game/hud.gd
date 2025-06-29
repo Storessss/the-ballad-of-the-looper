@@ -35,10 +35,12 @@ func update_health() -> void:
 func _on_player_hit() -> void:
 	update_health()
 
-func _on_dialogue_show(character_name: String, image: Texture, text: String, choices: Array):
+func _on_dialogue_show(character_name: String, image: Texture, text: String, choices: Array, \
+font: FontFile):
 	$DialogueBox.visible = true
 	$DialogueBox/Name.text = character_name
 	$DialogueBox/Image.texture = image
+	$DialogueBox/Text.add_theme_font_override("normal_font", font)
 	await type_text(text)
 	DialogueManager.end_text = true
 	show_choices(choices)

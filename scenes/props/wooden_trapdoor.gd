@@ -12,5 +12,4 @@ func _on_opening_timer_timeout():
 	GlobalVariables.player.shake = true
 
 func _on_body_entered(body: Node2D) -> void:
-	#RoomManager.call_deferred("change_room")
-	pass
+	RoomManager.call_deferred("change_room")

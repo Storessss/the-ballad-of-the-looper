@@ -121,5 +121,17 @@
 				"end": true
 			}
 		]
+	},
+	"loop_test": {
+		"name": "Jackie",
+		"image": "spitter.png",
+		"looping": true,
+		"dialogue": [
+			{
+				"text": "The Ballad of the Looper never stops, you know?",
+				"next": 0,
+				"end": true
+			}
+		]
 	}
 }

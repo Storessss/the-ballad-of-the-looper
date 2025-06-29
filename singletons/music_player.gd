@@ -64,7 +64,7 @@ func bullet_deflect() -> void:
 	sound_player.play()
 	
 func text_sound() -> void:
-	var sound_player = MusicPlayer.new_sound_player(0)
+	var sound_player = MusicPlayer.new_sound_player(-3)
 	sound_player.stream = preload("res://sounds/text_sound.wav")
 	sound_player.pitch_scale = randf_range(0.8, 1.2)
 	sound_player.play()

@@ -124,7 +124,8 @@ func instantiate_weapon():
 	var weapon = inventory[GlobalVariables.inventory_index].instantiate()
 	$Weapon/Point.add_child(weapon)
 	
-func _on_dialogue_show(_character_name: String, _image: Texture, _text: String, _choices: Array):
+func _on_dialogue_show(_character_name: String, _image: Texture, _text: String, _choices: Array, \
+_font: FontFile):
 	movement_enabled = false
 	
 func _on_dialogue_hide():
