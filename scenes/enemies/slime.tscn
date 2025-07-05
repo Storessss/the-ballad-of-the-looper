@@ -29,7 +29,7 @@ radius = 4.0
 [node name="Slime" instance=ExtResource("1_ikdmk")]
 script = ExtResource("2_jjup5")
 health = 150
-speed = 100
+speed = 75
 contact_damage = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]

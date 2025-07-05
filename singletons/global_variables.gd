@@ -20,4 +20,5 @@ var bottom: int
 
 func _process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("players")
-	player_position = player.global_position
+	if player:
+		player_position = player.global_position
