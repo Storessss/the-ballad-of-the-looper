@@ -7,6 +7,7 @@ class_name Bullet
 @export var bouncing: bool
 @export var transparent: bool
 @export var deflectable: bool = true
+@export var pierce: int = 1
 
 var angle: float
 var damage: int
@@ -52,7 +53,9 @@ func _process(_delta: float) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and player_bullet:
 		body.take_damage(damage)
-		queue_free()
+		pierce -= 1
+		if pierce <= 0:
+			queue_free()
 	elif body.is_in_group("players") and not player_bullet:
 		if not GlobalVariables.dashing and not GlobalVariables.graced:
 			body.take_damage()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bjtfl7i4cu657"]
 
 [ext_resource type="PackedScene" uid="uid://hdyymp4tfp5u" path="res://scenes/rooms/room.tscn" id="1_saoiv"]
-[ext_resource type="Texture2D" uid="uid://cdq2eqsvdaonp" path="res://sprites/spitter.png" id="2_dudud"]
+[ext_resource type="Texture2D" uid="uid://cdq2eqsvdaonp" path="res://sprites/spitter_idle1.png" id="2_dudud"]
 [ext_resource type="AudioStream" uid="uid://5l3owhah538u" path="res://music/Friendly Place.ogg" id="2_qkl3v"]
 [ext_resource type="PackedScene" uid="uid://b131k714aba0c" path="res://dialogue/dialogue_trigger.tscn" id="3_qkl3v"]
 [ext_resource type="Texture2D" uid="uid://uelsj3fjor1a" path="res://sprites/spitter_idle2.png" id="4_lwopx"]
@@ -29,6 +29,7 @@ radius = 48.0
 music = ExtResource("2_qkl3v")
 
 [node name="Jackie" type="AnimatedSprite2D" parent="." index="6"]
+z_index = -2
 position = Vector2(448, 144)
 sprite_frames = SubResource("SpriteFrames_15eqq")
 autoplay = "default"
@@ -41,18 +42,20 @@ event = "jackie1"
 shape = SubResource("CircleShape2D_nq20p")
 
 [node name="Dagger1" type="Sprite2D" parent="." index="7"]
+z_index = -4
 position = Vector2(427, 148)
 rotation = -1.9443
 texture = ExtResource("6_pc3e2")
 
 [node name="Dagger2" type="Sprite2D" parent="." index="8"]
+z_index = -4
 position = Vector2(433, 157)
 rotation = -2.31954
 texture = ExtResource("6_pc3e2")
 flip_h = true
 
 [node name="Blanket" type="Sprite2D" parent="." index="9"]
-z_index = -1
+z_index = -5
 position = Vector2(448, 149)
 rotation = -0.0349066
 scale = Vector2(2, 2)

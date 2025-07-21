@@ -1,7 +1,7 @@
 {
 	"test": {
 		"name": "John Test",
-		"image": "spitter.png",
+		"image": "spitter_idle1.png",
 		"dialogue": [
 			{
 				"text": "text1",
@@ -33,7 +33,7 @@
 	},
 	"jackie1": {
 		"name": "Jackie",
-		"image": "spitter.png",
+		"image": "spitter_idle1.png",
 		"dialogue": [
 			{
 				"text": "Oh... Hello",
@@ -60,7 +60,7 @@
 	},
 	"jackie2": {
 		"name": "Jackie",
-		"image": "spitter.png",
+		"image": "spitter_idle1.png",
 		"dialogue": [
 			{
 				"text": "Oh... Hello again",
@@ -124,7 +124,7 @@
 	},
 	"loop_test": {
 		"name": "Jackie",
-		"image": "spitter.png",
+		"image": "spitter_idle1.png",
 		"looping": true,
 		"dialogue": [
 			{
