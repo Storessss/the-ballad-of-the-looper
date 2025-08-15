@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://dwm18c3vnli83" path="res://sprites/heart_full.png" id="1_kqgwg"]
 [ext_resource type="Texture2D" uid="uid://dqcara34n6cs3" path="res://sprites/dialogue_box.png" id="3_5645d"]
 [ext_resource type="FontFile" uid="uid://b4fgfncmcslf6" path="res://styles/Retro Gaming.ttf" id="4_xu0sl"]
-[ext_resource type="Texture2D" uid="uid://ddp212mqbiry4" path="res://sprites/DageMungeon_all.png" id="5_3k67c"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xu0sl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pla3n"]
-atlas = ExtResource("5_3k67c")
+atlas = SubResource("CompressedTexture2D_xu0sl")
 region = Rect2(288, 16, 16, 16)
 
 [node name="Hud" type="CanvasLayer"]

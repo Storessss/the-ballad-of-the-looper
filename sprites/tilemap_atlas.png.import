@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddp212mqbiry4"
-path="res://.godot/imported/DageMungeon_all.png-226158827d6c4284330662788671fcf5.ctex"
+uid="uid://o5xrxjmd2ene"
+path="res://.godot/imported/tilemap_atlas.png-fc6e5910d40f1deebeedff4b460269e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/DageMungeon_all.png"
-dest_files=["res://.godot/imported/DageMungeon_all.png-226158827d6c4284330662788671fcf5.ctex"]
+source_file="res://sprites/tilemap_atlas.png"
+dest_files=["res://.godot/imported/tilemap_atlas.png-fc6e5910d40f1deebeedff4b460269e1.ctex"]
 
 [params]
 
