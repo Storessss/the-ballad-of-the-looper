@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The Ballad of the Looper"
-run/main_scene="uid://yntsbeil7fe2"
+run/main_scene="uid://dbsr1jf7t0qm4"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

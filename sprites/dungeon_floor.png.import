@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o5xrxjmd2ene"
-path="res://.godot/imported/tilemap_atlas.png-fc6e5910d40f1deebeedff4b460269e1.ctex"
+uid="uid://dlil2t2rc1p55"
+path="res://.godot/imported/dungeon_floor.png-3a433d3abb017467b57cd757115b12e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/tilemap_atlas.png"
-dest_files=["res://.godot/imported/tilemap_atlas.png-fc6e5910d40f1deebeedff4b460269e1.ctex"]
+source_file="res://sprites/dungeon_floor.png"
+dest_files=["res://.godot/imported/dungeon_floor.png-3a433d3abb017467b57cd757115b12e8.ctex"]
 
 [params]
 

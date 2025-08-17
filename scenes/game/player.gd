@@ -95,8 +95,8 @@ func _process(delta: float) -> void:
 		instantiate_weapon()
 		
 	# CAMERA ---------------------------------------------------------------------------------------
-	camera.limit_right = GlobalVariables.right
-	camera.limit_bottom = GlobalVariables.bottom
+	#camera.limit_right = GlobalVariables.right
+	#camera.limit_bottom = GlobalVariables.bottom
 	
 	if shake:
 		apply_shake()

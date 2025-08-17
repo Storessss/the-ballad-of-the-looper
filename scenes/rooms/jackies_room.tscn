@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjtfl7i4cu657"]
+[gd_scene load_steps=10 format=3 uid="uid://6x8qweo71mbv"]
 
 [ext_resource type="PackedScene" uid="uid://hdyymp4tfp5u" path="res://scenes/rooms/room.tscn" id="1_saoiv"]
 [ext_resource type="Texture2D" uid="uid://cdq2eqsvdaonp" path="res://sprites/spitter_idle1.png" id="2_dudud"]
