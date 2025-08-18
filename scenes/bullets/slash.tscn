@@ -12,7 +12,9 @@ size = Vector2(20, 9)
 [node name="Slash" instance=ExtResource("1_ym2bv")]
 speed = 150
 destroy_time = 0.2
+transparent = true
 pierce = 3
+destructive = true
 
 [node name="Sprite2D" parent="." index="0"]
 scale = Vector2(1.2, 1.2)

@@ -8,6 +8,7 @@ class_name Bullet
 @export var transparent: bool
 @export var deflectable: bool = true
 @export var pierce: int = 1
+@export var destructive: bool
 
 var angle: float
 var damage: int
@@ -61,6 +62,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			body.take_damage()
 			queue_free()
 	elif body is TileMapLayer:
+		if destructive:
+			var impact_pos: Vector2 = get_global_position()
+			var cell: Vector2i = body.local_to_map(body.to_local(impact_pos + direction * 10))
+			body.set_floor(cell)
 		if not bouncing and not transparent:
 			queue_free()
 	elif body.is_in_group("bullets") and deflective:

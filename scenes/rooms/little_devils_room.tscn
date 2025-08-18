@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqgjwj62t3l1b"]
-
-[ext_resource type="PackedScene" uid="uid://hdyymp4tfp5u" path="res://scenes/rooms/room.tscn" id="1_5qjo1"]
-[ext_resource type="PackedScene" uid="uid://bnaimfjpbepxi" path="res://scenes/enemies/bosses/little_devil.tscn" id="2_nl4wn"]
-
-[node name="Room" instance=ExtResource("1_5qjo1")]
-
-[node name="LittleDevil" parent="Enemies" index="0" instance=ExtResource("2_nl4wn")]
-position = Vector2(56, 143)

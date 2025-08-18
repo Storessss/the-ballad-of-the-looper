@@ -101,4 +101,4 @@ stream = ExtResource("10_bnwh7")
 bus = &"Sounds"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(3.5, 3.5)
