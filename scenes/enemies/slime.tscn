@@ -1,13 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://bo3w7ojote3p3"]
+[gd_scene load_steps=11 format=3 uid="uid://bo3w7ojote3p3"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_ikdmk"]
 [ext_resource type="Script" uid="uid://cdrrrtcqcmqe1" path="res://scenes/enemies/Enemy.gd" id="2_jjup5"]
 [ext_resource type="Texture2D" uid="uid://bqghi3hqpnp6k" path="res://sprites/slime_walk1.png" id="3_ankfk"]
 [ext_resource type="Texture2D" uid="uid://pkn7jsab5u74" path="res://sprites/slime_walk2.png" id="4_e12yk"]
-[ext_resource type="Script" uid="uid://b7rm1wc1o05fq" path="res://scenes/enemies/state_machine/states/FollowPlayer.gd" id="7_nx7r3"]
+[ext_resource type="Script" uid="uid://bkkn2clcmg5f2" path="res://scenes/enemies/state_machine/states/Wander.gd" id="5_ankfk"]
+[ext_resource type="Script" uid="uid://cqkeqr7xu6xqo" path="res://scenes/enemies/state_machine/states/IfPlayerSpotted.gd" id="6_bhme6"]
+[ext_resource type="Script" uid="uid://cyfscne6ig5vy" path="res://scenes/enemies/state_machine/states/ChasePlayer.gd" id="7_uhx0m"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u88rj"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ankfk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_ankfk")
@@ -36,9 +46,8 @@ contact_damage = true
 position = Vector2(0, -2)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_u88rj")
-animation = &"walk"
+animation = &"idle"
 autoplay = "walk"
-frame_progress = 0.246596
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_4twq5")
@@ -47,14 +56,29 @@ shape = SubResource("CircleShape2D_4twq5")
 shape = SubResource("CircleShape2D_q027y")
 
 [node name="NavigationAgent2D" parent="." index="3"]
+target_desired_distance = 5.0
 radius = 5.0
 
 [node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
-initial_state = NodePath("FollowPlayer")
+initial_state = NodePath("Wander")
 
-[node name="FollowPlayer" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
-script = ExtResource("7_nx7r3")
-state_duration_min = 5.0
-state_duration_max = 5.0
+[node name="Wander" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_ankfk")
+animation = "walk"
+next_state = NodePath("../IfPlayerSpotted")
+
+[node name="IfPlayerSpotted" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("6_bhme6")
+state_duration_min = 0.5
+state_duration_max = 2.5
+animation = "idle"
+next_state = NodePath("../ChasePlayer")
+exit_state = NodePath("../Wander")
+
+[node name="ChasePlayer" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("7_uhx0m")
+state_duration_min = 0.5
+state_duration_max = 0.5
 animation = "walk"
 next_state = NodePath(".")
+exit_state = NodePath("../Wander")

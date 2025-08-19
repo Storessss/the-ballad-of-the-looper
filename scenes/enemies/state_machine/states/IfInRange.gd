@@ -18,7 +18,7 @@ func Enter() -> void:
 		if enemy.global_position.distance_to(GlobalVariables.player_position) <= trigger_distance:
 			in_range = true
 			
-	if in_range:
+	if in_range and enemy.line_of_sight(enemy.global_position, GlobalVariables.player_position):
 		Transitioned.emit(self, next_state)
 	else:
 		Transitioned.emit(self, exit_state)

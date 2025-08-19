@@ -1,18 +1,21 @@
 extends State
 
-class_name MoveToPoint
+class_name Wander
 
 @onready var enemy: Enemy = get_parent().get_parent()
-@export var points: Array[Vector2]
-@export var speed_multiplier: float = 1.0
 @export var animation: String
 @export var next_state: State
 
 func Enter() -> void:
 	await get_tree().process_frame
-	var point = points.pick_random()
-	var move_point = Vector2(GlobalVariables.right * point.x, GlobalVariables.bottom * point.y)
-	enemy.nav.target_position = move_point
+	var offset := Vector2.ZERO
+	while not enemy.line_of_sight(enemy.global_position, enemy.global_position + offset) or \
+	offset == Vector2.ZERO:
+		var angle = randf() * TAU
+		var distance = randf_range(20, 100)
+		offset = Vector2(cos(angle), sin(angle)) * distance
+	
+	enemy.nav.target_position = enemy.global_position + offset
 
 func Update(delta: float) -> void:
 	if animation:
@@ -23,4 +26,4 @@ func Physics_Update(_delta: float) -> void:
 		Transitioned.emit(self, next_state)
 	else:
 		var next_position = enemy.nav.get_next_path_position()
-		enemy.direction = (next_position - enemy.global_position).normalized() * speed_multiplier
+		enemy.direction = (next_position - enemy.global_position).normalized()

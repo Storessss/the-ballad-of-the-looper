@@ -23,6 +23,20 @@ func generate_level():
 	tilemap.set_cells_terrain_connect(map, 0, -1)
 	for location in map:
 		tilemap.set_cell(location, 7, Vector2i(0, 0), 0)
+		
+	var enemy_count: int = 12
+	var enemies := [
+		preload("res://scenes/enemies/slime.tscn"),
+		preload("res://scenes/enemies/spitter.tscn"),
+		#preload("res://scenes/enemies/crusher.tscn"),
+		#preload("res://scenes/enemies/triple_shooter.tscn"),
+	]
+	map.shuffle()
+	for i in range(enemy_count):
+		var location = map.pop_back()
+		var enemy = enemies.pick_random().instantiate()
+		enemy.global_position = tilemap.map_to_local(location)
+		add_child(enemy)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):

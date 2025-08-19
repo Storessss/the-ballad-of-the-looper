@@ -10,7 +10,7 @@ class_name Enemy
 @onready var animations: AnimatedSprite2D = $AnimatedSprite2D
 @onready var cast_point: Node2D = $CastPoint
 var direction: Vector2
-var target_position: Vector2
+var last_seen_position: Vector2
 
 var can_die: bool = true
 var death_particles_scene = preload("res://scenes/particles/death_particles.tscn")
@@ -45,6 +45,9 @@ func _process(_delta: float) -> void:
 	
 	if velocity.x != 0:
 		animations.flip_h = velocity.x < 0
+		
+	if line_of_sight(global_position, GlobalVariables.player_position):
+		last_seen_position = GlobalVariables.player_position
 
 func die() -> void:
 	if can_die:
@@ -70,20 +73,20 @@ func line_of_sight(from: Vector2, to: Vector2) -> bool:
 		return false
 	return true
 	
-func line_of_bullet_sight(from: Vector2, to: Vector2) -> bool:
-	var space_state = get_world_2d().direct_space_state
-	var params = PhysicsShapeQueryParameters2D.new()
-	var shape = CircleShape2D.new()
-	shape.radius = 5
-	params.shape_rid = shape.get_rid()
-	params.transform = Transform2D(0, Vector2(global_position.x, global_position.y -30))
-	params.motion = to - from
-	params.collision_mask = 1
-	params.exclude = [self]
-	var result = space_state.intersect_shape(params)
-	if result.size() > 0:
-		return false
-	return true
+#func line_of_bullet_sight(from: Vector2, to: Vector2) -> bool:
+	#var space_state = get_world_2d().direct_space_state
+	#var params = PhysicsShapeQueryParameters2D.new()
+	#var shape = CircleShape2D.new()
+	#shape.radius = 5
+	#params.shape_rid = shape.get_rid()
+	#params.transform = Transform2D(0, Vector2(global_position.x, global_position.y -30))
+	#params.motion = to - from
+	#params.collision_mask = 1
+	#params.exclude = [self]
+	#var result = space_state.intersect_shape(params)
+	#if result.size() > 0:
+		#return false
+	#return true
 
 func _on_nav_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity

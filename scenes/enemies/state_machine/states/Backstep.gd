@@ -20,14 +20,13 @@ func Enter() -> void:
 	animations_flip = enemy.animations.flip_h
 
 func Update(delta: float) -> void:
-	if enemy.nav.is_navigation_finished():
-		Transitioned.emit(self, next_state)
 	if animation:
 		enemy.animations.play(animation)
 	enemy.animations.flip_h = animations_flip
 
 func Physics_Update(_delta: float) -> void:
-	if NavigationServer3D.map_get_iteration_id(enemy.nav.get_navigation_map()) == 0:
-		return
-	var next_position = enemy.nav.get_next_path_position()
-	enemy.direction = (next_position - enemy.global_position).normalized() * speed_multiplier
+	if enemy.nav.is_navigation_finished():
+		Transitioned.emit(self, next_state)
+	else:
+		var next_position = enemy.nav.get_next_path_position()
+		enemy.direction = (next_position - enemy.global_position).normalized() * speed_multiplier

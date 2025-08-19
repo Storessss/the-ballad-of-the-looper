@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cdk5w7djq0rc0"]
+[gd_scene load_steps=18 format=3 uid="uid://cdk5w7djq0rc0"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_3c0ac"]
 [ext_resource type="Texture2D" uid="uid://djvtfxyhpgr7t" path="res://sprites/spitter_attack.png" id="2_4twq5"]
@@ -6,10 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://cdq2eqsvdaonp" path="res://sprites/spitter_idle1.png" id="3_q027y"]
 [ext_resource type="Texture2D" uid="uid://mmxiuufaceo0" path="res://sprites/spitter_walk1.png" id="4_5i83b"]
 [ext_resource type="Texture2D" uid="uid://dtxyj8k7e5eig" path="res://sprites/spitter_walk2.png" id="5_cb8vx"]
-[ext_resource type="Script" uid="uid://b7rm1wc1o05fq" path="res://scenes/enemies/state_machine/states/FollowPlayer.gd" id="6_cb8vx"]
+[ext_resource type="Script" uid="uid://bkkn2clcmg5f2" path="res://scenes/enemies/state_machine/states/Wander.gd" id="7_arqt0"]
 [ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="7_u88rj"]
 [ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="8_80hpj"]
+[ext_resource type="Script" uid="uid://cqkeqr7xu6xqo" path="res://scenes/enemies/state_machine/states/IfPlayerSpotted.gd" id="8_rteiv"]
 [ext_resource type="Script" uid="uid://dlg1ayvyypn8j" path="res://scenes/enemies/state_machine/states/IfInRange.gd" id="8_xer1x"]
+[ext_resource type="Script" uid="uid://cyfscne6ig5vy" path="res://scenes/enemies/state_machine/states/ChasePlayer.gd" id="9_1spcj"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="9_80hpj"]
 [ext_resource type="AudioStream" uid="uid://sgq3k0voumip" path="res://sounds/shoot.wav" id="11_iw4wr"]
 
@@ -71,30 +73,44 @@ shape = SubResource("CircleShape2D_4twq5")
 shape = SubResource("CircleShape2D_q027y")
 
 [node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
-initial_state = NodePath("FollowPlayer")
+initial_state = NodePath("Wander")
 
-[node name="FollowPlayer" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
-script = ExtResource("6_cb8vx")
+[node name="Wander" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("7_arqt0")
+animation = "walk"
+next_state = NodePath("../IfPlayerSpotted")
+
+[node name="IfPlayerSpotted" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("8_rteiv")
+state_duration_min = 0.5
+state_duration_max = 2.5
+animation = "idle"
+next_state = NodePath("../ChasePlayer")
+exit_state = NodePath("../Wander")
+
+[node name="ChasePlayer" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("9_1spcj")
 state_duration_min = 0.5
 state_duration_max = 0.5
 animation = "walk"
 next_state = NodePath("../IfInRange")
+exit_state = NodePath("../Wander")
 
-[node name="IfInRange" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
+[node name="IfInRange" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state", "exit_state")]
 script = ExtResource("8_xer1x")
 trigger_distance = 110
 exit_distance = 140
 next_state = NodePath("../Idle1")
-exit_state = NodePath("../FollowPlayer")
+exit_state = NodePath("../ChasePlayer")
 
-[node name="Idle1" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
+[node name="Idle1" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
 script = ExtResource("8_80hpj")
 state_duration_min = 0.5
 state_duration_max = 0.5
 animation = "idle"
 next_state = NodePath("../ShootBullet")
 
-[node name="ShootBullet" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("sound", "next_state")]
+[node name="ShootBullet" type="Node" parent="FSM" index="5" node_paths=PackedStringArray("sound", "next_state")]
 script = ExtResource("7_u88rj")
 bullet_scene = ExtResource("9_80hpj")
 animation = "attack"
@@ -102,7 +118,7 @@ sound = NodePath("../../ShootSound")
 final_frame = 1
 next_state = NodePath("../Idle2")
 
-[node name="Idle2" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
+[node name="Idle2" type="Node" parent="FSM" index="6" node_paths=PackedStringArray("next_state")]
 script = ExtResource("8_80hpj")
 state_duration_min = 0.5
 state_duration_max = 0.5
