@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bnaimfjpbepxi"]
+[gd_scene load_steps=23 format=3 uid="uid://bnaimfjpbepxi"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_vc5lh"]
 [ext_resource type="Script" uid="uid://cdrrrtcqcmqe1" path="res://scenes/enemies/Enemy.gd" id="2_b4w7c"]
@@ -7,14 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://cjgup041n03o3" path="res://sprites/little_devil_walk1.png" id="4_484i3"]
 [ext_resource type="Texture2D" uid="uid://didt5vbdwtwk8" path="res://sprites/little_devil_walk2.png" id="5_itwlm"]
 [ext_resource type="Script" uid="uid://b7rm1wc1o05fq" path="res://scenes/enemies/state_machine/states/FollowPlayer.gd" id="7_484i3"]
-[ext_resource type="Script" uid="uid://c18wty644xg7r" path="res://scenes/enemies/state_machine/states/MoveToPoint.gd" id="7_b4w7c"]
 [ext_resource type="Script" uid="uid://c3rrfg5105xcd" path="res://scenes/enemies/state_machine/states/Backstep.gd" id="8_itwlm"]
 [ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="8_mic2l"]
 [ext_resource type="Script" uid="uid://cufrwcyr1jai8" path="res://scenes/enemies/state_machine/state_machine.gd" id="10_ipenv"]
 [ext_resource type="Script" uid="uid://cbl66xf8h40wu" path="res://scenes/enemies/state_machine/states/Stagger.gd" id="10_mnwwe"]
+[ext_resource type="Script" uid="uid://bkkn2clcmg5f2" path="res://scenes/enemies/state_machine/states/Wander.gd" id="11_kkx77"]
 [ext_resource type="Script" uid="uid://btvst68j8yv8c" path="res://scenes/enemies/state_machine/states/IfStateIsActive.gd" id="11_mbbxe"]
 [ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="11_v0s08"]
-[ext_resource type="PackedScene" uid="uid://vphukb2po6r7" path="res://scenes/bullets/fast_red_bullet.tscn" id="12_v0s08"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="12_ycu62"]
 [ext_resource type="Script" uid="uid://cwt5obbui16uh" path="res://scenes/enemies/state_machine/states/Repeat.gd" id="13_v0s08"]
 [ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="14_8jr78"]
@@ -59,8 +58,8 @@ radius = 4.0
 
 [node name="LittleDevil" instance=ExtResource("1_vc5lh")]
 script = ExtResource("2_b4w7c")
-health = 2500
-speed = 150
+health = 1500
+speed = 100
 boss = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]
@@ -107,12 +106,12 @@ repeat_for_max = 4
 state_duration_min = 0.05
 state_duration_max = 0.05
 repeat_state = NodePath("../FollowPlayer")
-exit_state = NodePath("../MoveToPoint")
+exit_state = NodePath("../Wander")
 
-[node name="MoveToPoint" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
-script = ExtResource("7_b4w7c")
-points = Array[Vector2]([Vector2(0.1, 0.5), Vector2(0.9, 0.5)])
-speed_multiplier = 2.5
+[node name="Wander" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
+script = ExtResource("11_kkx77")
+distance_min = 100
+distance_max = 200
 animation = "walk"
 next_state = NodePath("../ShootBullet")
 
@@ -156,13 +155,13 @@ initial_state = NodePath("ShootBullet")
 [node name="IfStateIsActive" type="Node" parent="FSM2" index="0" node_paths=PackedStringArray("fsm", "states_to_check", "no_active_state", "active_state")]
 script = ExtResource("11_mbbxe")
 fsm = NodePath("../../FSM")
-states_to_check = [NodePath("../../FSM/MoveToPoint"), NodePath("../../FSM/ShootBullet"), NodePath("../../FSM/Idle2"), NodePath("../../FSM/Repeat2"), NodePath("../../FSM/Stagger")]
+states_to_check = [NodePath("../../FSM/Wander"), NodePath("../../FSM/ShootBullet"), NodePath("../../FSM/Idle2"), NodePath("../../FSM/Repeat2"), NodePath("../../FSM/Stagger")]
 no_active_state = NodePath("../ShootBullet")
 active_state = NodePath("../WaitForNoActiveState")
 
 [node name="ShootBullet" type="Node" parent="FSM2" index="1" node_paths=PackedStringArray("next_state")]
 script = ExtResource("11_v0s08")
-bullet_scene = ExtResource("12_v0s08")
+bullet_scene = ExtResource("12_ycu62")
 next_state = NodePath("../Repeat")
 
 [node name="Repeat" type="Node" parent="FSM2" index="2" node_paths=PackedStringArray("repeat_state", "exit_state")]

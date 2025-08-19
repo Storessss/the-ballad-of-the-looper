@@ -1,8 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://l5adx18ypeds"]
+[gd_scene load_steps=9 format=3 uid="uid://l5adx18ypeds"]
 
 [ext_resource type="Script" uid="uid://dhte48hbwvhkt" path="res://scenes/rooms/world.gd" id="1_o8w3y"]
 [ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://tilemap.tscn" id="2_5y5h7"]
 [ext_resource type="PackedScene" uid="uid://ddufykptqanl7" path="res://scenes/game/player.tscn" id="3_5y5h7"]
+[ext_resource type="PackedScene" uid="uid://lidthfxyvbu6" path="res://scenes/game/hud.tscn" id="4_m775c"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_m775c"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c6cjb"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ok2qw"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_x8har"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_o8w3y")
@@ -11,3 +23,31 @@ script = ExtResource("1_o8w3y")
 
 [node name="Player" parent="." instance=ExtResource("3_5y5h7")]
 position = Vector2(32, 32)
+
+[node name="Hud" parent="." instance=ExtResource("4_m775c")]
+
+[node name="WorldBorders" type="Node2D" parent="."]
+
+[node name="WorldBorderStart" type="Node2D" parent="WorldBorders"]
+
+[node name="WorldBorderLeft" type="StaticBody2D" parent="WorldBorders/WorldBorderStart"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderStart/WorldBorderLeft"]
+shape = SubResource("WorldBoundaryShape2D_m775c")
+
+[node name="WorldBorderTop" type="StaticBody2D" parent="WorldBorders/WorldBorderStart"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderStart/WorldBorderTop"]
+shape = SubResource("WorldBoundaryShape2D_c6cjb")
+
+[node name="WorldBorderEnd" type="Node2D" parent="WorldBorders"]
+
+[node name="WorldBorderRight" type="StaticBody2D" parent="WorldBorders/WorldBorderEnd"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderEnd/WorldBorderRight"]
+shape = SubResource("WorldBoundaryShape2D_ok2qw")
+
+[node name="WorldBorderBottom" type="StaticBody2D" parent="WorldBorders/WorldBorderEnd"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderEnd/WorldBorderBottom"]
+shape = SubResource("WorldBoundaryShape2D_x8har")

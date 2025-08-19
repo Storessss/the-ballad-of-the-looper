@@ -1,6 +1,6 @@
 extends State
 
-class_name Wait2
+class_name WaitForSomething
 
 @export var state_duration_min: float
 @export var state_duration_max: float

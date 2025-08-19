@@ -3,6 +3,8 @@ extends State
 class_name Wander
 
 @onready var enemy: Enemy = get_parent().get_parent()
+@export var distance_min: int = 20
+@export var distance_max: int = 100
 @export var animation: String
 @export var next_state: State
 
@@ -12,7 +14,7 @@ func Enter() -> void:
 	while not enemy.line_of_sight(enemy.global_position, enemy.global_position + offset) or \
 	offset == Vector2.ZERO:
 		var angle = randf() * TAU
-		var distance = randf_range(20, 100)
+		var distance = randf_range(distance_min, distance_max)
 		offset = Vector2(cos(angle), sin(angle)) * distance
 	
 	enemy.nav.target_position = enemy.global_position + offset

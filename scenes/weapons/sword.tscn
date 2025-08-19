@@ -10,8 +10,8 @@
 
 [node name="Sword" instance=ExtResource("1_58ehi")]
 script = ExtResource("2_gwb47")
-charge_time = 0.75
-fire_rate = 0.55
+charge_time = 0.7
+fire_rate = 0.5
 damage = 50
 bullet_scene = ExtResource("3_gwb47")
 

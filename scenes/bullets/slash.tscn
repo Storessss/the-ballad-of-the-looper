@@ -7,22 +7,22 @@
 radius = 5.09902
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfcfn"]
-size = Vector2(20, 9)
+size = Vector2(26, 11)
 
 [node name="Slash" instance=ExtResource("1_ym2bv")]
-speed = 150
-destroy_time = 0.2
+speed = 160
+destroy_time = 0.25
 transparent = true
 pierce = 3
 destructive = true
 
 [node name="Sprite2D" parent="." index="0"]
-scale = Vector2(1.2, 1.2)
+scale = Vector2(1.4, 1.4)
 texture = ExtResource("2_rfcfn")
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_rfcfn")
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2(0, -0.5)
+position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_rfcfn")

@@ -57,7 +57,7 @@ radius = 4.0
 [node name="Spitter" instance=ExtResource("1_3c0ac")]
 script = ExtResource("2_u88rj")
 health = 100
-speed = 100
+speed = 50
 contact_damage = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]
@@ -98,8 +98,8 @@ exit_state = NodePath("../Wander")
 
 [node name="IfInRange" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state", "exit_state")]
 script = ExtResource("8_xer1x")
-trigger_distance = 110
-exit_distance = 140
+trigger_distance = 80
+exit_distance = 120
 next_state = NodePath("../Idle1")
 exit_state = NodePath("../ChasePlayer")
 
