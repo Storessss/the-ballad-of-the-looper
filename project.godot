@@ -33,6 +33,7 @@ window/stretch/mode="viewport"
 players=""
 enemies=""
 bullets=""
+crushers=""
 
 [input]
 

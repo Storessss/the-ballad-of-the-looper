@@ -1,7 +1,7 @@
 extends Node2D
 
 func _process(_delta):
-	if get_tree().get_nodes_in_group("enemies").size() == 0 and $AnimatedSprite2D.animation == "closed":
+	if $AnimatedSprite2D.animation == "closed":
 		$AnimatedSprite2D.play("half_open")
 		$OpeningTimer.start()
 		$OpeningSound.play()
@@ -13,4 +13,4 @@ func _on_opening_timer_timeout():
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
-		RoomManager.call_deferred("change_room")
+		get_tree().reload_current_scene()

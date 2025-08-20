@@ -15,10 +15,14 @@ var last_seen_position: Vector2
 var can_die: bool = true
 var death_particles_scene = preload("res://scenes/particles/death_particles.tscn")
 
+var default_modulate: Color = Color.WHITE
+
 func _ready() -> void:
 	$ModulateTimer.connect("timeout", Callable(self, "_on_modulate_timer_timeout"))
 	$Area2D.connect("body_entered", Callable(self, "_on_area_2d_body_entered"))
 	nav.connect("velocity_computed", Callable(self, "_on_nav_velocity_computed"))
+	
+	modulate = default_modulate
 	
 
 func take_damage(damage: int) -> void:
@@ -30,7 +34,7 @@ func take_damage(damage: int) -> void:
 	MusicPlayer.enemy_hit()
 		
 func _on_modulate_timer_timeout() -> void:
-	modulate = Color.WHITE
+	modulate = default_modulate
 	
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("players") and contact_damage:

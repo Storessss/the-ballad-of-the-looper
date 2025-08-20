@@ -18,6 +18,8 @@ var top: int
 var right: int
 var bottom: int
 
+var tilemap: TileMapLayer
+
 func _process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("players")
 	if player:

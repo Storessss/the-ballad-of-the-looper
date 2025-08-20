@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://0u5v283l3bi8"]
+[gd_scene load_steps=15 format=3 uid="uid://0u5v283l3bi8"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_fbwjc"]
 [ext_resource type="Script" uid="uid://cdrrrtcqcmqe1" path="res://scenes/enemies/Enemy.gd" id="2_3vom7"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://dlg1ayvyypn8j" path="res://scenes/enemies/state_machine/states/IfInRange.gd" id="6_akuy1"]
 [ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="6_ki70e"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="7_akuy1"]
+[ext_resource type="Script" uid="uid://7wbcyea43i6w" path="res://scenes/enemies/state_machine/states/IfEnemyGroupLeft.gd" id="9_byv07"]
+[ext_resource type="Script" uid="uid://oli7prhhfeqv" path="res://scenes/enemies/state_machine/states/ApplyEffect.gd" id="10_2hlko"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4jv5h"]
 animations = [{
@@ -38,7 +40,7 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_f7xcx"]
 radius = 8.0
 
-[node name="Crusher" instance=ExtResource("1_fbwjc")]
+[node name="Crusher" groups=["crushers"] instance=ExtResource("1_fbwjc")]
 script = ExtResource("2_3vom7")
 health = 250
 contact_damage = true
@@ -63,16 +65,27 @@ script = ExtResource("5_cp7y7")
 state_duration_min = 1.8
 state_duration_max = 1.8
 animation = "idle"
+next_state = NodePath("../IfEnemyGroupLeft")
+
+[node name="IfEnemyGroupLeft" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("9_byv07")
+enemy_group_names = Array[String](["crushers"])
+next_state = NodePath("../ApplyEffect")
+exit_state = NodePath("../IfInRange")
+
+[node name="ApplyEffect" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_2hlko")
+modulate_color = Color(1, 0.193243, 0.281956, 1)
 next_state = NodePath("../IfInRange")
 
-[node name="IfInRange" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
+[node name="IfInRange" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state", "exit_state")]
 script = ExtResource("6_akuy1")
 trigger_distance = 100
 exit_distance = 100
 next_state = NodePath("../ShootRing")
 exit_state = NodePath("../Idle")
 
-[node name="ShootRing" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("sound", "next_state")]
+[node name="ShootRing" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("sound", "next_state")]
 script = ExtResource("6_ki70e")
 bullet_scene = ExtResource("7_akuy1")
 bullet_count = 20

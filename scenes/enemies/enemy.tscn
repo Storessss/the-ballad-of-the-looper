@@ -24,7 +24,7 @@ max_speed = 5000.0
 [node name="CastPoint" type="Node2D" parent="."]
 
 [node name="ModulateTimer" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.1
 one_shot = true
 
 [node name="FSM" type="Node" parent="."]

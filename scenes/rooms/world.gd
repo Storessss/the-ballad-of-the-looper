@@ -3,11 +3,15 @@ extends Node2D
 @onready var tilemap = $Tilemap
 
 var map_start := Vector2i(0, 0)
-var map_size := Vector2i(101, 100)
+var map_size := Vector2i(100, 100)
 
 var borders = Rect2(map_start.x, map_start.y, map_size.x, map_size.y)
 
+var trapdoor_scene: PackedScene = preload("res://scenes/props/wooden_trapdoor.tscn")
+var can_spawn_trapdoor: bool = true
+
 func _ready() -> void:
+	GlobalVariables.tilemap = tilemap
 	generate_level()
 	
 func generate_level():
@@ -15,6 +19,7 @@ func generate_level():
 	
 	var walker := Walker.new(Vector2i(map_size.x / 2, map_size.y / 2), borders)
 	var map: Array[Vector2i] = walker.walk(500, 2)
+	tilemap.map = map.duplicate()
 	walker.queue_free()
 	tilemap.set_cells_terrain_connect(map, 0, -1)
 	for location in map:
@@ -40,6 +45,13 @@ func generate_level():
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		get_tree().reload_current_scene()
+		
+func _process(_delta: float) -> void:
+	if get_tree().get_nodes_in_group("enemies").size() == 0 and can_spawn_trapdoor:
+		can_spawn_trapdoor = false
+		var trapdoor = trapdoor_scene.instantiate()
+		trapdoor.global_position = GlobalVariables.player_position
+		add_child(trapdoor)
 		
 func generate_borders() -> void:
 	var border_size: Vector2 = Vector2(map_size.x * 16 - 1, map_size.y * 16 - 1)

@@ -68,3 +68,8 @@ func text_sound() -> void:
 	sound_player.stream = preload("res://sounds/text_sound6.wav")
 	sound_player.pitch_scale = randf_range(0.75, 0.9)
 	sound_player.play()
+
+func explosion_sound() -> void:
+	var sound_player = MusicPlayer.new_sound_player(3)
+	sound_player.stream = preload("res://sounds/explosion.wav")
+	sound_player.play()

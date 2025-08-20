@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cllj7gfot102d"]
+
+[ext_resource type="Script" uid="uid://bgbtu5htgscrv" path="res://scenes/bullets/area_damage.gd" id="1_j513r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jf8it"]
+radius = 15.0
+
+[node name="AreaDamage" type="Area2D"]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("1_j513r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jf8it")
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 0.65
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]
