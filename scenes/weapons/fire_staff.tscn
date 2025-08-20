@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdln2cmlx5g2q"]
+
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_nlkxd"]
+[ext_resource type="Texture2D" uid="uid://s1138xmvmjhi" path="res://sprites/staff15.png" id="2_n1dl5"]
+[ext_resource type="Script" uid="uid://b2jhhnonn1m4y" path="res://scenes/weapons/Weapon.gd" id="2_t6kod"]
+[ext_resource type="PackedScene" uid="uid://bw018dtrerc14" path="res://scenes/bullets/fireball.tscn" id="3_t6kod"]
+[ext_resource type="AudioStream" uid="uid://sgq3k0voumip" path="res://sounds/shoot.wav" id="5_672sg"]
+
+[node name="FireStaff" instance=ExtResource("1_nlkxd")]
+script = ExtResource("2_t6kod")
+fire_rate = 1.0
+damage = 20
+effect_damage = 100
+bullet_scene = ExtResource("3_t6kod")
+
+[node name="Sprite2D" parent="." index="0"]
+rotation = 0.785398
+texture = ExtResource("2_n1dl5")
+
+[node name="CastPoint" parent="." index="1"]
+position = Vector2(0, -8)
+
+[node name="AttackSound" parent="." index="3"]
+stream = ExtResource("5_672sg")

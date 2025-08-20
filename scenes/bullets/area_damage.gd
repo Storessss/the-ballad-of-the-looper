@@ -10,6 +10,8 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
 		body.take_damage(damage)
+	if body.is_in_group("players"):
+		body.take_damage()
 
 func _on_destroy_timer_timeout() -> void:
 	queue_free()

@@ -7,6 +7,20 @@ var map_size := Vector2i(100, 100)
 
 var borders = Rect2(map_start.x, map_start.y, map_size.x, map_size.y)
 
+var enemy_count: int = 15
+var enemies: Array[PackedScene] = [
+	preload("res://scenes/enemies/slime.tscn"),
+	preload("res://scenes/enemies/spitter.tscn"),
+	preload("res://scenes/enemies/crusher.tscn"),
+	preload("res://scenes/enemies/triple_shooter.tscn"),
+]
+var bosses := [
+	preload("res://scenes/enemies/bosses/little_devil.tscn")
+]
+var boss_spawn_percentage: int = 50
+var can_spawn_boss: bool = true
+var original_map: Dictionary
+
 var trapdoor_scene: PackedScene = preload("res://scenes/props/wooden_trapdoor.tscn")
 var can_spawn_trapdoor: bool = true
 
@@ -20,6 +34,8 @@ func generate_level():
 	var walker := Walker.new(Vector2i(map_size.x / 2, map_size.y / 2), borders)
 	var map: Array[Vector2i] = walker.walk(500, 2)
 	tilemap.map = map.duplicate()
+	for location in map:
+		original_map[location] = null
 	walker.queue_free()
 	tilemap.set_cells_terrain_connect(map, 0, -1)
 	for location in map:
@@ -27,26 +43,19 @@ func generate_level():
 		
 	generate_safe_room(map, tilemap)
 		
-	var enemy_count: int = 15
-	var enemies: Array[PackedScene] = [
-		preload("res://scenes/enemies/slime.tscn"),
-		preload("res://scenes/enemies/spitter.tscn"),
-		preload("res://scenes/enemies/crusher.tscn"),
-		preload("res://scenes/enemies/triple_shooter.tscn"),
-	]
 	generate_enemies(map, enemy_count, enemies)
-	#var bosses := [
-		#preload("res://scenes/enemies/bosses/little_devil.tscn")
-	#]
-	#var boss = bosses.pick_random().instantiate()
-	#boss.global_position = tilemap.map_to_local(map.pop_back())
-	#add_child(boss)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		get_tree().reload_current_scene()
 		
 func _process(_delta: float) -> void:
+	var boss_threshold: int = int(enemy_count * boss_spawn_percentage / 100.0)
+	if GlobalVariables.room % 3 == 0 and get_tree().get_nodes_in_group("enemies").size() <= boss_threshold and \
+	can_spawn_boss:
+		can_spawn_boss = false
+		generate_boss()
+		print("OK!")
 	if get_tree().get_nodes_in_group("enemies").size() == 0 and can_spawn_trapdoor:
 		can_spawn_trapdoor = false
 		var trapdoor = trapdoor_scene.instantiate()
@@ -102,3 +111,30 @@ func generate_enemies(map: Array[Vector2i], enemy_count: int, enemies: Array[Pac
 		var enemy = enemies.pick_random().instantiate()
 		enemy.global_position = tilemap.map_to_local(location)
 		add_child(enemy)
+
+func generate_boss() -> void:
+	var candidates: Array[Vector2i]
+	var closest_candidate: Vector2i
+	var closest_distance: float = INF
+	var player_cell: Vector2i = tilemap.local_to_map(GlobalVariables.player_position)
+	for x in range(map_size.x):
+		for y in range(map_size.y):
+			var pos = Vector2i(x, y)
+			if pos not in original_map:
+				for dir in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
+					var neighbor = pos + dir
+					if neighbor in original_map:
+						var distance = pos.distance_to(player_cell)
+						if distance < closest_distance:
+							closest_distance = distance
+							closest_candidate = pos
+							break
+		
+	var spawn_point: Vector2i = closest_candidate
+	for x in [-1, 0, 1]:
+		for y in [-1, 0, 1]:
+			tilemap.set_floor(Vector2i(spawn_point.x + x, spawn_point.y + y))
+	var boss = bosses.pick_random().instantiate()
+	boss.global_position = tilemap.to_global(tilemap.map_to_local(spawn_point))
+	add_child(boss)
+	

@@ -14,9 +14,6 @@ speed = 160
 destroy_time = 0.25
 transparent = true
 pierce = 3
-destructive = true
-explosive = true
-explosion_radius = 4
 
 [node name="Sprite2D" parent="." index="0"]
 scale = Vector2(1.4, 1.4)

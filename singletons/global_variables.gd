@@ -19,6 +19,7 @@ var right: int
 var bottom: int
 
 var tilemap: TileMapLayer
+var room: int = 3
 
 func _process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("players")

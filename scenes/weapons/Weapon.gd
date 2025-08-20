@@ -4,6 +4,7 @@ class_name Weapon
 
 @export var fire_rate: float
 @export var damage: int
+@export var effect_damage: int
 @export var bullet_scene: PackedScene
 @export var deflective_shots: bool
 #@export var melee: bool
@@ -26,9 +27,15 @@ func shoot() -> void:
 	bullet.angle = point.angle()
 	bullet.global_position = GlobalVariables.player_position
 	bullet.damage = damage
+	bullet.effect_damage = effect_damage
 	bullet.player_bullet = true
 	bullet.deflective = deflective_shots
 	get_tree().current_scene.add_child(bullet)
+	
+func _process(_delta: float) -> void:
+	if Input.is_action_pressed("attack") and $FireRateTimer.is_stopped():
+		$FireRateTimer.start()
+		shoot()
 	
 func line_of_sight(from: Vector2, to: Vector2) -> bool:
 	var space_state = get_world_2d().direct_space_state

@@ -16,6 +16,7 @@ var explosion_particles_scene = preload("res://scenes/particles/explosion_partic
 
 var angle: float
 var damage: int
+var effect_damage: int
 var player_bullet: bool
 var deflective: bool
 var deflected: bool
@@ -64,10 +65,6 @@ func _process(_delta: float) -> void:
 				queue_free()
 				
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("players"):
-		if explosive:
-			explode(explosion_radius)
-			
 	if body.is_in_group("enemies") and player_bullet:
 		body.take_damage(damage)
 		pierce -= 1
@@ -89,6 +86,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				body.speed *= 2
 				MusicPlayer.bullet_deflect()
 				body.change_alignment()
+				
+	if not body.is_in_group("players") and not body.is_in_group("bullets"):
+		if explosive:
+			explode(explosion_radius)
 
 func _on_destroy_timer_timeout() -> void:
 	if explosive:
@@ -120,7 +121,7 @@ func explode(radius: int):
 		var area_damage: Area2D = area_damage_scene.instantiate()
 		area_damage.global_position = global_position
 		area_damage.radius = radius
-		area_damage.damage = damage * 2
+		area_damage.damage = effect_damage
 		get_tree().current_scene.call_deferred("add_child", area_damage)
 		var particles = explosion_particles_scene.instantiate()
 		particles.global_position = global_position
