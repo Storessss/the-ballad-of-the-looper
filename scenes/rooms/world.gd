@@ -2,17 +2,21 @@ extends Node2D
 
 @onready var tilemap = $Tilemap
 
+#TODO: fix player spawn point when it generates at the borders withot corridor
+# Probably just reduce map size by one when generating spawn point :D
+
 var map_start := Vector2i(0, 0)
 var map_size := Vector2i(100, 100)
 
 var borders = Rect2(map_start.x, map_start.y, map_size.x, map_size.y)
 
-var enemy_count: int = 15
+var enemy_count: int = 45#15
 var enemies: Array[PackedScene] = [
 	preload("res://scenes/enemies/slime.tscn"),
 	preload("res://scenes/enemies/spitter.tscn"),
 	preload("res://scenes/enemies/crusher.tscn"),
 	preload("res://scenes/enemies/triple_shooter.tscn"),
+	preload("res://scenes/enemies/dungeon_flower.tscn"),
 ]
 var bosses := [
 	preload("res://scenes/enemies/bosses/little_devil.tscn")
@@ -41,7 +45,7 @@ func generate_level():
 	for location in map:
 		tilemap.set_floor(location)
 		
-	generate_safe_room(map, tilemap)
+	generate_spawn_point(map, tilemap)
 		
 	generate_enemies(map, enemy_count, enemies)
 
@@ -55,7 +59,6 @@ func _process(_delta: float) -> void:
 	can_spawn_boss:
 		can_spawn_boss = false
 		generate_boss()
-		print("OK!")
 	if get_tree().get_nodes_in_group("enemies").size() == 0 and can_spawn_trapdoor:
 		can_spawn_trapdoor = false
 		var trapdoor = trapdoor_scene.instantiate()
@@ -73,28 +76,31 @@ func generate_borders() -> void:
 			border_cells.append(Vector2i(map_start.x + i, map_start.y + j))
 	tilemap.set_cells_terrain_connect(border_cells, 0, 0)
 		
-func generate_safe_room(map: Array[Vector2i], tilemap: TileMapLayer) -> void:
-	var safe_pos: Vector2i
+func generate_spawn_point(map: Array[Vector2i], tilemap: TileMapLayer) -> void:
+	var spawn_pos: Vector2i
+	var room_size = Vector2i(4, 4)
 	while true:
-		safe_pos = Vector2i(randi_range(map_start.x, map_start.x + map_size.x),
-							randi_range(map_start.y, map_start.y + map_size.y))
-		if not map.has(safe_pos):
+		spawn_pos = Vector2i(
+			randi_range(map_start.x, map_start.x + map_size.x - room_size.x),
+			randi_range(map_start.y, map_start.y + map_size.y - room_size.y)
+		)
+		if not map.has(spawn_pos):
 			break
 
-	for x in range(-1, 2):
-		for y in range(-1, 2):
-			var cell = safe_pos + Vector2i(x, y)
+	for x in range(room_size.x):
+		for y in range(room_size.y):
+			var cell = spawn_pos + Vector2i(x, y)
 			tilemap.set_floor(cell)
 
 	var nearest_floor: Vector2i = map[0]
-	var min_distance := INF
+	var min_distance: int = INF
 	for cell in map:
-		var distance = safe_pos.distance_to(cell)
+		var distance = spawn_pos.distance_to(cell)
 		if distance < min_distance:
 			min_distance = distance
 			nearest_floor = cell
 	
-	var current_cell := safe_pos
+	var current_cell := spawn_pos
 	while current_cell != nearest_floor:
 		if current_cell.x < nearest_floor.x: current_cell.x += 1
 		elif current_cell.x > nearest_floor.x: current_cell.x -= 1
@@ -102,7 +108,7 @@ func generate_safe_room(map: Array[Vector2i], tilemap: TileMapLayer) -> void:
 		elif current_cell.y > nearest_floor.y: current_cell.y -= 1
 		tilemap.set_floor(current_cell)
 
-	$Player.global_position = tilemap.map_to_local(safe_pos)
+	$Player.global_position = tilemap.map_to_local(spawn_pos)
 
 func generate_enemies(map: Array[Vector2i], enemy_count: int, enemies: Array[PackedScene]) -> void:
 	map.shuffle()

@@ -34,6 +34,7 @@ players=""
 enemies=""
 bullets=""
 crushers=""
+dungeon_flowers=""
 
 [input]
 

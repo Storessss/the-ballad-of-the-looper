@@ -62,6 +62,8 @@ func _process(_delta: float) -> void:
 	if typing and Input.is_action_just_pressed("interact"):
 		skip_text = true
 		
+	$Comp.text = "COMP: " + str(GlobalVariables.comp)
+		
 func show_choices(choices: Array):
 	if choices:
 		for choice in choices:
@@ -73,4 +75,3 @@ func show_choices(choices: Array):
 		
 func _on_dialogue_hide():
 	$DialogueBox.visible = false
-	

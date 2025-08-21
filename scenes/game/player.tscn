@@ -55,7 +55,7 @@ radius = 4.0
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_68xwl")
-inventory = Array[PackedScene]([ExtResource("2_m5ugi"), ExtResource("3_dsw4c")])
+starting_inventory = Array[PackedScene]([ExtResource("2_m5ugi"), ExtResource("3_dsw4c")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)

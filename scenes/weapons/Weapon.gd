@@ -12,11 +12,15 @@ class_name Weapon
 var reticle_position: Vector2
 var weapon_point: Node2D
 
+var previous_reload_time: float
+
 func _ready():
-	$FireRateTimer.wait_time = fire_rate
+	$FireRateTimer.start(previous_reload_time)
+	if previous_reload_time == 0.0:
+		$FireRateTimer.stop()
 
 func shoot() -> void:
-	$FireRateTimer.start()
+	$FireRateTimer.start(fire_rate / GlobalVariables.fire_rate_multiplier)
 	#if line_of_sight(GlobalVariables.player_position, $CastPoint.global_position) or melee:
 	var bullet = bullet_scene.instantiate()
 	var point
@@ -26,16 +30,16 @@ func shoot() -> void:
 		point = get_global_mouse_position() - global_position
 	bullet.angle = point.angle()
 	bullet.global_position = GlobalVariables.player_position
-	bullet.damage = damage
-	bullet.effect_damage = effect_damage
+	bullet.damage = max(damage * GlobalVariables.damage_multiplier, 1)
+	bullet.effect_damage = max(effect_damage * GlobalVariables.damage_multiplier, 1)
 	bullet.player_bullet = true
 	bullet.deflective = deflective_shots
 	get_tree().current_scene.add_child(bullet)
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("attack") and $FireRateTimer.is_stopped():
-		$FireRateTimer.start()
 		shoot()
+	previous_reload_time = $FireRateTimer.time_left
 	
 func line_of_sight(from: Vector2, to: Vector2) -> bool:
 	var space_state = get_world_2d().direct_space_state

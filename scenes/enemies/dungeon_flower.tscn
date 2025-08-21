@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://cyiq03ismbjci"]
+
+[ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_cgra1"]
+[ext_resource type="Script" uid="uid://t5wyj4e7363w" path="res://scenes/enemies/dungeon_flower.gd" id="2_qdoxr"]
+[ext_resource type="Texture2D" uid="uid://bulurdxs7pvms" path="res://sprites/dungeon_flower.png" id="2_qsa40"]
+[ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="4_75fxw"]
+[ext_resource type="Script" uid="uid://7wbcyea43i6w" path="res://scenes/enemies/state_machine/states/IfEnemyGroupLeft.gd" id="4_qdoxr"]
+[ext_resource type="Script" uid="uid://bcdrgrnokxa6w" path="res://scenes/enemies/state_machine/states/CallFunction.gd" id="5_xhaqt"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qdoxr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qsa40")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_75fxw"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xhaqt"]
+radius = 4.0
+
+[node name="DungeonFlower" groups=["dungeon_flowers"] instance=ExtResource("1_cgra1")]
+script = ExtResource("2_qdoxr")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, 5)
+sprite_frames = SubResource("SpriteFrames_qdoxr")
+autoplay = "default"
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_75fxw")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_xhaqt")
+
+[node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("4_75fxw")
+state_duration_min = 0.5
+state_duration_max = 1.2
+next_state = NodePath("../IfEnemyGroupLeft")
+
+[node name="IfEnemyGroupLeft" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("4_qdoxr")
+enemy_group_names = Array[String](["dungeon_flowers"])
+next_state = NodePath("../CallFunction")
+exit_state = NodePath("../Idle")
+
+[node name="CallFunction" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_xhaqt")
+function_name = "pass_on"
+next_state = NodePath("../Idle")

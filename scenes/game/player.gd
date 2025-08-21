@@ -8,7 +8,7 @@ var dash_speed: int = 1000
 
 var deadzone: float = 0.1
 
-@export var inventory: Array[PackedScene]
+@export var starting_inventory: Array[PackedScene]
 
 @onready var camera: Camera2D = $Camera2D
 var shake = false
@@ -24,6 +24,10 @@ func _ready() -> void:
 	InputMap.action_set_deadzone("look_down", deadzone)
 	InputMap.action_set_deadzone("look_left", deadzone)
 	InputMap.action_set_deadzone("look_right", deadzone)
+	
+	if GlobalVariables.first_time_inventory_instantiation:
+		GlobalVariables.first_time_inventory_instantiation = false
+		GlobalVariables.inventory = starting_inventory.duplicate()
 	
 	instantiate_weapon()
 	
@@ -90,8 +94,14 @@ func _process(delta: float) -> void:
 	
 	# INVENTORY ------------------------------------------------------------------------------------
 	if Input.is_action_just_pressed("next_weapon"):
-		GlobalVariables.inventory_index = ((GlobalVariables.inventory_index + 1) % inventory.size() \
-		+ inventory.size()) % inventory.size()
+		GlobalVariables.previous_inventory_index = GlobalVariables.inventory_index
+		GlobalVariables.inventory_index = ((GlobalVariables.inventory_index + 1) % \
+		GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
+		instantiate_weapon()
+	elif Input.is_action_just_pressed("previous_weapon"):
+		GlobalVariables.previous_inventory_index = GlobalVariables.inventory_index
+		GlobalVariables.inventory_index = ((GlobalVariables.inventory_index - 1) % \
+		GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
 		instantiate_weapon()
 		
 	# CAMERA ---------------------------------------------------------------------------------------
@@ -119,9 +129,17 @@ func take_damage():
 		GlobalVariables.player_hit.emit()
 		
 func instantiate_weapon():
-	for child in $Weapon/Point.get_children():
+	for child: Weapon in $Weapon/Point.get_children():
+		GlobalVariables.weapon_states[GlobalVariables.previous_inventory_index] = {
+			"previous_reload_time": child.previous_reload_time
+		}
 		child.queue_free()
-	var weapon = inventory[GlobalVariables.inventory_index].instantiate()
+	var weapon: Weapon = GlobalVariables.inventory[GlobalVariables.inventory_index].instantiate()
+	if GlobalVariables.weapon_states.has(GlobalVariables.inventory_index):
+		weapon.previous_reload_time = \
+		GlobalVariables.weapon_states[GlobalVariables.inventory_index].get("previous_reload_time", 0.0)
+	else:
+		weapon.previous_reload_time = 0.0
 	$Weapon/Point.add_child(weapon)
 	
 func _on_dialogue_show(_character_name: String, _image: Texture, _text: String, _choices: Array, \
