@@ -62,7 +62,7 @@ func _process(_delta: float) -> void:
 	if typing and Input.is_action_just_pressed("interact"):
 		skip_text = true
 		
-	$Comp.text = "COMP: " + str(GlobalVariables.comp)
+	$Dims/DimCount.text = str(GlobalVariables.dims)
 		
 func show_choices(choices: Array):
 	if choices:

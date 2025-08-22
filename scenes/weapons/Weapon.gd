@@ -35,6 +35,8 @@ func shoot() -> void:
 	bullet.player_bullet = true
 	bullet.deflective = deflective_shots
 	get_tree().current_scene.add_child(bullet)
+	if self is not ChargedWeapon:
+		$AttackSound.play()
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("attack") and $FireRateTimer.is_stopped():

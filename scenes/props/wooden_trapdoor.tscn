@@ -38,6 +38,7 @@ animations = [{
 size = Vector2(32, 32)
 
 [node name="WoodenTrapdoor" instance=ExtResource("1_vuoe5")]
+collision_layer = 16
 script = ExtResource("2_vmbs5")
 
 [node name="AnimatedSprite2D" parent="." index="0"]

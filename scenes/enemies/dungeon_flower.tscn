@@ -26,6 +26,7 @@ radius = 4.0
 
 [node name="DungeonFlower" groups=["dungeon_flowers"] instance=ExtResource("1_cgra1")]
 script = ExtResource("2_qdoxr")
+max_dim_drop = 2
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, 5)
@@ -50,10 +51,21 @@ next_state = NodePath("../IfEnemyGroupLeft")
 [node name="IfEnemyGroupLeft" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
 script = ExtResource("4_qdoxr")
 enemy_group_names = Array[String](["dungeon_flowers"])
-next_state = NodePath("../CallFunction")
-exit_state = NodePath("../Idle")
+next_state = NodePath("../CallFunctionDie")
+exit_state = NodePath("../CallFunctionBind")
 
-[node name="CallFunction" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
+[node name="CallFunctionBind" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
 script = ExtResource("5_xhaqt")
-function_name = "pass_on"
+function_name = "bind"
+next_state = NodePath("../Idle2")
+
+[node name="Idle2" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state")]
+script = ExtResource("4_75fxw")
+state_duration_min = 0.5
+state_duration_max = 1.2
+next_state = NodePath(".")
+
+[node name="CallFunctionDie" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_xhaqt")
+function_name = "die"
 next_state = NodePath("../Idle")

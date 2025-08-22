@@ -13,5 +13,4 @@ func _on_opening_timer_timeout():
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
-		GlobalVariables.room += 1
-		get_tree().reload_current_scene()
+		GlobalVariables.change_room()

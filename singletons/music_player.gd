@@ -73,3 +73,8 @@ func explosion_sound() -> void:
 	var sound_player = MusicPlayer.new_sound_player(3)
 	sound_player.stream = preload("res://sounds/explosion.wav")
 	sound_player.play()
+
+func dim_get() -> void:
+	var sound_player = new_sound_player(-12)
+	sound_player.stream = preload("res://sounds/dim_get.wav")
+	sound_player.play()

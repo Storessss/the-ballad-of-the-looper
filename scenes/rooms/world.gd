@@ -2,9 +2,6 @@ extends Node2D
 
 @onready var tilemap = $Tilemap
 
-#TODO: fix player spawn point when it generates at the borders withot corridor
-# Probably just reduce map size by one when generating spawn point :D
-
 var map_start := Vector2i(0, 0)
 var map_size := Vector2i(100, 100)
 
@@ -14,7 +11,7 @@ var enemy_count: int = 45#15
 var enemies: Array[PackedScene] = [
 	preload("res://scenes/enemies/slime.tscn"),
 	preload("res://scenes/enemies/spitter.tscn"),
-	preload("res://scenes/enemies/crusher.tscn"),
+	#preload("res://scenes/enemies/crusher.tscn"),
 	preload("res://scenes/enemies/triple_shooter.tscn"),
 	preload("res://scenes/enemies/dungeon_flower.tscn"),
 ]

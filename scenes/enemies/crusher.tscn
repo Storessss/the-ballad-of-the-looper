@@ -42,6 +42,7 @@ radius = 8.0
 [node name="Crusher" groups=["crushers"] instance=ExtResource("1_fbwjc")]
 health = 250
 contact_damage = true
+max_dim_drop = 5
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_4jv5h")
@@ -67,7 +68,7 @@ next_state = NodePath("../IfEnemyGroupLeft")
 
 [node name="IfEnemyGroupLeft" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
 script = ExtResource("9_byv07")
-enemy_group_names = Array[String](["crushers", "dungeon_flowers"])
+enemy_group_names = Array[String](["crushers"])
 next_state = NodePath("../ApplyEffect")
 exit_state = NodePath("../IfInRange")
 

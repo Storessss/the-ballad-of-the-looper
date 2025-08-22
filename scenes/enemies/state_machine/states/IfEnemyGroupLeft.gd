@@ -10,6 +10,7 @@ class_name IfEnemyGroupLeft
 var passed: bool = true
 
 func Enter() -> void:
+	await get_tree().process_frame
 	passed = true
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		var enemy_groups: Array[StringName] = enemy.get_groups()

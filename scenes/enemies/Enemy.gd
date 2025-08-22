@@ -6,6 +6,9 @@ class_name Enemy
 @export var speed: int
 @export var contact_damage: bool
 @export var boss: bool
+@export var min_dim_drop: int = 1
+@export var max_dim_drop: int = 1
+var dim_scene: PackedScene = preload("res://scenes/items/dim.tscn")
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var animations: AnimatedSprite2D = $AnimatedSprite2D
 @onready var cast_point: Node2D = $CastPoint
@@ -56,6 +59,13 @@ func _process(_delta: float) -> void:
 func die() -> void:
 	if can_die:
 		can_die = false
+		var dim_count = randi_range(min_dim_drop, max_dim_drop)
+		for i in range(dim_count):
+			var dim = dim_scene.instantiate()
+			dim.global_position = global_position
+			if boss:
+				dim.delay = true
+			get_tree().current_scene.call_deferred("add_child", dim)
 		var particles = death_particles_scene.instantiate()
 		particles.global_position = global_position
 		get_tree().current_scene.add_child(particles)

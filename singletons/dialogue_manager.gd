@@ -21,7 +21,7 @@ func play_dialogue(event: String, trigger: Area2D):
 	
 	var font = preload("res://styles/Retro Gaming.ttf")
 	if dialogue.has("looping"):
-		font = preload("res://styles/Loopdings.ttf")
+		font = preload("res://styles/Retro Gaming.ttf")
 	
 	if selected_dialogue.has("choices"):
 		show_dialogue.emit(dialogue["name"], load("res://sprites/" + dialogue["image"]), \

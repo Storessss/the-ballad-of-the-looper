@@ -128,4 +128,3 @@ func explode(radius: int):
 		particles.radius = radius
 		get_tree().current_scene.add_child(particles)
 		MusicPlayer.explosion_sound()
-		queue_free()

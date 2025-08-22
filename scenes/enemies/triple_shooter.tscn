@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://6wkw1e4btx03"]
+[gd_scene load_steps=17 format=3 uid="uid://6wkw1e4btx03"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_rcqcm"]
-[ext_resource type="Script" uid="uid://cdrrrtcqcmqe1" path="res://scenes/enemies/Enemy.gd" id="2_gbast"]
 [ext_resource type="Texture2D" uid="uid://cr4yd0rilg13s" path="res://sprites/triple_shooter_attack.png" id="3_rcqcm"]
 [ext_resource type="Texture2D" uid="uid://5kav438fdfli" path="res://sprites/triple_shooter_idle.png" id="4_gbast"]
 [ext_resource type="Texture2D" uid="uid://ct1ubcgui5a3" path="res://sprites/triple_shooter_walk1.png" id="5_xxqck"]
@@ -67,10 +66,11 @@ radius = 3.0
 radius = 4.0
 
 [node name="TripleShooter" instance=ExtResource("1_rcqcm")]
-script = ExtResource("2_gbast")
 health = 25
 speed = 75
 contact_damage = true
+min_dim_drop = 2
+max_dim_drop = 4
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(0.8, 0.8)

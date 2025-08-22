@@ -25,6 +25,7 @@ position = Vector2(265, 154)
 
 [node name="WoodenTrapdoor" parent="." instance=ExtResource("5_3nht7")]
 position = Vector2(106, 71)
+collision_layer = 1
 
 [node name="Markers" type="Node2D" parent="."]
 
