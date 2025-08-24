@@ -75,6 +75,7 @@ func explosion_sound() -> void:
 	sound_player.play()
 
 func dim_get() -> void:
-	var sound_player = new_sound_player(-12)
+	var sound_player = new_sound_player(-6)
 	sound_player.stream = preload("res://sounds/dim_get.wav")
+	sound_player.pitch_scale = randf_range(0.9, 1.1)
 	sound_player.play()

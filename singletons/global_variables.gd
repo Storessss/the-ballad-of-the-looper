@@ -30,6 +30,8 @@ var damage_multiplier: float = 1.0
 
 var dims: int
 
+var dungeon_flower_targets: Array[Enemy]
+
 func _process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("players")
 	if player:

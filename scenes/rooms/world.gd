@@ -5,7 +5,13 @@ extends Node2D
 var map_start := Vector2i(0, 0)
 var map_size := Vector2i(100, 100)
 
+var generation_progress: int
+
 var borders = Rect2(map_start.x, map_start.y, map_size.x, map_size.y)
+
+var map: Array[Vector2i]
+
+var player_scene: PackedScene = preload("res://scenes/game/player.tscn")
 
 var enemy_count: int = 45#15
 var enemies: Array[PackedScene] = [
@@ -13,99 +19,187 @@ var enemies: Array[PackedScene] = [
 	preload("res://scenes/enemies/spitter.tscn"),
 	#preload("res://scenes/enemies/crusher.tscn"),
 	preload("res://scenes/enemies/triple_shooter.tscn"),
-	preload("res://scenes/enemies/dungeon_flower.tscn"),
+	#preload("res://scenes/enemies/dungeon_flower.tscn"),
 ]
 var bosses := [
 	preload("res://scenes/enemies/bosses/little_devil.tscn")
 ]
 var boss_spawn_percentage: int = 50
 var can_spawn_boss: bool = true
-var original_map: Dictionary
+var dictionary_map: Dictionary
 
 var trapdoor_scene: PackedScene = preload("res://scenes/props/wooden_trapdoor.tscn")
 var can_spawn_trapdoor: bool = true
 
+var loading_tips: Array[String] = [
+	"Beautiful [rainbow freq=1.5, sat=1.5, val=1.5]DISENGAGER[/rainbow]",
+	"[rainbow freq=1.5, sat=1.5, val=1.5]THE DISENGAGER[/rainbow] is waiting.",
+	"[rainbow freq=1.5, sat=1.5, val=1.5]THE DISENGAGER[/rainbow] definitely exists",
+	"[color=red]Fear[/color] is the mind killer",
+	"Beautiful [color=orange]Fire Staff[/color]",
+	"Next room for sure",
+	"The cat is in the bag",
+	"And the bag is in the river",
+	"[color=red]HORRIBLE[/color] [color=gray]Sword[/color]",
+	"Don't listen to the [color=red]Shopkeeper[/color]",
+	"Just keep going",
+	"[shake]The Ballad of the Looper Never Stops.[/shake]"
+]
+
 func _ready() -> void:
 	GlobalVariables.tilemap = tilemap
-	generate_level()
 	
-func generate_level():
-	generate_borders()
-	
-	var walker := Walker.new(Vector2i(map_size.x / 2, map_size.y / 2), borders)
-	var map: Array[Vector2i] = walker.walk(500, 2)
-	tilemap.map = map.duplicate()
-	for location in map:
-		original_map[location] = null
-	walker.queue_free()
-	tilemap.set_cells_terrain_connect(map, 0, -1)
-	for location in map:
-		tilemap.set_floor(location)
-		
-	generate_spawn_point(map, tilemap)
-		
-	generate_enemies(map, enemy_count, enemies)
-
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("interact"):
-		get_tree().reload_current_scene()
-		
-func _process(_delta: float) -> void:
-	var boss_threshold: int = int(enemy_count * boss_spawn_percentage / 100.0)
-	if GlobalVariables.room % 3 == 0 and get_tree().get_nodes_in_group("enemies").size() <= boss_threshold and \
-	can_spawn_boss:
-		can_spawn_boss = false
-		generate_boss()
-	if get_tree().get_nodes_in_group("enemies").size() == 0 and can_spawn_trapdoor:
-		can_spawn_trapdoor = false
-		var trapdoor = trapdoor_scene.instantiate()
-		trapdoor.global_position = GlobalVariables.player_position
-		add_child(trapdoor)
-		
-func generate_borders() -> void:
 	var border_size: Vector2 = Vector2(map_size.x * 16 - 1, map_size.y * 16 - 1)
 	GlobalVariables.right = border_size.x
 	GlobalVariables.bottom = border_size.y
 	$WorldBorders/WorldBorderEnd.global_position = border_size
-	var border_cells: Array[Vector2i]
-	for i in range(map_size.x):
-		for j in range(map_size.y):
-			border_cells.append(Vector2i(map_start.x + i, map_start.y + j))
-	tilemap.set_cells_terrain_connect(border_cells, 0, 0)
-		
-func generate_spawn_point(map: Array[Vector2i], tilemap: TileMapLayer) -> void:
-	var spawn_pos: Vector2i
-	var room_size = Vector2i(4, 4)
-	while true:
-		spawn_pos = Vector2i(
-			randi_range(map_start.x, map_start.x + map_size.x - room_size.x),
-			randi_range(map_start.y, map_start.y + map_size.y - room_size.y)
-		)
-		if not map.has(spawn_pos):
-			break
-
-	for x in range(room_size.x):
-		for y in range(room_size.y):
-			var cell = spawn_pos + Vector2i(x, y)
-			tilemap.set_floor(cell)
-
-	var nearest_floor: Vector2i = map[0]
-	var min_distance: int = INF
-	for cell in map:
-		var distance = spawn_pos.distance_to(cell)
-		if distance < min_distance:
-			min_distance = distance
-			nearest_floor = cell
 	
-	var current_cell := spawn_pos
-	while current_cell != nearest_floor:
-		if current_cell.x < nearest_floor.x: current_cell.x += 1
-		elif current_cell.x > nearest_floor.x: current_cell.x -= 1
-		elif current_cell.y < nearest_floor.y: current_cell.y += 1
-		elif current_cell.y > nearest_floor.y: current_cell.y -= 1
-		tilemap.set_floor(current_cell)
+	$Loading/TipLabel.text = loading_tips.pick_random()
+	
 
-	$Player.global_position = tilemap.map_to_local(spawn_pos)
+var x: int
+var y: int
+var i: int
+var counter: int
+var step_percentage: int = 20
+@onready var progress_label: RichTextLabel = $Loading/ProgressLabel
+
+var border_cells: Array[Vector2i]
+
+var walker: Walker
+
+var spawn_pos: Vector2i
+var room_size = Vector2i(4, 4)
+var nearest_floor: Vector2i
+var min_distance: int = INF
+var current_cell: Vector2i
+
+func _process(_delta: float) -> void:
+	if generation_progress == 0:
+		var generated: int
+		var generation_quota: int = 35
+		while generated < generation_quota and generation_progress == 0:
+			border_cells.append(Vector2i(map_start.x + x, map_start.y + y))
+			
+			x += 1
+			if x >= map_size.x:
+				x = 0
+				y += 1
+				
+			var step_progress = float(y * map_size.x + x) / float(map_size.x * map_size.y) * step_percentage
+			var progress = generation_progress * step_percentage + step_progress
+			progress_label.text = str(int(progress)) + "%"
+			
+			if y >= map_size.y:
+				generation_progress += 1
+				tilemap.set_cells_terrain_connect(border_cells, 0, 0)
+				
+				walker = Walker.new(Vector2i(map_size.x / 2, map_size.y / 2), borders)
+				add_child(walker)
+				walker.activate_walk(500, 2)
+				
+			generated += 1
+			
+	elif generation_progress == 1:
+		if not walker.walk_active:
+			tilemap.map = map.duplicate()
+			walker.queue_free()
+			tilemap.set_cells_terrain_connect(map, 0, -1)
+			generation_progress += 1
+			
+	elif generation_progress == 2:
+		var generated: int
+		var generation_quota: int = 250
+		while generated < generation_quota and generation_progress == 2:
+			if i < map.size():
+				tilemap.set_floor(map[i])
+				dictionary_map[map[i]] = null
+				i += 1
+			else:
+				generation_progress += 1
+				i = 0
+		
+				while true:
+					spawn_pos = Vector2i(
+						randi_range(map_start.x, map_start.x + map_size.x - room_size.x),
+						randi_range(map_start.y, map_start.y + map_size.y - room_size.y)
+					)
+					if not map.has(spawn_pos):
+						break
+						
+				for x in range(room_size.x):
+					for y in range(room_size.y):
+						var cell = spawn_pos + Vector2i(x, y)
+						tilemap.set_floor(cell)
+						
+				nearest_floor = map[0]
+				
+			generated += 1
+			var step_progress = float(i) / float(map.size()) * step_percentage
+			var progress = generation_progress * step_percentage + step_progress
+			progress_label.text = str(int(progress)) + "%"
+		
+	elif generation_progress == 3:
+		var generated: int
+		var generation_quota: int = 1000
+		while generated < generation_quota and generation_progress == 3:
+			if i < map.size():
+				var distance = spawn_pos.distance_to(map[i])
+				if distance < min_distance:
+					min_distance = distance
+					nearest_floor = map[i]
+				i += 1
+			else:
+				generation_progress += 1
+				current_cell = spawn_pos
+				
+			generated += 1
+			var step_progress = float(generated) / float(generation_quota) * step_percentage
+			var progress = step_percentage * generation_progress + step_progress
+			progress_label.text = str(int(progress)) + "%"
+			
+	elif generation_progress == 4:
+		if current_cell != nearest_floor:
+			if current_cell.x < nearest_floor.x: current_cell.x += 1
+			elif current_cell.x > nearest_floor.x: current_cell.x -= 1
+			elif current_cell.y < nearest_floor.y: current_cell.y += 1
+			elif current_cell.y > nearest_floor.y: current_cell.y -= 1
+			tilemap.set_floor(current_cell)
+			
+			var total_distance = nearest_floor.distance_to(spawn_pos)
+			var remaining_distance = current_cell.distance_to(nearest_floor)
+			var step_progress = (1.0 - remaining_distance / total_distance) * step_percentage
+			var progress = generation_progress * step_percentage + step_progress
+			progress_label.text = str(int(progress)) + "%"
+		else:
+			generation_progress += 1
+			finalize_generation()
+		
+	elif generation_progress == 5:
+		var boss_threshold: int = int(enemy_count * boss_spawn_percentage / 100.0)
+		if GlobalVariables.room % 3 == 0 and get_tree().get_nodes_in_group("enemies").size() <= boss_threshold and \
+		can_spawn_boss:
+			can_spawn_boss = false
+			generate_boss()
+		if get_tree().get_nodes_in_group("enemies").size() == 0 and can_spawn_trapdoor:
+			can_spawn_trapdoor = false
+			var trapdoor = trapdoor_scene.instantiate()
+			trapdoor.global_position = GlobalVariables.player_position
+			add_child(trapdoor)
+	
+func finalize_generation() -> void:
+	generate_enemies(map, enemy_count, enemies)
+	
+	GlobalVariables.dungeon_flower_targets.clear()
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if enemy is not DungeonFlower:
+			GlobalVariables.dungeon_flower_targets.append(enemy)
+			
+	$Loading.queue_free()
+			
+	var player = player_scene.instantiate()
+	player.global_position = tilemap.map_to_local(spawn_pos)
+	add_child(player)
 
 func generate_enemies(map: Array[Vector2i], enemy_count: int, enemies: Array[PackedScene]) -> void:
 	map.shuffle()
@@ -123,10 +217,10 @@ func generate_boss() -> void:
 	for x in range(map_size.x):
 		for y in range(map_size.y):
 			var pos = Vector2i(x, y)
-			if pos not in original_map:
+			if pos not in dictionary_map:
 				for dir in [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]:
 					var neighbor = pos + dir
-					if neighbor in original_map:
+					if neighbor in dictionary_map:
 						var distance = pos.distance_to(player_cell)
 						if distance < closest_distance:
 							closest_distance = distance
