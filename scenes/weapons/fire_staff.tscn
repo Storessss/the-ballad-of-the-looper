@@ -17,9 +17,6 @@ bullet_scene = ExtResource("3_t6kod")
 rotation = 0.785398
 texture = ExtResource("2_n1dl5")
 
-[node name="CastPoint" parent="." index="1"]
-position = Vector2(0, -8)
-
-[node name="AttackSound" parent="." index="3"]
+[node name="AttackSound" parent="." index="2"]
 stream = ExtResource("5_672sg")
 volume_db = 6.0

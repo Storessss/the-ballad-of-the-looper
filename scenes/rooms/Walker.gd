@@ -45,9 +45,14 @@ func activate_walk(steps_input: int, radius_input: int = 1):
 	
 func _process(_delta: float) -> void:
 	if walk_active:
-		var generated: int
-		var generation_quota: int = 60
-		while generated < generation_quota and get_parent().generation_progress == 1:
+		
+		get_parent().step_progress = float(i) / float(steps) * get_parent().step_percentage
+		get_parent().progress = get_parent().generation_progress * get_parent().step_percentage + get_parent().step_progress
+		get_parent().progress_label.text = str(get_parent().progress) + "%"
+		
+		get_parent().generated = 0
+		get_parent().generation_quota = 75
+		while get_parent().generated < get_parent().generation_quota and get_parent().generation_progress == 1:
 			i += 1
 			if i >= steps:
 				walk_active = false
@@ -62,11 +67,7 @@ func _process(_delta: float) -> void:
 			else:
 				change_direction()
 			
-			generated += 1
-			var step_progress = float(i) / float(steps) * get_parent().step_percentage
-			var progress = get_parent().generation_progress * get_parent().step_percentage + step_progress
-			get_parent().progress_label.text = str(int(progress)) + "%"
-
+			get_parent().generated += 1
 			
 	
 func step() -> bool:

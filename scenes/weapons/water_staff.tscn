@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwumr5434miru"]
+
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_2hmls"]
+[ext_resource type="Texture2D" uid="uid://33nth3vj4gbr" path="res://sprites/staff24.png" id="2_fjjjl"]
+[ext_resource type="PackedScene" uid="uid://70xjah2i5pbv" path="res://scenes/bullets/water_drop.tscn" id="2_j0ds4"]
+[ext_resource type="AudioStream" uid="uid://cgjlmjwipy54v" path="res://sounds/water_staff.wav" id="3_ebbuw"]
+
+[node name="WaterStaff" instance=ExtResource("1_2hmls")]
+fire_rate = 0.07
+damage = 10
+bullet_scene = ExtResource("2_j0ds4")
+
+[node name="Sprite2D" parent="." index="0"]
+rotation = 0.785398
+texture = ExtResource("2_fjjjl")
+
+[node name="AttackSound" parent="." index="2"]
+stream = ExtResource("3_ebbuw")
+volume_db = 10.0

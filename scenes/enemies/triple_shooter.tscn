@@ -110,14 +110,14 @@ exit_state = NodePath("../Wander")
 [node name="IfInRange" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state", "exit_state")]
 script = ExtResource("8_gbast")
 trigger_distance = 100
-exit_distance = 200
+exit_distance = 150
 next_state = NodePath("../Idle")
 exit_state = NodePath("../ChasePlayer")
 
 [node name="Idle" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
 script = ExtResource("8_3ir7m")
-state_duration_min = 0.5
-state_duration_max = 0.5
+state_duration_min = 0.7
+state_duration_max = 0.7
 animation = "attack"
 next_state = NodePath("../ShootBullet")
 

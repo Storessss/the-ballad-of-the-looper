@@ -25,7 +25,8 @@ func shoot() -> void:
 	var bullet = bullet_scene.instantiate()
 	var point
 	if GlobalVariables.controller:
-		point = $CastPoint.global_position - GlobalVariables.player_position
+		#point = $CastPoint.global_position - GlobalVariables.player_position
+		point = global_position - GlobalVariables.player_position
 	else:
 		point = get_global_mouse_position() - global_position
 	bullet.angle = point.angle()

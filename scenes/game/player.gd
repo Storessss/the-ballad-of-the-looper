@@ -122,7 +122,7 @@ func randomOffset():
 	return Vector2(rnd.randf_range(- shake_strength, shake_strength), randf_range(- shake_strength, shake_strength))
 	
 func take_damage(damage: int = 1):
-	if $IFrames.is_stopped():
+	if $IFrames.is_stopped() and not GlobalVariables.dashing and not GlobalVariables.graced:
 		GlobalVariables.player_health -= damage
 		$IFrames.start()
 		$HitSound.play()

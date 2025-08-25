@@ -5,11 +5,11 @@ var sound_players: Array
 
 func _ready() -> void:
 	music_player.bus = "Music"
-	music_player.volume_db = -8
+	music_player.volume_db = 5
 	music_player.max_distance = 999999999
 	music_player.attenuation = 0
 	add_child(music_player)
-	change_music(preload("res://music/Blinded By Fight And Greed.ogg"))
+	change_music(preload("res://music/Of Days Long Past.ogg"))
 
 func new_sound_player(db: int = 0) -> AudioStreamPlayer2D:
 	var sound_player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -65,7 +65,7 @@ func bullet_deflect() -> void:
 	
 func text_sound() -> void:
 	var sound_player = MusicPlayer.new_sound_player(-3)
-	sound_player.stream = preload("res://sounds/text_sound6.wav")
+	sound_player.stream = preload("res://sounds/text_sound.wav")
 	sound_player.pitch_scale = randf_range(0.75, 0.9)
 	sound_player.play()
 
@@ -78,4 +78,9 @@ func dim_get() -> void:
 	var sound_player = new_sound_player(-6)
 	sound_player.stream = preload("res://sounds/dim_get.wav")
 	sound_player.pitch_scale = randf_range(0.9, 1.1)
+	sound_player.play()
+
+func wall_break() -> void:
+	var sound_player = new_sound_player(1)
+	sound_player.stream = preload("res://sounds/wall_break.mp3")
 	sound_player.play()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw018dtrerc14"]
+[gd_scene load_steps=6 format=3 uid="uid://bw018dtrerc14"]
 
 [ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_ey2d6"]
 [ext_resource type="Texture2D" uid="uid://ciumsud75ub0o" path="res://sprites/fireball.png" id="2_l1nk1"]
+[ext_resource type="PackedScene" uid="uid://drtb5o02r4e23" path="res://scenes/bullets/small_explosion.tscn" id="2_qhn8b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g2ajr"]
 radius = 2.0
@@ -12,10 +13,8 @@ radius = 3.0
 [node name="Fireball" instance=ExtResource("1_ey2d6")]
 speed = 350
 destroy_time = 3.0
-deflectable = false
-destructive = true
 explosive = true
-explosion_radius = 1
+area_damage_scene = ExtResource("2_qhn8b")
 
 [node name="Sprite2D" parent="." index="0"]
 scale = Vector2(0.5, 0.5)

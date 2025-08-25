@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://evc1ltd7g5va"]
 
-[ext_resource type="Script" uid="uid://bv5t6lv74ha3" path="res://scenes/particles/explosion_particles.gd" id="1_6dy78"]
+[ext_resource type="Script" uid="uid://bv5t6lv74ha3" path="res://scenes/particles/area_damage_particles.gd" id="1_6dy78"]
 
 [sub_resource type="Curve" id="Curve_6dy78"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.547623, 0.0, 0, 0]
@@ -13,7 +13,7 @@ colors = PackedColorArray(1, 0.843137, 0, 1, 1, 0.113725, 0, 1)
 [node name="ExplosionParticles" type="Node2D"]
 script = ExtResource("1_6dy78")
 
-[node name="Explosion" type="CPUParticles2D" parent="."]
+[node name="Particles" type="CPUParticles2D" parent="."]
 scale = Vector2(0.1, 0.1)
 emitting = false
 amount = 50

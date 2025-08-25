@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfy8jnhvdbe2a"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_an8o8"]
+[ext_resource type="PackedScene" uid="uid://dhi5twrk26kgn" path="res://scenes/bullets/damaging_aura.tscn" id="2_kb311"]
+[ext_resource type="Texture2D" uid="uid://rbvb8c8hkawq" path="res://sprites/black_hole.png" id="2_xhycd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kb311"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c1d15"]
+radius = 3.16228
+
+[node name="BlackHole" instance=ExtResource("1_an8o8")]
+speed = 50
+destroy_time = 10.0
+transparent = true
+pierce = 5
+destructive = true
+area_damage_scene = ExtResource("2_kb311")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_xhycd")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_kb311")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_c1d15")

@@ -4,11 +4,13 @@ class_name AreaDamage
 
 @export var radius: int
 var damage: int
-@export var damage_time: float
-@export var destroy_time: float = 0.6
-@export var damage_over_time: bool
+var destroy_time: float = 0.5
+@export var explosion: bool = true
+@export var destructive: bool = true
 @export var damages_player: bool = true
 @export var damages_enemies: bool = true
+@export var damage_time: float
+@export var particle_scene: PackedScene
 
 var in_area: Array[CharacterBody2D]
 
@@ -18,39 +20,64 @@ func _ready() -> void:
 	
 	$DamageTimer.start(damage_time)
 	$DestroyTimer.start(destroy_time)
-
+	
+	if destructive:
+		break_walls()
+		
+	if particle_scene:
+		if explosion:
+			var particles = particle_scene.instantiate()
+			particles.global_position = global_position
+			particles.radius = radius
+			get_tree().current_scene.add_child(particles)
+		else:
+			var particles = particle_scene.instantiate()
+			particles.radius = radius
+			add_child(particles)
+			
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
-		if damage_over_time:
-			if body not in in_area:
-				in_area.append(body)
-		else:
-			body.take_damage(damage)
+		if damages_enemies:
+			if not explosion:
+				if body not in in_area:
+					in_area.append(body)
+			else:
+				body.take_damage(damage)
 	elif body.is_in_group("players"):
-		if damage_over_time:
-			if body not in in_area:
-				in_area.append(body)
-		else:
-			body.take_damage()
-
+		if damages_player:
+			if not explosion:
+				if body not in in_area:
+					in_area.append(body)
+			else:
+				body.take_damage()
+			
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
-		if damage_over_time:
+		if not explosion:
 			if body in in_area:
 				in_area.erase(body)
 	elif body.is_in_group("players"):
-		if damage_over_time:
+		if not explosion:
 			if body in in_area:
 				in_area.erase(body)
-		else:
-			body.take_damage()
-
+				
 func _on_damage_timer_timeout() -> void:
 	for body in in_area:
 		if body.is_in_group("enemies"):
 			body.take_damage(damage)
 		elif body.is_in_group("players"):
 			body.take_damage()
+			
+func break_walls():
+	var area: Array[int]
+	var area_counter: int = -radius
+	while area_counter <= radius:
+		area.append(area_counter)
+		area_counter += 1
+	var cell: Vector2i = GlobalVariables.tilemap.local_to_map(GlobalVariables.tilemap.to_local(global_position))
+	for i in area:
+		for j in area:
+			GlobalVariables.tilemap.set_floor(Vector2i(cell.x + i, cell.y + j))
 
 func _on_destroy_timer_timeout() -> void:
 	queue_free()

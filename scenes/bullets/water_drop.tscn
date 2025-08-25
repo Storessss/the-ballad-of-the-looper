@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://70xjah2i5pbv"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_avupt"]
+[ext_resource type="Texture2D" uid="uid://bi1kgomkhw0i0" path="res://sprites/water_drop.png" id="2_ao7uh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e6mi8"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e3344"]
+radius = 3.0
+
+[node name="WaterDrop" instance=ExtResource("1_avupt")]
+speed = 200
+destroy_time = 1.0
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ao7uh")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_e6mi8")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_e3344")

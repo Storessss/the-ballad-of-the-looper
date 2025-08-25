@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjagx2mcxujfg"]
+
+[ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_kli8e"]
+[ext_resource type="Texture2D" uid="uid://b5ge747u5q0nf" path="res://sprites/spingling.png" id="2_jlwls"]
+[ext_resource type="Script" uid="uid://c18ewpx7fyfw8" path="res://scenes/enemies/state_machine/states/PingPong.gd" id="3_cron5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d6mm5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jlwls")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pav3o"]
+radius = 4.12311
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_11vcq"]
+radius = 4.0
+
+[node name="Spingling" instance=ExtResource("1_kli8e")]
+health = 50
+speed = 100
+contact_damage = true
+nav_agent_movement = false
+max_dim_drop = 2
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -1)
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_d6mm5")
+autoplay = "default"
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_pav3o")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_11vcq")
+
+[node name="NavigationAgent2D" parent="." index="3"]
+avoidance_enabled = false
+
+[node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("PingPong")
+
+[node name="PingPong" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("3_cron5")
+state_duration_min = 5.0
+state_duration_max = 5.0
+next_state = NodePath(".")

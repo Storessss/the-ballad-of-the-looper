@@ -2,8 +2,8 @@ extends Node2D
 
 @onready var tilemap = $Tilemap
 
-var map_start := Vector2i(0, 0)
-var map_size := Vector2i(100, 100)
+var map_start: Vector2i = Vector2i(0, 0)
+var map_size: Vector2i = Vector2i(100, 100)
 
 var generation_progress: int
 
@@ -14,13 +14,21 @@ var map: Array[Vector2i]
 var player_scene: PackedScene = preload("res://scenes/game/player.tscn")
 
 var enemy_count: int = 45#15
-var enemies: Array[PackedScene] = [
-	preload("res://scenes/enemies/slime.tscn"),
-	preload("res://scenes/enemies/spitter.tscn"),
-	#preload("res://scenes/enemies/crusher.tscn"),
-	preload("res://scenes/enemies/triple_shooter.tscn"),
+#var enemies: Array[PackedScene] = [
+	#preload("res://scenes/enemies/slime.tscn"),
+	#preload("res://scenes/enemies/spitter.tscn"),
+	##preload("res://scenes/enemies/crusher.tscn"),
+	#preload("res://scenes/enemies/triple_shooter.tscn"),
 	#preload("res://scenes/enemies/dungeon_flower.tscn"),
-]
+#]
+var enemies: Dictionary = {
+	preload("res://scenes/enemies/slime.tscn"): INF,
+	preload("res://scenes/enemies/spitter.tscn"): INF,
+	preload("res://scenes/enemies/crusher.tscn"): 2,
+	preload("res://scenes/enemies/triple_shooter.tscn"): INF,
+	preload("res://scenes/enemies/dungeon_flower.tscn"): 5,
+	preload("res://scenes/enemies/spingling.tscn"): 5,
+}
 var bosses := [
 	preload("res://scenes/enemies/bosses/little_devil.tscn")
 ]
@@ -63,6 +71,10 @@ var i: int
 var counter: int
 var step_percentage: int = 20
 @onready var progress_label: RichTextLabel = $Loading/ProgressLabel
+var progress: int
+var step_progress: float
+var generated: int
+var generation_quota: int
 
 var border_cells: Array[Vector2i]
 
@@ -76,8 +88,13 @@ var current_cell: Vector2i
 
 func _process(_delta: float) -> void:
 	if generation_progress == 0:
-		var generated: int
-		var generation_quota: int = 35
+		
+		step_progress = float(y * map_size.x + x) / float(map_size.x * map_size.y) * step_percentage
+		progress = generation_progress * step_percentage + step_progress
+		progress_label.text = str(progress) + "%"
+		
+		generated = 0
+		generation_quota = 75
 		while generated < generation_quota and generation_progress == 0:
 			border_cells.append(Vector2i(map_start.x + x, map_start.y + y))
 			
@@ -86,9 +103,6 @@ func _process(_delta: float) -> void:
 				x = 0
 				y += 1
 				
-			var step_progress = float(y * map_size.x + x) / float(map_size.x * map_size.y) * step_percentage
-			var progress = generation_progress * step_percentage + step_progress
-			progress_label.text = str(int(progress)) + "%"
 			
 			if y >= map_size.y:
 				generation_progress += 1
@@ -108,8 +122,13 @@ func _process(_delta: float) -> void:
 			generation_progress += 1
 			
 	elif generation_progress == 2:
-		var generated: int
-		var generation_quota: int = 250
+		
+		step_progress = float(i) / float(map.size()) * step_percentage
+		progress = generation_progress * step_percentage + step_progress
+		progress_label.text = str(progress) + "%"
+		
+		generated = 0
+		generation_quota = 250
 		while generated < generation_quota and generation_progress == 2:
 			if i < map.size():
 				tilemap.set_floor(map[i])
@@ -135,13 +154,15 @@ func _process(_delta: float) -> void:
 				nearest_floor = map[0]
 				
 			generated += 1
-			var step_progress = float(i) / float(map.size()) * step_percentage
-			var progress = generation_progress * step_percentage + step_progress
-			progress_label.text = str(int(progress)) + "%"
 		
 	elif generation_progress == 3:
-		var generated: int
-		var generation_quota: int = 1000
+		
+		step_progress = float(i) / float(map.size() - 1) * step_percentage
+		progress = step_percentage * generation_progress + step_progress
+		progress_label.text = str(progress) + "%"
+		
+		generated = 0
+		generation_quota = 3000
 		while generated < generation_quota and generation_progress == 3:
 			if i < map.size():
 				var distance = spawn_pos.distance_to(map[i])
@@ -154,11 +175,15 @@ func _process(_delta: float) -> void:
 				current_cell = spawn_pos
 				
 			generated += 1
-			var step_progress = float(generated) / float(generation_quota) * step_percentage
-			var progress = step_percentage * generation_progress + step_progress
-			progress_label.text = str(int(progress)) + "%"
 			
 	elif generation_progress == 4:
+		
+		var total_distance = nearest_floor.distance_to(spawn_pos)
+		var remaining_distance = current_cell.distance_to(nearest_floor)
+		step_progress = (1.0 - remaining_distance / total_distance) * step_percentage
+		progress = generation_progress * step_percentage + step_progress
+		progress_label.text = str(progress) + "%"
+		
 		if current_cell != nearest_floor:
 			if current_cell.x < nearest_floor.x: current_cell.x += 1
 			elif current_cell.x > nearest_floor.x: current_cell.x -= 1
@@ -166,11 +191,6 @@ func _process(_delta: float) -> void:
 			elif current_cell.y > nearest_floor.y: current_cell.y -= 1
 			tilemap.set_floor(current_cell)
 			
-			var total_distance = nearest_floor.distance_to(spawn_pos)
-			var remaining_distance = current_cell.distance_to(nearest_floor)
-			var step_progress = (1.0 - remaining_distance / total_distance) * step_percentage
-			var progress = generation_progress * step_percentage + step_progress
-			progress_label.text = str(int(progress)) + "%"
 		else:
 			generation_progress += 1
 			finalize_generation()
@@ -188,7 +208,7 @@ func _process(_delta: float) -> void:
 			add_child(trapdoor)
 	
 func finalize_generation() -> void:
-	generate_enemies(map, enemy_count, enemies)
+	generate_enemies(enemy_count, enemies)
 	
 	GlobalVariables.dungeon_flower_targets.clear()
 	for enemy in get_tree().get_nodes_in_group("enemies"):
@@ -201,13 +221,20 @@ func finalize_generation() -> void:
 	player.global_position = tilemap.map_to_local(spawn_pos)
 	add_child(player)
 
-func generate_enemies(map: Array[Vector2i], enemy_count: int, enemies: Array[PackedScene]) -> void:
+func generate_enemies(enemy_count: int, enemies: Dictionary) -> void:
 	map.shuffle()
-	for i in range(enemy_count):
-		var location = map.pop_back()
-		var enemy = enemies.pick_random().instantiate()
-		enemy.global_position = tilemap.map_to_local(location)
-		add_child(enemy)
+	var i: int
+	while i < enemy_count:
+		var enemy_scene: PackedScene = enemies.keys().pick_random()
+		if enemies[enemy_scene] > 0:
+			i += 1
+			enemies[enemy_scene] -= 1
+			var enemy = enemy_scene.instantiate()
+			var location = map.pop_back()
+			enemy.global_position = tilemap.map_to_local(location)
+			add_child(enemy)
+		else:
+			enemies.erase(enemy_scene)
 
 func generate_boss() -> void:
 	var candidates: Array[Vector2i]
@@ -235,3 +262,5 @@ func generate_boss() -> void:
 	boss.global_position = tilemap.to_global(tilemap.map_to_local(spawn_point))
 	add_child(boss)
 	
+	MusicPlayer.change_music(preload("res://music/Blinded By Fight And Greed.ogg"))
+	MusicPlayer.wall_break()

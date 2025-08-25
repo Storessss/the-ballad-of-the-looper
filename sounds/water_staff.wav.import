@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://davtbjf6lqcc2"
-path="res://.godot/imported/text_sound4.wav-1866c3abd431341f08227de41afed759.sample"
+uid="uid://cgjlmjwipy54v"
+path="res://.godot/imported/water_staff.wav-ffdeb8ef3ef9e6d89cedb5e7724eaa6c.sample"
 
 [deps]
 
-source_file="res://sounds/text_sound4.wav"
-dest_files=["res://.godot/imported/text_sound4.wav-1866c3abd431341f08227de41afed759.sample"]
+source_file="res://sounds/water_staff.wav"
+dest_files=["res://.godot/imported/water_staff.wav-ffdeb8ef3ef9e6d89cedb5e7724eaa6c.sample"]
 
 [params]
 

@@ -10,9 +10,9 @@ class_name Bullet
 @export var pierce: int = 1
 @export var destructive: bool
 @export var explosive: bool
-@export var explosion_radius: int
-var area_damage_scene = preload("res://scenes/bullets/area_damage.tscn")
-var explosion_particles_scene = preload("res://scenes/particles/explosion_particles.tscn")
+#@export var explosion_radius: int
+@export var area_damage_scene: PackedScene
+#var explosion_particles_scene: PackedScene = preload("res://scenes/particles/explosion_particles.tscn")
 
 var angle: float
 var damage: int
@@ -38,6 +38,12 @@ func _ready() -> void:
 		shader_material.shader = preload("res://styles/outline_red.gdshader")
 		
 	$Sprite2D.material = shader_material
+	
+	if area_damage_scene and not explosive:
+		var area_damage = area_damage_scene.instantiate()
+		area_damage.damage = effect_damage
+		area_damage.destroy_time = destroy_time
+		add_child(area_damage)
 	
 func _process(_delta: float) -> void:
 	direction = Vector2(cos(angle), sin(angle))
@@ -71,9 +77,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if pierce <= 0:
 			queue_free()
 	elif body.is_in_group("players") and not player_bullet:
-		if not GlobalVariables.dashing and not GlobalVariables.graced:
-			body.take_damage()
-			queue_free()
+		body.take_damage()
+		queue_free()
 	elif body is TileMapLayer or body is StaticBody2D:
 		if not bouncing and not transparent:
 			queue_free()
@@ -88,12 +93,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				body.change_alignment()
 				
 	if not body.is_in_group("players") and not body.is_in_group("bullets"):
-		if explosive:
-			explode(explosion_radius)
+		if area_damage_scene and explosive:
+			explode()
 
 func _on_destroy_timer_timeout() -> void:
-	if explosive:
-		explode(explosion_radius)
+	if area_damage_scene and explosive:
+		explode()
 	queue_free()
 
 func change_alignment() -> void:
@@ -107,24 +112,29 @@ func change_alignment() -> void:
 			shader_material.shader = preload("res://styles/outline_red.gdshader")
 		$Sprite2D.material = shader_material
 		
-func explode(radius: int):
-	if destructive:
-		var area: Array[int]
-		var area_counter: int = -radius
-		while area_counter <= radius:
-			area.append(area_counter)
-			area_counter += 1
-		var cell: Vector2i = GlobalVariables.tilemap.local_to_map(GlobalVariables.tilemap.to_local(global_position))
-		for i in area:
-			for j in area:
-				GlobalVariables.tilemap.set_floor(Vector2i(cell.x + i, cell.y + j))
-		var area_damage: Area2D = area_damage_scene.instantiate()
-		area_damage.global_position = global_position
-		area_damage.radius = radius
-		area_damage.damage = effect_damage
-		get_tree().current_scene.call_deferred("add_child", area_damage)
-		var particles = explosion_particles_scene.instantiate()
-		particles.global_position = global_position
-		particles.radius = radius
-		get_tree().current_scene.add_child(particles)
-		MusicPlayer.explosion_sound()
+func explode():
+	var area_damage = area_damage_scene.instantiate()
+	area_damage.global_position = global_position
+	area_damage.damage = effect_damage
+	get_tree().current_scene.call_deferred("add_child", area_damage)
+	MusicPlayer.explosion_sound()
+	#if destructive:
+		#var area: Array[int]
+		#var area_counter: int = -radius
+		#while area_counter <= radius:
+			#area.append(area_counter)
+			#area_counter += 1
+		#var cell: Vector2i = GlobalVariables.tilemap.local_to_map(GlobalVariables.tilemap.to_local(global_position))
+		#for i in area:
+			#for j in area:
+				#GlobalVariables.tilemap.set_floor(Vector2i(cell.x + i, cell.y + j))
+		#var area_damage: Area2D = area_damage_scene.instantiate()
+		#area_damage.global_position = global_position
+		#area_damage.radius = radius
+		#area_damage.damage = effect_damage
+		#get_tree().current_scene.call_deferred("add_child", area_damage)
+		#var particles = explosion_particles_scene.instantiate()
+		#particles.global_position = global_position
+		#particles.radius = radius
+		#get_tree().current_scene.add_child(particles)
+		#MusicPlayer.explosion_sound()

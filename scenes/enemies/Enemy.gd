@@ -5,6 +5,7 @@ class_name Enemy
 @export var health: int
 @export var speed: int
 @export var contact_damage: bool
+@export var nav_agent_movement: bool = true
 @export var boss: bool
 @export var min_dim_drop: int = 1
 @export var max_dim_drop: int = 1
@@ -41,12 +42,14 @@ func _on_modulate_timer_timeout() -> void:
 	
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("players") and contact_damage:
-		if not GlobalVariables.dashing and not GlobalVariables.graced:
-			body.take_damage()
+		body.take_damage()
 	
 func _process(_delta: float) -> void:
-	var new_velocity = direction * speed
-	nav.set_velocity(new_velocity)
+	if nav_agent_movement:
+		var new_velocity = direction * speed
+		nav.set_velocity(new_velocity)
+	else:
+		velocity = direction * speed
 	
 	move_and_slide()
 	
@@ -71,6 +74,7 @@ func die() -> void:
 		get_tree().current_scene.add_child(particles)
 		if boss:
 			MusicPlayer.boss_defeat()
+			MusicPlayer.change_music(preload("res://music/Of Days Long Past.ogg"))
 		else:
 			MusicPlayer.enemy_defeat()
 		queue_free()

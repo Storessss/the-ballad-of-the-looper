@@ -18,26 +18,30 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_75fxw"]
-radius = 4.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_75fxw"]
+radius = 5.0
+height = 22.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xhaqt"]
-radius = 4.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0wve8"]
+radius = 5.0
+height = 22.0
 
 [node name="DungeonFlower" groups=["dungeon_flowers"] instance=ExtResource("1_cgra1")]
 script = ExtResource("2_qdoxr")
 max_dim_drop = 2
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-position = Vector2(0, 5)
 sprite_frames = SubResource("SpriteFrames_qdoxr")
 autoplay = "default"
 
 [node name="CollisionShape2D" parent="." index="1"]
-shape = SubResource("CircleShape2D_75fxw")
+shape = SubResource("CapsuleShape2D_75fxw")
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
-shape = SubResource("CircleShape2D_xhaqt")
+shape = SubResource("CapsuleShape2D_0wve8")
+
+[node name="NavigationAgent2D" parent="." index="3"]
+avoidance_enabled = false
 
 [node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
