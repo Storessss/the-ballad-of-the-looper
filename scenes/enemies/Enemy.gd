@@ -7,6 +7,8 @@ class_name Enemy
 @export var contact_damage: bool
 @export var nav_agent_movement: bool = true
 @export var boss: bool
+var knockback: Vector2
+@export var knockback_resistance: float = 1.0
 @export var min_dim_drop: int = 1
 @export var max_dim_drop: int = 1
 var dim_scene: PackedScene = preload("res://scenes/items/dim.tscn")
@@ -36,6 +38,10 @@ func take_damage(damage: int) -> void:
 	modulate = Color(5,5,5,1)
 	$ModulateTimer.start()
 	MusicPlayer.enemy_hit()
+	
+func apply_knockback(force: Vector2) -> void:
+	knockback += force / knockback_resistance
+	print(knockback)
 		
 func _on_modulate_timer_timeout() -> void:
 	modulate = default_modulate
@@ -44,11 +50,17 @@ func _on_area_2d_body_entered(body):
 	if body.is_in_group("players") and contact_damage:
 		body.take_damage()
 	
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if nav_agent_movement:
 		var new_velocity = direction * speed
+		if knockback.length() > 0.1:
+			new_velocity += knockback
+			knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
 		nav.set_velocity(new_velocity)
 	else:
+		if knockback.length() > 0.1:
+			velocity += knockback
+			knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
 		velocity = direction * speed
 	
 	move_and_slide()

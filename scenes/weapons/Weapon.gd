@@ -5,6 +5,8 @@ class_name Weapon
 @export var fire_rate: float
 @export var damage: int
 @export var effect_damage: int
+@export var bullet_count: int = 1
+@export var bullet_spread: int = 5
 @export var bullet_scene: PackedScene
 @export var deflective_shots: bool
 #@export var melee: bool
@@ -21,23 +23,25 @@ func _ready():
 
 func shoot() -> void:
 	$FireRateTimer.start(fire_rate / GlobalVariables.fire_rate_multiplier)
-	#if line_of_sight(GlobalVariables.player_position, $CastPoint.global_position) or melee:
-	var bullet = bullet_scene.instantiate()
-	var point
-	if GlobalVariables.controller:
-		#point = $CastPoint.global_position - GlobalVariables.player_position
-		point = global_position - GlobalVariables.player_position
-	else:
-		point = get_global_mouse_position() - global_position
-	bullet.angle = point.angle()
-	bullet.global_position = GlobalVariables.player_position
-	bullet.damage = max(damage * GlobalVariables.damage_multiplier, 1)
-	bullet.effect_damage = max(effect_damage * GlobalVariables.damage_multiplier, 1)
-	bullet.player_bullet = true
-	bullet.deflective = deflective_shots
-	get_tree().current_scene.add_child(bullet)
-	if self is not ChargedWeapon:
-		$AttackSound.play()
+	var pos = round(-bullet_spread * (bullet_count / 2))
+	for i in range(bullet_count):
+		var bullet = bullet_scene.instantiate()
+		var point
+		if GlobalVariables.controller:
+			point = global_position - GlobalVariables.player_position
+		else:
+			point = get_global_mouse_position() - global_position
+		bullet.angle = point.angle() + deg_to_rad(pos)
+		bullet.global_position = global_position
+		pos += bullet_spread
+		bullet.global_position = GlobalVariables.player_position
+		bullet.damage = max(damage * GlobalVariables.damage_multiplier, 1)
+		bullet.effect_damage = max(effect_damage * GlobalVariables.damage_multiplier, 1)
+		bullet.player_bullet = true
+		bullet.deflective = deflective_shots
+		get_tree().current_scene.add_child(bullet)
+		if self is not ChargedWeapon:
+			$AttackSound.play()
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("attack") and $FireRateTimer.is_stopped():

@@ -10,9 +10,8 @@ class_name Bullet
 @export var pierce: int = 1
 @export var destructive: bool
 @export var explosive: bool
-#@export var explosion_radius: int
 @export var area_damage_scene: PackedScene
-#var explosion_particles_scene: PackedScene = preload("res://scenes/particles/explosion_particles.tscn")
+@export var knockback_amount: int
 
 var angle: float
 var damage: int
@@ -73,6 +72,7 @@ func _process(_delta: float) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and player_bullet:
 		body.take_damage(damage)
+		body.apply_knockback(direction * knockback_amount)
 		pierce -= 1
 		if pierce <= 0:
 			queue_free()
@@ -118,23 +118,3 @@ func explode():
 	area_damage.damage = effect_damage
 	get_tree().current_scene.call_deferred("add_child", area_damage)
 	MusicPlayer.explosion_sound()
-	#if destructive:
-		#var area: Array[int]
-		#var area_counter: int = -radius
-		#while area_counter <= radius:
-			#area.append(area_counter)
-			#area_counter += 1
-		#var cell: Vector2i = GlobalVariables.tilemap.local_to_map(GlobalVariables.tilemap.to_local(global_position))
-		#for i in area:
-			#for j in area:
-				#GlobalVariables.tilemap.set_floor(Vector2i(cell.x + i, cell.y + j))
-		#var area_damage: Area2D = area_damage_scene.instantiate()
-		#area_damage.global_position = global_position
-		#area_damage.radius = radius
-		#area_damage.damage = effect_damage
-		#get_tree().current_scene.call_deferred("add_child", area_damage)
-		#var particles = explosion_particles_scene.instantiate()
-		#particles.global_position = global_position
-		#particles.radius = radius
-		#get_tree().current_scene.add_child(particles)
-		#MusicPlayer.explosion_sound()

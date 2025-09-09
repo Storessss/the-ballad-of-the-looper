@@ -7,7 +7,9 @@
 
 [node name="WaterStaff" instance=ExtResource("1_2hmls")]
 fire_rate = 0.07
-damage = 10
+damage = 5
+bullet_count = 3
+bullet_spread = 4
 bullet_scene = ExtResource("2_j0ds4")
 
 [node name="Sprite2D" parent="." index="0"]

@@ -13,14 +13,7 @@ var map: Array[Vector2i]
 
 var player_scene: PackedScene = preload("res://scenes/game/player.tscn")
 
-var enemy_count: int = 45#15
-#var enemies: Array[PackedScene] = [
-	#preload("res://scenes/enemies/slime.tscn"),
-	#preload("res://scenes/enemies/spitter.tscn"),
-	##preload("res://scenes/enemies/crusher.tscn"),
-	#preload("res://scenes/enemies/triple_shooter.tscn"),
-	#preload("res://scenes/enemies/dungeon_flower.tscn"),
-#]
+var enemy_count: int = 15
 var enemies: Dictionary = {
 	preload("res://scenes/enemies/slime.tscn"): INF,
 	preload("res://scenes/enemies/spitter.tscn"): INF,
@@ -51,7 +44,10 @@ var loading_tips: Array[String] = [
 	"[color=red]HORRIBLE[/color] [color=gray]Sword[/color]",
 	"Don't listen to the [color=red]Shopkeeper[/color]",
 	"Just keep going",
-	"[shake]The Ballad of the Looper Never Stops.[/shake]"
+	"[shake]The Ballad of the Looper Never Stops.[/shake]",
+	"Trust the [color=green]Thoughts[/color] ignore the [color=red]Mind[/color]",
+	"[rainbow freq=1.5, sat=1.5, val=1.5]THE DISENGAGER[/rainbow] will fix everything",
+	"Next room is room " + str(GlobalVariables.room),
 ]
 
 func _ready() -> void:

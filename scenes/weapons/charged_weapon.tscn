@@ -5,6 +5,7 @@
 
 [node name="ChargedWeapon" instance=ExtResource("1_g2lqr")]
 script = ExtResource("2_gtqge")
+charge_time = 0.0
 
 [node name="ChargeTimer" type="Timer" parent="." index="3"]
 one_shot = true
