@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqrkwtoin7ekt"]
+
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_y1kij"]
+[ext_resource type="Texture2D" uid="uid://cao5dwoa6dht0" path="res://sprites/staff8.png" id="2_4jyul"]
+[ext_resource type="PackedScene" uid="uid://bj1iy4rtbcyfm" path="res://scenes/bullets/boulder.tscn" id="2_kbeuk"]
+[ext_resource type="AudioStream" uid="uid://dmrpb70y4dnjy" path="res://sounds/earth_staff.wav" id="3_5ny3d"]
+
+[node name="EarthStaff" instance=ExtResource("1_y1kij")]
+fire_rate = 0.75
+damage = 70
+effect_damage = 15
+bullet_scene = ExtResource("2_kbeuk")
+
+[node name="Sprite2D" parent="." index="0"]
+rotation = 0.7853982
+texture = ExtResource("2_4jyul")
+
+[node name="AttackSound" parent="." index="2"]
+stream = ExtResource("3_5ny3d")
+
+[node name="CastPoint" parent="." index="3"]
+position = Vector2(0, -6)

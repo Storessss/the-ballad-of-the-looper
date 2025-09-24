@@ -18,3 +18,6 @@ texture = ExtResource("2_n1dl5")
 [node name="AttackSound" parent="." index="2"]
 stream = ExtResource("5_672sg")
 volume_db = 6.0
+
+[node name="CastPoint" parent="." index="3"]
+position = Vector2(0, -4)

@@ -5,6 +5,8 @@ class_name PingPong
 @onready var enemy: Enemy = get_parent().get_parent()
 @export var state_duration_min: float
 @export var state_duration_max: float
+@export var min_speed: int = 1
+@export var max_speed: int = 2
 @export var animation: String
 @export var next_state: State
 
@@ -24,15 +26,19 @@ func Update(delta: float) -> void:
 		
 
 func Physics_Update(_delta: float) -> void:
-	var direction = enemy.direction
+	var direction: Vector2 = enemy.direction
 	if direction == Vector2.ZERO:
-		var angle = randf() * TAU
-		direction = Vector2(cos(angle), sin(angle))
-
+		direction = Vector2(randi_range(-max_speed, max_speed), randi_range(-max_speed, max_speed))
 	for i in range(enemy.get_slide_collision_count()):
 		var collision = enemy.get_slide_collision(i)
 		var normal = collision.get_normal()
-		
-		direction = direction.bounce(normal)
-		
-	enemy.direction = direction.normalized()
+		if normal == Vector2.LEFT:
+			direction.x = randi_range(-max_speed, -min_speed)
+		elif normal == Vector2.RIGHT:
+			direction.x = randi_range(min_speed, max_speed) 
+		elif normal == Vector2.UP:
+			direction.y = randi_range(-max_speed, -min_speed)
+		elif normal == Vector2.DOWN:
+			direction.y = randi_range(min_speed, max_speed)
+			
+	enemy.direction = direction

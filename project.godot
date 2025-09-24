@@ -12,7 +12,7 @@ config_version=5
 
 config/name="The Ballad of the Looper"
 run/main_scene="uid://l5adx18ypeds"
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -26,6 +26,7 @@ DialogueManager="*res://singletons/dialogue_manager.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="viewport"
+window/vsync/vsync_mode=0
 
 [global_group]
 

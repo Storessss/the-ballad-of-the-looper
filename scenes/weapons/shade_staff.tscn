@@ -16,3 +16,6 @@ texture = ExtResource("2_jbq47")
 
 [node name="AttackSound" parent="." index="2"]
 stream = ExtResource("4_x7sob")
+
+[node name="CastPoint" parent="." index="3"]
+position = Vector2(0, -3)

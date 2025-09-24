@@ -20,7 +20,7 @@ var enemies: Dictionary = {
 	preload("res://scenes/enemies/crusher.tscn"): 2,
 	preload("res://scenes/enemies/triple_shooter.tscn"): INF,
 	preload("res://scenes/enemies/dungeon_flower.tscn"): 5,
-	preload("res://scenes/enemies/spingling.tscn"): 5,
+	preload("res://scenes/enemies/spingling.tscn"): 3,
 }
 var bosses := [
 	preload("res://scenes/enemies/bosses/little_devil.tscn")
@@ -70,7 +70,6 @@ var step_percentage: int = 20
 var progress: int
 var step_progress: float
 var generated: int
-var generation_quota: int
 
 var border_cells: Array[Vector2i]
 
@@ -81,6 +80,7 @@ var room_size = Vector2i(4, 4)
 var nearest_floor: Vector2i
 var min_distance: int = INF
 var current_cell: Vector2i
+var generation_quota: int
 
 func _process(_delta: float) -> void:
 	if generation_progress == 0:
@@ -90,7 +90,7 @@ func _process(_delta: float) -> void:
 		progress_label.text = str(progress) + "%"
 		
 		generated = 0
-		generation_quota = 75
+		generation_quota = 250
 		while generated < generation_quota and generation_progress == 0:
 			border_cells.append(Vector2i(map_start.x + x, map_start.y + y))
 			

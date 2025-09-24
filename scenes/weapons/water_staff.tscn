@@ -7,7 +7,7 @@
 
 [node name="WaterStaff" instance=ExtResource("1_2hmls")]
 fire_rate = 0.07
-damage = 5
+damage = 10
 bullet_count = 3
 bullet_spread = 4
 bullet_scene = ExtResource("2_j0ds4")
@@ -19,3 +19,6 @@ texture = ExtResource("2_fjjjl")
 [node name="AttackSound" parent="." index="2"]
 stream = ExtResource("3_ebbuw")
 volume_db = 10.0
+
+[node name="CastPoint" parent="." index="3"]
+position = Vector2(0, -5)

@@ -51,7 +51,7 @@ func _process(_delta: float) -> void:
 		get_parent().progress_label.text = str(get_parent().progress) + "%"
 		
 		get_parent().generated = 0
-		get_parent().generation_quota = 75
+		get_parent().generation_quota = 250
 		while get_parent().generated < get_parent().generation_quota and get_parent().generation_progress == 1:
 			i += 1
 			if i >= steps:

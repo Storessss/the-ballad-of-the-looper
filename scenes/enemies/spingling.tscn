@@ -23,7 +23,7 @@ radius = 4.0
 
 [node name="Spingling" instance=ExtResource("1_kli8e")]
 health = 50
-speed = 100
+speed = 70
 contact_damage = true
 nav_agent_movement = false
 max_dim_drop = 2

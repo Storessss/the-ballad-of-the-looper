@@ -9,7 +9,6 @@ class_name Weapon
 @export var bullet_spread: int = 5
 @export var bullet_scene: PackedScene
 @export var deflective_shots: bool
-#@export var melee: bool
 
 var reticle_position: Vector2
 var weapon_point: Node2D
@@ -32,9 +31,8 @@ func shoot() -> void:
 		else:
 			point = get_global_mouse_position() - global_position
 		bullet.angle = point.angle() + deg_to_rad(pos)
-		bullet.global_position = global_position
+		bullet.global_position = $CastPoint.global_position
 		pos += bullet_spread
-		bullet.global_position = GlobalVariables.player_position
 		bullet.damage = max(damage * GlobalVariables.damage_multiplier, 1)
 		bullet.effect_damage = max(effect_damage * GlobalVariables.damage_multiplier, 1)
 		bullet.player_bullet = true

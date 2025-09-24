@@ -3,7 +3,7 @@ extends Node
 var dashing: bool
 var graced: bool
 
-var controller: bool #= true
+var controller: bool = true
 
 var first_time_inventory_instantiation: bool = true
 var inventory: Array[PackedScene]

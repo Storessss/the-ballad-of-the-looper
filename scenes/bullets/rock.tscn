@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4hn0nwaorc6d"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_q6i88"]
+[ext_resource type="Texture2D" uid="uid://crg3d3ay410vp" path="res://sprites/rock.png" id="2_8etgs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8etgs"]
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sdttm"]
+radius = 2.236068
+
+[node name="Rock" instance=ExtResource("1_q6i88")]
+speed = 180
+destroy_time = 3.0
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_8etgs")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_8etgs")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_sdttm")

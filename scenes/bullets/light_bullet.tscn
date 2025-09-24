@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhdymeq5alab7"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_8ktqv"]
+[ext_resource type="Texture2D" uid="uid://hsafkb7rt385" path="res://sprites/light_bullet.png" id="2_h4cqe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h4cqe"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_puby0"]
+radius = 3.0
+
+[node name="LightBullet" instance=ExtResource("1_8ktqv")]
+speed = 350
+destroy_time = 2.0
+homing = true
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_h4cqe")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_h4cqe")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_puby0")

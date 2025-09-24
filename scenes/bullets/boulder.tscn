@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bj1iy4rtbcyfm"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_r21t8"]
+[ext_resource type="PackedScene" uid="uid://d4hn0nwaorc6d" path="res://scenes/bullets/rock.tscn" id="2_4xy7m"]
+[ext_resource type="Texture2D" uid="uid://pd1ynqqm1ucu" path="res://sprites/boulder.png" id="2_j4iib"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4xy7m"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ontky"]
+radius = 5.0
+
+[node name="Boulder" instance=ExtResource("1_r21t8")]
+speed = 230
+destroy_time = 5.0
+transparent = true
+destructive = true
+bullet_ring_count = 10
+bullet_ring_scene = ExtResource("2_4xy7m")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_j4iib")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_4xy7m")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_ontky")

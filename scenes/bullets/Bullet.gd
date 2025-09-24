@@ -11,7 +11,9 @@ class_name Bullet
 @export var destructive: bool
 @export var explosive: bool
 @export var area_damage_scene: PackedScene
-@export var knockback_amount: int
+@export var homing: bool
+@export var bullet_ring_count: int
+@export var bullet_ring_scene: PackedScene
 
 var angle: float
 var damage: int
@@ -44,8 +46,18 @@ func _ready() -> void:
 		area_damage.destroy_time = destroy_time
 		add_child(area_damage)
 	
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	direction = Vector2(cos(angle), sin(angle))
+	if homing and player_bullet and get_tree().get_nodes_in_group("enemies"):
+		var closest_distance: float = INF
+		var closest_enemy: Enemy
+		for enemy in get_tree().get_nodes_in_group("enemies"):
+			var distance: float = global_position.distance_to(enemy.global_position)
+			if distance < closest_distance:
+				closest_distance = distance
+				closest_enemy = enemy
+				
+		direction = (closest_enemy.global_position - global_position).normalized()
 	velocity = direction * speed
 	move_and_slide()
 	rotation = direction.angle() + PI / 2
@@ -67,14 +79,17 @@ func _process(_delta: float) -> void:
 		if hit_wall:
 			pierce -= 1
 			if pierce <= 0:
+				if bullet_ring_count > 0 and bullet_ring_scene:
+					call_deferred("bullet_ring")
 				queue_free()
 				
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and player_bullet:
 		body.take_damage(damage)
-		body.apply_knockback(direction * knockback_amount)
 		pierce -= 1
 		if pierce <= 0:
+			if bullet_ring_count > 0 and bullet_ring_scene:
+				call_deferred("bullet_ring")
 			queue_free()
 	elif body.is_in_group("players") and not player_bullet:
 		body.take_damage()
@@ -118,3 +133,14 @@ func explode():
 	area_damage.damage = effect_damage
 	get_tree().current_scene.call_deferred("add_child", area_damage)
 	MusicPlayer.explosion_sound()
+	
+func bullet_ring():
+	for i in range(bullet_ring_count):
+		var angle = deg_to_rad(i * 360 / bullet_ring_count)
+		var bullet = bullet_ring_scene.instantiate()
+		bullet.angle = angle
+		bullet.global_position = global_position
+		bullet.player_bullet = player_bullet
+		bullet.damage = effect_damage
+		get_tree().current_scene.add_child(bullet)
+	MusicPlayer.wall_break()
