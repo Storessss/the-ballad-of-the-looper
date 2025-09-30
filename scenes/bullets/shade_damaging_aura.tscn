@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhi5twrk26kgn"]
+
+[ext_resource type="PackedScene" uid="uid://cllj7gfot102d" path="res://scenes/bullets/area_damage.tscn" id="1_ucojd"]
+[ext_resource type="PackedScene" uid="uid://df5pi7m1qugt5" path="res://scenes/particles/shade_aura_particles.tscn" id="2_hy8jp"]
+
+[node name="ShadeDamagingAura" instance=ExtResource("1_ucojd")]
+radius = 1
+explosion = false
+destructive = false
+damages_player = false
+damage_time = 0.5
+particle_scene = ExtResource("2_hy8jp")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtiaf22app1un"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_woo3j"]
+[ext_resource type="Texture2D" uid="uid://cbxcl77hrecni" path="res://sprites/air_bullet.png" id="2_2q4we"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2q4we"]
+size = Vector2(6, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdilg"]
+size = Vector2(8, 5)
+
+[node name="AirBullet" instance=ExtResource("1_woo3j")]
+speed = 300
+destroy_time = 4.0
+bouncing = true
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_2q4we")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_2q4we")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_wdilg")

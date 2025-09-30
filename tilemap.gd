@@ -1,16 +1,15 @@
 extends TileMapLayer
 
-#var tileset = preload("res://sprites/tileset_dungeon_test.png")
-#
-#func swap_tiles():
-	#tile_set.get_source(0).texture = new_tileset
-#
-##func _ready():
-	##swap_tiles()
-#
-#func _process(delta: float) -> void:
-	#if Input.is_action_just_pressed("attack"):
-		#swap_tiles()
+var new_walls: Texture = preload("res://sprites/dungeon_tileset2.png")
+var new_floor: Texture = preload("res://sprites/dungeon_floor2.png")
+
+func swap_tiles():
+	tile_set.get_source(6).texture = new_walls
+	tile_set.get_source(7).texture = new_floor
+
+func _ready():
+	swap_tiles()
+	pass
 		
 var map: Array[Vector2i]
 		

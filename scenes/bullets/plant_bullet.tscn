@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b02xlj2rd370l"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_pix01"]
+[ext_resource type="Texture2D" uid="uid://cboa2wcalmmsb" path="res://sprites/plant_bullet.png" id="2_28xyp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdtpb"]
+size = Vector2(7, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pj0xn"]
+size = Vector2(9, 14)
+
+[node name="PlantBullet" instance=ExtResource("1_pix01")]
+speed = 270
+destroy_time = 4.0
+pierce = 8
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_28xyp")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_xdtpb")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_pj0xn")

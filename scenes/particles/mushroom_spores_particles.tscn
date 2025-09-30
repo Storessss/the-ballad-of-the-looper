@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dehv0o75pw6ui"]
+
+[ext_resource type="Script" uid="uid://bv5t6lv74ha3" path="res://scenes/particles/area_damage_particles.gd" id="1_sy0cw"]
+
+[sub_resource type="Curve" id="Curve_6dy78"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.547623, 0.0, 0, 0]
+point_count = 2
+
+[node name="ShadeAuraParticles" type="Node2D"]
+script = ExtResource("1_sy0cw")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+scale = Vector2(0.1, 0.1)
+amount = 50
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 325.0
+initial_velocity_max = 325.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_6dy78")
+color = Color(1, 0.92156863, 0.34117648, 1)

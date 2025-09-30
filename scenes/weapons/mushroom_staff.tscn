@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc5aifuuscn7a"]
+
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_di2d1"]
+[ext_resource type="PackedScene" uid="uid://dea325uhvvoys" path="res://scenes/bullets/mushroom_bullet.tscn" id="2_jeuxo"]
+[ext_resource type="Texture2D" uid="uid://durpej4qfcepo" path="res://sprites/staff37.png" id="2_y02vn"]
+
+[node name="MushroomStaff" instance=ExtResource("1_di2d1")]
+fire_rate = 1.0
+effect_damage = 65
+bullet_scene = ExtResource("2_jeuxo")
+
+[node name="Sprite2D" parent="." index="0"]
+rotation = 0.7853982
+texture = ExtResource("2_y02vn")
+
+[node name="CastPoint" parent="." index="3"]
+position = Vector2(0, -8)

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://qsslgjq3uc7h"]
+
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_16rg5"]
+[ext_resource type="PackedScene" uid="uid://dtiaf22app1un" path="res://scenes/bullets/air_bullet.tscn" id="2_e55fs"]
+[ext_resource type="Texture2D" uid="uid://bj7pbdpjp6y6r" path="res://sprites/staff11.png" id="3_4rj43"]
+
+[node name="AirStaff" instance=ExtResource("1_16rg5")]
+fire_rate = 0.08
+damage = 10
+bullet_scene = ExtResource("2_e55fs")
+
+[node name="Sprite2D" parent="." index="0"]
+rotation = 0.7853982
+texture = ExtResource("3_4rj43")
+
+[node name="CastPoint" parent="." index="3"]
+position = Vector2(0, -4)
