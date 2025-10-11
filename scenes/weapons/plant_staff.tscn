@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyqlw2w3litoc"]
+[gd_scene load_steps=5 format=3 uid="uid://dyqlw2w3litoc"]
 
 [ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_ownk8"]
 [ext_resource type="PackedScene" uid="uid://b02xlj2rd370l" path="res://scenes/bullets/plant_bullet.tscn" id="2_la5hd"]
 [ext_resource type="Texture2D" uid="uid://c8slcfjk3hdwn" path="res://sprites/staff1.png" id="2_rtvl2"]
+[ext_resource type="AudioStream" uid="uid://cxhalqiqsm1jy" path="res://sounds/plant_staff.wav" id="4_iwcqd"]
 
 [node name="PlantStaff" instance=ExtResource("1_ownk8")]
 fire_rate = 0.45
@@ -12,6 +13,9 @@ bullet_scene = ExtResource("2_la5hd")
 [node name="Sprite2D" parent="." index="0"]
 rotation = 0.7853982
 texture = ExtResource("2_rtvl2")
+
+[node name="AttackSound" parent="." index="2"]
+stream = ExtResource("4_iwcqd")
 
 [node name="CastPoint" parent="." index="3"]
 position = Vector2(0, -4)

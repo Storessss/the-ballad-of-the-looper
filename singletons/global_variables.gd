@@ -23,7 +23,7 @@ var right: int
 var bottom: int
 
 var tilemap: TileMapLayer
-var room: int = 1
+var room: int = 3
 
 var fire_rate_multiplier: float = 1.0
 var damage_multiplier: float = 1.0

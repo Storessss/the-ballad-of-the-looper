@@ -1,23 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://ddufykptqanl7"]
+[gd_scene load_steps=13 format=3 uid="uid://ddufykptqanl7"]
 
-[ext_resource type="Script" uid="uid://b4c8q2fvhicv8" path="res://scenes/game/player.gd" id="1_68xwl"]
+[ext_resource type="Script" uid="uid://b4c8q2fvhicv8" path="res://scenes/main/player.gd" id="1_68xwl"]
 [ext_resource type="Texture2D" uid="uid://c5thlea8t0ru3" path="res://sprites/zaine_idle1.png" id="1_nybob"]
 [ext_resource type="Texture2D" uid="uid://dgbxs4niigp66" path="res://sprites/zaine_idle2.png" id="2_68xwl"]
 [ext_resource type="PackedScene" uid="uid://dij626x8edncs" path="res://scenes/weapons/sword.tscn" id="2_m5ugi"]
-[ext_resource type="PackedScene" uid="uid://cdln2cmlx5g2q" path="res://scenes/weapons/fire_staff.tscn" id="3_dsw4c"]
 [ext_resource type="Texture2D" uid="uid://6ofbi85nmftt" path="res://sprites/blank.png" id="3_t8yk2"]
 [ext_resource type="Texture2D" uid="uid://bfv2ipk7utf85" path="res://sprites/zaine_walk1.png" id="3_wwvfn"]
-[ext_resource type="PackedScene" uid="uid://bcsy2g13qiay2" path="res://scenes/weapons/shade_staff.tscn" id="4_0eoyi"]
 [ext_resource type="Texture2D" uid="uid://rh38gmteeaha" path="res://sprites/zaine_walk2.png" id="4_t8yk2"]
-[ext_resource type="PackedScene" uid="uid://bwumr5434miru" path="res://scenes/weapons/water_staff.tscn" id="5_8egkn"]
-[ext_resource type="PackedScene" uid="uid://2sxm2msscxlp" path="res://scenes/weapons/light_staff.tscn" id="6_sia57"]
-[ext_resource type="PackedScene" uid="uid://dqrkwtoin7ekt" path="res://scenes/weapons/earth_staff.tscn" id="7_e605p"]
 [ext_resource type="Texture2D" uid="uid://rs3clmqas3l3" path="res://sprites/crosshair.png" id="7_t8yk2"]
 [ext_resource type="AudioStream" uid="uid://c2atch7yv2q1u" path="res://sounds/dash_sound.wav" id="8_3vq1g"]
-[ext_resource type="PackedScene" uid="uid://qsslgjq3uc7h" path="res://scenes/weapons/air_staff.tscn" id="8_cyajl"]
-[ext_resource type="PackedScene" uid="uid://dyqlw2w3litoc" path="res://scenes/weapons/plant_staff.tscn" id="9_fh65b"]
 [ext_resource type="AudioStream" uid="uid://cx6qnqe40wotv" path="res://sounds/hit.wav" id="10_bnwh7"]
-[ext_resource type="PackedScene" uid="uid://bc5aifuuscn7a" path="res://scenes/weapons/mushroom_staff.tscn" id="10_ey0fj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m5ugi"]
 animations = [{
@@ -62,7 +54,7 @@ radius = 4.0
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_68xwl")
-starting_inventory = Array[PackedScene]([ExtResource("2_m5ugi"), ExtResource("3_dsw4c"), ExtResource("4_0eoyi"), ExtResource("5_8egkn"), ExtResource("6_sia57"), ExtResource("7_e605p"), ExtResource("8_cyajl"), ExtResource("9_fh65b"), ExtResource("10_ey0fj")])
+starting_inventory = Array[PackedScene]([ExtResource("2_m5ugi")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)

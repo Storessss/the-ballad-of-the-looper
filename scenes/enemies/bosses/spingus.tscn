@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://nm5dtrvlcf3a"]
+
+[ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_7lrh4"]
+[ext_resource type="Texture2D" uid="uid://dkgy2fvgitjmo" path="res://sprites/spingus.png" id="2_hetc0"]
+[ext_resource type="Script" uid="uid://c18ewpx7fyfw8" path="res://scenes/enemies/state_machine/states/PingPong.gd" id="3_abb2f"]
+[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="4_f52pg"]
+[ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="5_dl7k7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f52pg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hetc0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_80khi"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mqqcm"]
+radius = 6.0
+
+[node name="Spingus" instance=ExtResource("1_7lrh4")]
+health = 1200
+speed = 55
+contact_damage = true
+nav_agent_movement = false
+boss = true
+min_dim_drop = 25
+max_dim_drop = 65
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_f52pg")
+autoplay = "default"
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_80khi")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_mqqcm")
+
+[node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("PingPong")
+
+[node name="PingPong" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("3_abb2f")
+state_duration_min = 3.0
+state_duration_max = 3.0
+next_state = NodePath("../ShootRing")
+
+[node name="ShootRing" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state")]
+script = ExtResource("4_f52pg")
+bullet_scene = ExtResource("5_dl7k7")
+bullet_count = 10
+animation = "default"
+next_state = NodePath("../PingPong")

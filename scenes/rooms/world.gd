@@ -11,7 +11,7 @@ var borders = Rect2(map_start.x, map_start.y, map_size.x, map_size.y)
 
 var map: Array[Vector2i]
 
-var player_scene: PackedScene = preload("res://scenes/game/player.tscn")
+var player_scene: PackedScene = preload("res://scenes/main/player.tscn")
 
 var enemy_count: int = 15
 var enemies: Dictionary = {
@@ -23,7 +23,8 @@ var enemies: Dictionary = {
 	preload("res://scenes/enemies/spingling.tscn"): 3,
 }
 var bosses := [
-	preload("res://scenes/enemies/bosses/little_devil.tscn")
+	#preload("res://scenes/enemies/bosses/little_devil.tscn"),
+	preload("res://scenes/enemies/bosses/spingus.tscn")
 ]
 var boss_spawn_percentage: int = 50
 var can_spawn_boss: bool = true
@@ -49,6 +50,8 @@ var loading_tips: Array[String] = [
 	"[rainbow freq=1.5, sat=1.5, val=1.5]THE DISENGAGER[/rainbow] will fix everything",
 	"Next room is room " + str(GlobalVariables.room),
 ]
+
+var chest_scene: PackedScene = preload("res://scenes/props/chest.tscn")
 
 func _ready() -> void:
 	GlobalVariables.tilemap = tilemap
@@ -205,6 +208,7 @@ func _process(_delta: float) -> void:
 	
 func finalize_generation() -> void:
 	generate_enemies(enemy_count, enemies)
+	generate_chests(1)
 	
 	GlobalVariables.dungeon_flower_targets.clear()
 	for enemy in get_tree().get_nodes_in_group("enemies"):
@@ -260,3 +264,11 @@ func generate_boss() -> void:
 	
 	MusicPlayer.change_music(preload("res://music/Blinded By Fight And Greed.ogg"))
 	MusicPlayer.wall_break()
+
+func generate_chests(chest_count: int) -> void:
+	map.shuffle()
+	for i in range(chest_count):
+		var chest: Node2D = chest_scene.instantiate()
+		var location = map.pop_back()
+		chest.global_position = tilemap.map_to_local(location)
+		add_child(chest)

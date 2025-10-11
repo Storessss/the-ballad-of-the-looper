@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b71sbhy8sb1sg" path="res://scenes/rooms/room.gd" id="1_48f77"]
 [ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://tilemap.tscn" id="2_ms3in"]
-[ext_resource type="PackedScene" uid="uid://ddufykptqanl7" path="res://scenes/game/player.tscn" id="3_3pgh2"]
-[ext_resource type="PackedScene" uid="uid://lidthfxyvbu6" path="res://scenes/game/hud.tscn" id="4_bxelx"]
+[ext_resource type="PackedScene" uid="uid://ddufykptqanl7" path="res://scenes/main/player.tscn" id="3_3pgh2"]
+[ext_resource type="PackedScene" uid="uid://lidthfxyvbu6" path="res://scenes/main/hud.tscn" id="4_bxelx"]
 [ext_resource type="PackedScene" uid="uid://lihuro2y1afi" path="res://scenes/props/wooden_trapdoor.tscn" id="5_3nht7"]
 [ext_resource type="Texture2D" uid="uid://dhod71bu7wbuh" path="res://icon.svg" id="6_tmaxl"]
 

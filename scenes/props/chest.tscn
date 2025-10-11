@@ -1,0 +1,78 @@
+[gd_scene load_steps=11 format=3 uid="uid://cy2c26xsjrajk"]
+
+[ext_resource type="Script" uid="uid://bo6633tarmva8" path="res://scenes/props/chest.gd" id="1_npv5w"]
+[ext_resource type="Texture2D" uid="uid://46moy8c8876b" path="res://sprites/wooden_chest1.png" id="1_rpfu6"]
+[ext_resource type="Texture2D" uid="uid://btuuqrd3q6lye" path="res://sprites/wooden_chest6.png" id="2_6s0y4"]
+[ext_resource type="Texture2D" uid="uid://b6kica1owmo60" path="res://sprites/wooden_chest2.png" id="3_58lfw"]
+[ext_resource type="Texture2D" uid="uid://c1nauinluberk" path="res://sprites/wooden_chest3.png" id="4_uklrr"]
+[ext_resource type="Texture2D" uid="uid://c15d2gvakaygi" path="res://sprites/wooden_chest4.png" id="5_7qnip"]
+[ext_resource type="Texture2D" uid="uid://ce8p05iuviwdq" path="res://sprites/wooden_chest5.png" id="6_c25bx"]
+[ext_resource type="AudioStream" uid="uid://b7y84clq4xplf" path="res://sounds/chest_opening.wav" id="8_v8vvc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bgwwh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_rpfu6")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6s0y4")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_rpfu6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_58lfw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uklrr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7qnip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_c25bx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_6s0y4")
+}],
+"loop": true,
+"name": &"opening",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_613ax"]
+radius = 49.365982
+
+[node name="Chest" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_npv5w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(7.000009, -4.0000052)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_bgwwh")
+animation = &"closed"
+autoplay = "closed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_613ax")
+
+[node name="ChestOpening" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_v8vvc")
+volume_db = 10.0
+bus = &"Sounds"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

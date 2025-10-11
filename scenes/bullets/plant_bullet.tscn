@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cboa2wcalmmsb" path="res://sprites/plant_bullet.png" id="2_28xyp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xdtpb"]
-size = Vector2(7, 12)
+size = Vector2(10, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pj0xn"]
-size = Vector2(9, 14)
+size = Vector2(18, 27)
 
 [node name="PlantBullet" instance=ExtResource("1_pix01")]
 speed = 270
@@ -15,12 +15,14 @@ destroy_time = 4.0
 pierce = 8
 
 [node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -3)
+scale = Vector2(2, 2)
 texture = ExtResource("2_28xyp")
 
 [node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(-0.5, 1)
+position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_xdtpb")
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2(-0.5, 1)
+position = Vector2(-1, -1.5)
 shape = SubResource("RectangleShape2D_pj0xn")
