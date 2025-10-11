@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://nm5dtrvlcf3a"]
+[gd_scene load_steps=12 format=3 uid="uid://nm5dtrvlcf3a"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_7lrh4"]
 [ext_resource type="Texture2D" uid="uid://dkgy2fvgitjmo" path="res://sprites/spingus.png" id="2_hetc0"]
 [ext_resource type="Script" uid="uid://c18ewpx7fyfw8" path="res://scenes/enemies/state_machine/states/PingPong.gd" id="3_abb2f"]
 [ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="4_f52pg"]
+[ext_resource type="Script" uid="uid://cm2qwd3qkoyso" path="res://scenes/enemies/state_machine/states/PickRandomNextState.gd" id="4_vjxuv"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="5_dl7k7"]
+[ext_resource type="Script" uid="uid://cj45kwgsxfhd2" path="res://scenes/enemies/state_machine/states/SpawnEnemy.gd" id="7_pvio2"]
+[ext_resource type="PackedScene" uid="uid://cjagx2mcxujfg" path="res://scenes/enemies/spingling.tscn" id="8_syan8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f52pg"]
 animations = [{
@@ -50,11 +53,21 @@ initial_state = NodePath("PingPong")
 script = ExtResource("3_abb2f")
 state_duration_min = 3.0
 state_duration_max = 3.0
-next_state = NodePath("../ShootRing")
+next_state = NodePath("../PickRandomNextState")
 
-[node name="ShootRing" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state")]
+[node name="PickRandomNextState" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("states")]
+script = ExtResource("4_vjxuv")
+states = [NodePath("../ShootRing"), NodePath("../SpawnEnemy")]
+
+[node name="ShootRing" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
 script = ExtResource("4_f52pg")
 bullet_scene = ExtResource("5_dl7k7")
 bullet_count = 10
 animation = "default"
+next_state = NodePath("../PingPong")
+
+[node name="SpawnEnemy" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state")]
+script = ExtResource("7_pvio2")
+enemy_scenes = Array[PackedScene]([ExtResource("8_syan8")])
+enemy_count_max = 3
 next_state = NodePath("../PingPong")
