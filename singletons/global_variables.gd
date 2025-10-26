@@ -7,9 +7,19 @@ var controller: bool = true
 
 var first_time_inventory_instantiation: bool = true
 var inventory: Array[PackedScene]
-var weapon_states: Dictionary
+var weapon_states: Array[Dictionary]
 var inventory_index: int
 var previous_inventory_index: int
+var weapon_durability: int
+var weapon_full_durability: int
+var inventory_index_rounder: bool
+func append_to_inventory(item_scene: PackedScene) -> void:
+	var item: Weapon = item_scene.instantiate()
+	inventory.append(item_scene)
+	weapon_states.append({
+		"previous_reload_time": 0.0,
+		"previous_durability": item.full_durability,
+	})
 
 var player: CharacterBody2D
 var player_position: Vector2
@@ -36,10 +46,15 @@ func _process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("players")
 	if player:
 		player_position = player.global_position
-		
-		
+
 func change_room():
 	room += 1
 	for dim in get_tree().get_nodes_in_group("dims"):
 		GlobalVariables.dims += 1
 	get_tree().call_deferred("reload_current_scene")
+
+func _physics_process(delta: float) -> void:
+	# Global Debug
+	pass
+	print(GlobalVariables.inventory)
+	print(GlobalVariables.weapon_states)

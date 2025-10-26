@@ -74,8 +74,9 @@ func _process(delta: float) -> void:
 				$BounceTimer.start()
 				
 	if destructive:
+		#transparent = true
 		var cell: Vector2i = GlobalVariables.tilemap.local_to_map(GlobalVariables.tilemap.to_local(global_position))
-		var hit_wall: bool = GlobalVariables.tilemap.set_floor(cell)
+		var hit_wall: bool = GlobalVariables.tilemap.set_floor_at_runtime(cell)
 		if hit_wall:
 			pierce -= 1
 			if pierce <= 0:

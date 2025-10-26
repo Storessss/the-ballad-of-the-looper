@@ -3,7 +3,7 @@ extends Node2D
 @onready var tilemap = $Tilemap
 
 var map_start: Vector2i = Vector2i(0, 0)
-var map_size: Vector2i = Vector2i(100, 100)
+var map_size: Vector2i = Vector2i(86, 86)
 
 var generation_progress: int
 
@@ -23,8 +23,8 @@ var enemies: Dictionary = {
 	preload("res://scenes/enemies/spingling.tscn"): 3,
 }
 var bosses := [
-	#preload("res://scenes/enemies/bosses/little_devil.tscn"),
-	preload("res://scenes/enemies/bosses/spingus.tscn")
+	preload("res://scenes/enemies/bosses/little_devil.tscn"),
+	#preload("res://scenes/enemies/bosses/spingus.tscn"),
 ]
 var boss_spawn_percentage: int = 50
 var can_spawn_boss: bool = true
@@ -102,14 +102,13 @@ func _process(_delta: float) -> void:
 				x = 0
 				y += 1
 				
-			
 			if y >= map_size.y:
 				generation_progress += 1
 				tilemap.set_cells_terrain_connect(border_cells, 0, 0)
 				
 				walker = Walker.new(Vector2i(map_size.x / 2, map_size.y / 2), borders)
 				add_child(walker)
-				walker.activate_walk(500, 2)
+				walker.activate_walk(432, 2)
 				
 			generated += 1
 			
@@ -207,6 +206,8 @@ func _process(_delta: float) -> void:
 			add_child(trapdoor)
 	
 func finalize_generation() -> void:
+	GlobalVariables.tilemap.set_floor(Vector2i(-1, -1), true)
+	
 	generate_enemies(enemy_count, enemies)
 	generate_chests(1)
 	
@@ -257,7 +258,7 @@ func generate_boss() -> void:
 	var spawn_point: Vector2i = closest_candidate
 	for x in [-1, 0, 1]:
 		for y in [-1, 0, 1]:
-			tilemap.set_floor(Vector2i(spawn_point.x + x, spawn_point.y + y))
+			tilemap.set_floor(Vector2i(spawn_point.x + x, spawn_point.y + y), true)
 	var boss = bosses.pick_random().instantiate()
 	boss.global_position = tilemap.to_global(tilemap.map_to_local(spawn_point))
 	add_child(boss)

@@ -9,6 +9,8 @@ class_name Weapon
 @export var bullet_spread: int = 5
 @export var bullet_scene: PackedScene
 @export var deflective_shots: bool
+@export var full_durability: int = 1000000
+var durability: int
 
 var reticle_position: Vector2
 var weapon_point: Node2D
@@ -33,6 +35,7 @@ func shoot() -> void:
 		bullet.angle = point.angle() + deg_to_rad(pos)
 		bullet.global_position = $CastPoint.global_position
 		pos += bullet_spread
+		# TODO: remove dmg multiplier
 		bullet.damage = max(damage * GlobalVariables.damage_multiplier, 1)
 		bullet.effect_damage = max(effect_damage * GlobalVariables.damage_multiplier, 1)
 		bullet.player_bullet = true
@@ -40,11 +43,23 @@ func shoot() -> void:
 		get_tree().current_scene.add_child(bullet)
 		if self is not ChargedWeapon:
 			$AttackSound.play()
+	durability -= 1
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("attack") and $FireRateTimer.is_stopped():
 		shoot()
 	previous_reload_time = $FireRateTimer.time_left
+	
+	weapon_durability_manager()
+	
+func weapon_durability_manager() -> void:
+	GlobalVariables.weapon_full_durability = full_durability
+	GlobalVariables.weapon_durability = durability
+	if durability <= 0:
+		GlobalVariables.inventory.pop_at(GlobalVariables.inventory_index)
+		GlobalVariables.weapon_states.pop_at(GlobalVariables.inventory_index)
+		GlobalVariables.inventory_index_rounder = true
+		queue_free()
 	
 func line_of_sight(from: Vector2, to: Vector2) -> bool:
 	var space_state = get_world_2d().direct_space_state

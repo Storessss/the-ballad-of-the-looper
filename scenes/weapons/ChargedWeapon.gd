@@ -41,3 +41,5 @@ func _process(_delta: float) -> void:
 		modulate = Color.BLUE
 	else:
 		modulate = Color.WHITE
+		
+	weapon_durability_manager()

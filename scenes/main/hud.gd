@@ -63,6 +63,11 @@ func _process(_delta: float) -> void:
 		skip_text = true
 		
 	$Dims/DimCount.text = str(GlobalVariables.dims)
+	
+	if GlobalVariables.weapon_full_durability:
+		$WeaponDurability.value = GlobalVariables.weapon_durability * 100 / GlobalVariables.weapon_full_durability
+	if GlobalVariables.weapon_durability == INF:
+		$WeaponDurability.value = $WeaponDurability.max_value
 		
 func show_choices(choices: Array):
 	if choices:

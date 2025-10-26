@@ -13,21 +13,22 @@ fire_rate = 0.5
 damage = 50
 effect_damage = 15
 bullet_scene = ExtResource("3_gwb47")
+full_durability = 10
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_3pnln")
 
-[node name="CastPoint" parent="." index="1"]
-position = Vector2(0, -4)
-
-[node name="AttackSound" parent="." index="3"]
+[node name="AttackSound" parent="." index="2"]
 stream = ExtResource("5_xs7jb")
 volume_db = 4.0
 
-[node name="ChargedSound" parent="." index="5"]
+[node name="ChargedSound" parent="." index="4"]
 stream = ExtResource("6_w46s4")
 volume_db = 5.0
 
-[node name="ChargedAttackSound" parent="." index="6"]
+[node name="ChargedAttackSound" parent="." index="5"]
 stream = ExtResource("7_lax51")
 volume_db = -7.0
+
+[node name="CastPoint" parent="." index="6"]
+position = Vector2(0, -4)

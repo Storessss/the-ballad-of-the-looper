@@ -9,6 +9,7 @@
 fire_rate = 0.25
 damage = 20
 bullet_scene = ExtResource("2_crihv")
+full_durability = 60
 
 [node name="Sprite2D" parent="." index="0"]
 rotation = 0.785398

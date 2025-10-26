@@ -10,6 +10,7 @@ fire_rate = 0.75
 damage = 70
 effect_damage = 15
 bullet_scene = ExtResource("2_kbeuk")
+full_durability = 30
 
 [node name="Sprite2D" parent="." index="0"]
 rotation = 0.7853982

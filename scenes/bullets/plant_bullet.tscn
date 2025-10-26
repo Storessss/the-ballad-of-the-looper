@@ -11,8 +11,9 @@ size = Vector2(18, 27)
 
 [node name="PlantBullet" instance=ExtResource("1_pix01")]
 speed = 270
-destroy_time = 4.0
-pierce = 8
+destroy_time = 40.0
+pierce = 80
+destructive = true
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -3)

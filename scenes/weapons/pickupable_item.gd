@@ -26,7 +26,7 @@ func _ready() -> void:
 		
 func _process(_delta: float) -> void:
 	if can_interact and Input.is_action_just_pressed("interact"):
-		GlobalVariables.inventory.append(item_scene)
+		GlobalVariables.append_to_inventory(item_scene)
 		GlobalVariables.inventory_index = GlobalVariables.inventory.size() - 1
 		queue_free()
 
