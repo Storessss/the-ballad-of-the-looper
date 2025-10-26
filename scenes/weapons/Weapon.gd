@@ -36,8 +36,8 @@ func shoot() -> void:
 		bullet.global_position = $CastPoint.global_position
 		pos += bullet_spread
 		# TODO: remove dmg multiplier
-		bullet.damage = max(damage * GlobalVariables.damage_multiplier, 1)
-		bullet.effect_damage = max(effect_damage * GlobalVariables.damage_multiplier, 1)
+		bullet.damage = damage
+		bullet.effect_damage = effect_damage
 		bullet.player_bullet = true
 		bullet.deflective = deflective_shots
 		get_tree().current_scene.add_child(bullet)
@@ -58,7 +58,7 @@ func weapon_durability_manager() -> void:
 	if durability <= 0:
 		GlobalVariables.inventory.pop_at(GlobalVariables.inventory_index)
 		GlobalVariables.weapon_states.pop_at(GlobalVariables.inventory_index)
-		GlobalVariables.inventory_index_rounder = true
+		GlobalVariables.inventory_index_rounder = -1
 		queue_free()
 	
 func line_of_sight(from: Vector2, to: Vector2) -> bool:

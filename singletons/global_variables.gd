@@ -12,7 +12,7 @@ var inventory_index: int
 var previous_inventory_index: int
 var weapon_durability: int
 var weapon_full_durability: int
-var inventory_index_rounder: bool
+var inventory_index_rounder: int
 func append_to_inventory(item_scene: PackedScene) -> void:
 	var item: Weapon = item_scene.instantiate()
 	inventory.append(item_scene)
@@ -33,10 +33,7 @@ var right: int
 var bottom: int
 
 var tilemap: TileMapLayer
-var room: int = 3
-
-var fire_rate_multiplier: float = 1.0
-var damage_multiplier: float = 1.0
+var room: int = 1
 
 var dims: int
 

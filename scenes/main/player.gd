@@ -95,17 +95,16 @@ func _process(delta: float) -> void:
 	
 	# INVENTORY ------------------------------------------------------------------------------------
 	if Input.is_action_just_pressed("next_weapon"):
-		if not GlobalVariables.inventory_index_rounder:
-			GlobalVariables.previous_inventory_index = GlobalVariables.inventory_index
-			GlobalVariables.inventory_index = ((GlobalVariables.inventory_index + 1) % \
-			GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
-		GlobalVariables.inventory_index_rounder = false
+		GlobalVariables.previous_inventory_index = GlobalVariables.inventory_index
+		GlobalVariables.inventory_index = ((GlobalVariables.inventory_index + 1 + GlobalVariables.inventory_index_rounder) % \
+		GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
+		GlobalVariables.inventory_index_rounder = 0
 		instantiate_weapon()
 	elif Input.is_action_just_pressed("previous_weapon"):
 		GlobalVariables.previous_inventory_index = GlobalVariables.inventory_index
 		GlobalVariables.inventory_index = ((GlobalVariables.inventory_index - 1) % \
 		GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
-		GlobalVariables.inventory_index_rounder = false
+		GlobalVariables.inventory_index_rounder = 0
 		instantiate_weapon()
 		
 	# CAMERA ---------------------------------------------------------------------------------------
