@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dij626x8edncs"]
 
-[ext_resource type="PackedScene" uid="uid://4lfdmwtiwq14" path="res://scenes/weapons/charged_weapon.tscn" id="1_58ehi"]
+[ext_resource type="PackedScene" uid="uid://4lfdmwtiwq14" path="res://scenes/items/weapons/charged_weapon.tscn" id="1_58ehi"]
 [ext_resource type="Texture2D" uid="uid://bq6al6bmp2upa" path="res://sprites/sword.png" id="2_3pnln"]
 [ext_resource type="PackedScene" uid="uid://bl7xqw2wigobk" path="res://scenes/bullets/slash.tscn" id="3_gwb47"]
 [ext_resource type="AudioStream" uid="uid://chnxw64m4w6jo" path="res://sounds/slash.mp3" id="5_xs7jb"]
@@ -13,7 +13,6 @@ fire_rate = 0.5
 damage = 50
 effect_damage = 15
 bullet_scene = ExtResource("3_gwb47")
-full_durability = 10
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_3pnln")

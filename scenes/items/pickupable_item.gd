@@ -5,15 +5,15 @@ extends Node2D
 var can_interact: bool
 
 var items: Array[PackedScene] = [
-	preload("res://scenes/weapons/sword.tscn"),
-	preload("res://scenes/weapons/fire_staff.tscn"),
-	preload("res://scenes/weapons/water_staff.tscn"),
-	preload("res://scenes/weapons/shade_staff.tscn"),
-	preload("res://scenes/weapons/light_staff.tscn"),
-	preload("res://scenes/weapons/air_staff.tscn"),
-	preload("res://scenes/weapons/earth_staff.tscn"),
-	preload("res://scenes/weapons/plant_staff.tscn"),
-	preload("res://scenes/weapons/mushroom_staff.tscn"),
+	preload("res://scenes/items/weapons/fire_staff.tscn"),
+	preload("res://scenes/items/weapons/water_staff.tscn"),
+	preload("res://scenes/items/weapons/shade_staff.tscn"),
+	preload("res://scenes/items/weapons/light_staff.tscn"),
+	preload("res://scenes/items/weapons/air_staff.tscn"),
+	preload("res://scenes/items/weapons/earth_staff.tscn"),
+	preload("res://scenes/items/weapons/plant_staff.tscn"),
+	preload("res://scenes/items/weapons/mushroom_staff.tscn"),
+	preload("res://scenes/items/potions/health_potion.tscn"),
 ]
 
 func _ready() -> void:
@@ -27,7 +27,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if can_interact and Input.is_action_just_pressed("interact"):
 		GlobalVariables.append_to_inventory(item_scene)
-		#GlobalVariables.inventory_index = GlobalVariables.inventory.size() - 1
+		MusicPlayer.item_get()
 		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:

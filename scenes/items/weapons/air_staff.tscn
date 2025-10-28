@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://qsslgjq3uc7h"]
 
-[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_16rg5"]
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/items/weapons/weapon.tscn" id="1_16rg5"]
 [ext_resource type="PackedScene" uid="uid://dtiaf22app1un" path="res://scenes/bullets/air_bullet.tscn" id="2_e55fs"]
 [ext_resource type="Texture2D" uid="uid://bj7pbdpjp6y6r" path="res://sprites/staff11.png" id="3_4rj43"]
 [ext_resource type="AudioStream" uid="uid://cbe3xq0crpsi8" path="res://sounds/air_staff.wav" id="4_tap5s"]

@@ -14,18 +14,36 @@ var weapon_durability: int
 var weapon_full_durability: int
 var inventory_index_rounder: int
 func append_to_inventory(item_scene: PackedScene) -> void:
-	var item: Weapon = item_scene.instantiate()
 	inventory.append(item_scene)
-	weapon_states.append({
-		"previous_reload_time": 0.0,
-		"previous_durability": item.full_durability,
-	})
+	var item: Node2D = item_scene.instantiate()
+	if item is Weapon:
+		weapon_states.append({
+			"previous_reload_time": 0.0,
+			"previous_durability": item.full_durability,
+		})
+	else:
+		weapon_states.append({})
+func remove_from_inventory(caller: Node2D, index: int = inventory_index) -> void:
+	GlobalVariables.inventory.pop_at(index)
+	GlobalVariables.weapon_states.pop_at(index)
+	GlobalVariables.inventory_index_rounder = -1
+	caller.queue_free()
+func replace_in_inventory(item_scene: PackedScene, index: int = inventory_index) -> void:
+	inventory[index] = item_scene
+	var item: Node2D = item_scene.instantiate()
+	if item is Weapon:
+		weapon_states[index] = {
+			"previous_reload_time": 0.0,
+			"previous_durability": item.full_durability,
+		}
+	else:
+		weapon_states[index] = {}
 
 var player: CharacterBody2D
 var player_position: Vector2
 var player_max_health: int = 6
 var player_health: int = player_max_health
-signal player_hit
+signal player_health_changed
 
 var left: int
 var top: int
@@ -53,5 +71,3 @@ func change_room():
 func _physics_process(delta: float) -> void:
 	# Global Debug
 	pass
-	print(GlobalVariables.inventory)
-	print(GlobalVariables.weapon_states)

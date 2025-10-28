@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cdln2cmlx5g2q"]
 
-[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_nlkxd"]
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/items/weapons/weapon.tscn" id="1_nlkxd"]
 [ext_resource type="Texture2D" uid="uid://s1138xmvmjhi" path="res://sprites/staff15.png" id="2_n1dl5"]
 [ext_resource type="PackedScene" uid="uid://bw018dtrerc14" path="res://scenes/bullets/fireball.tscn" id="3_t6kod"]
 [ext_resource type="AudioStream" uid="uid://nqprmc7r1vud" path="res://sounds/fire_staff.mp3" id="5_672sg"]
@@ -10,7 +10,7 @@ fire_rate = 1.0
 damage = 20
 effect_damage = 100
 bullet_scene = ExtResource("3_t6kod")
-full_durability = 5
+full_durability = 30
 
 [node name="Sprite2D" parent="." index="0"]
 rotation = 0.785398

@@ -84,3 +84,30 @@ func wall_break() -> void:
 	var sound_player = new_sound_player(1)
 	sound_player.stream = preload("res://sounds/wall_break.mp3")
 	sound_player.play()
+	
+func weapon_break() -> void:
+	var sound_player = new_sound_player(0)
+	sound_player.stream = preload("res://sounds/weapon_break.mp3")
+	sound_player.play()
+	
+func item_throw() -> void:
+	var sound_player = new_sound_player(0)
+	sound_player.stream = preload("res://sounds/dash_sound.wav")
+	sound_player.pitch_scale = 2.0
+	sound_player.play()
+
+func item_get() -> void:
+	var sound_player = new_sound_player(3)
+	sound_player.stream = preload("res://sounds/item_get.mp3")
+	sound_player.play()
+
+func metal_hit() -> void:
+	var sound_player = new_sound_player(-3)
+	sound_player.stream = preload("res://sounds/metal_hit.wav")
+	sound_player.pitch_scale = 0.9
+	sound_player.play()
+
+func potion_drink_finished() -> void:
+	var sound_player = new_sound_player(8)
+	sound_player.stream = preload("res://sounds/potion_drink_finished.wav")
+	sound_player.play()

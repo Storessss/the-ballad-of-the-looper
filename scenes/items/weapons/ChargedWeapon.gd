@@ -9,11 +9,11 @@ var pending_attack: bool
 
 func _ready() -> void:
 	super._ready()
-	$ChargeTimer.wait_time = charge_time / GlobalVariables.fire_rate_multiplier
+	$ChargeTimer.wait_time = charge_time
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):
-		$ChargeTimer.start(charge_time / GlobalVariables.fire_rate_multiplier)
+		$ChargeTimer.start(charge_time)
 		charging = true
 		is_fully_charged = false
 

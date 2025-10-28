@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bc5aifuuscn7a"]
 
-[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_di2d1"]
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/items/weapons/weapon.tscn" id="1_di2d1"]
 [ext_resource type="PackedScene" uid="uid://dea325uhvvoys" path="res://scenes/bullets/mushroom_bullet.tscn" id="2_jeuxo"]
 [ext_resource type="Texture2D" uid="uid://durpej4qfcepo" path="res://sprites/staff37.png" id="2_y02vn"]
 [ext_resource type="AudioStream" uid="uid://b0ds8nk5ov5ov" path="res://sounds/mushroom_staff.wav" id="4_u6vd0"]

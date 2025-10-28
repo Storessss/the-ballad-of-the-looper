@@ -1,13 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://ddufykptqanl7"]
+[gd_scene load_steps=15 format=3 uid="uid://ddufykptqanl7"]
 
 [ext_resource type="Script" uid="uid://b4c8q2fvhicv8" path="res://scenes/main/player.gd" id="1_68xwl"]
 [ext_resource type="Texture2D" uid="uid://c5thlea8t0ru3" path="res://sprites/zaine_idle1.png" id="1_nybob"]
 [ext_resource type="Texture2D" uid="uid://dgbxs4niigp66" path="res://sprites/zaine_idle2.png" id="2_68xwl"]
-[ext_resource type="PackedScene" uid="uid://dij626x8edncs" path="res://scenes/weapons/sword.tscn" id="2_m5ugi"]
+[ext_resource type="PackedScene" uid="uid://dij626x8edncs" path="res://scenes/items/weapons/sword.tscn" id="2_m5ugi"]
+[ext_resource type="PackedScene" uid="uid://c3hm5jneguvsh" path="res://scenes/items/potions/health_potion.tscn" id="3_0f7gw"]
 [ext_resource type="Texture2D" uid="uid://6ofbi85nmftt" path="res://sprites/blank.png" id="3_t8yk2"]
 [ext_resource type="Texture2D" uid="uid://bfv2ipk7utf85" path="res://sprites/zaine_walk1.png" id="3_wwvfn"]
+[ext_resource type="PackedScene" uid="uid://dqrkwtoin7ekt" path="res://scenes/items/weapons/earth_staff.tscn" id="4_0r2ug"]
 [ext_resource type="Texture2D" uid="uid://rh38gmteeaha" path="res://sprites/zaine_walk2.png" id="4_t8yk2"]
-[ext_resource type="PackedScene" uid="uid://bwumr5434miru" path="res://scenes/weapons/water_staff.tscn" id="4_tmp5k"]
 [ext_resource type="Texture2D" uid="uid://rs3clmqas3l3" path="res://sprites/crosshair.png" id="7_t8yk2"]
 [ext_resource type="AudioStream" uid="uid://c2atch7yv2q1u" path="res://sounds/dash_sound.wav" id="8_3vq1g"]
 [ext_resource type="AudioStream" uid="uid://cx6qnqe40wotv" path="res://sounds/hit.wav" id="10_bnwh7"]
@@ -55,7 +56,7 @@ radius = 4.0
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_68xwl")
-starting_inventory = Array[PackedScene]([ExtResource("2_m5ugi"), ExtResource("4_tmp5k"), ExtResource("4_tmp5k")])
+starting_inventory = Array[PackedScene]([ExtResource("2_m5ugi"), ExtResource("3_0f7gw"), ExtResource("4_0r2ug")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
@@ -88,9 +89,9 @@ bus = &"Sounds"
 [node name="Reticle" type="Sprite2D" parent="."]
 texture = ExtResource("7_t8yk2")
 
-[node name="Weapon" type="Node2D" parent="."]
+[node name="Item" type="Node2D" parent="."]
 
-[node name="Point" type="Node2D" parent="Weapon"]
+[node name="Point" type="Node2D" parent="Item"]
 position = Vector2(0, -16)
 
 [node name="IFrames" type="Timer" parent="."]

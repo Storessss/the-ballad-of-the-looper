@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://daa8qkbtphtre"]
+
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/items/weapons/weapon.tscn" id="1_e6sw0"]
+[ext_resource type="PackedScene" uid="uid://cbf7ae1neik75" path="res://scenes/bullets/empty_health_potion_bullet.tscn" id="2_0la8r"]
+[ext_resource type="Texture2D" uid="uid://spr2kj6huo61" path="res://sprites/health_potion_empty.png" id="2_lbusq"]
+
+[node name="EmptyHealthPotion" instance=ExtResource("1_e6sw0")]
+fire_rate = 0.05
+damage = 150
+bullet_scene = ExtResource("2_0la8r")
+deflective_shots = true
+full_durability = 1
+automatic = false
+break_sound = "item_throw"
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, 3)
+rotation = 4.712389
+texture = ExtResource("2_lbusq")

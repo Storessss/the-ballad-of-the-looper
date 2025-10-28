@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d3ctgvr45n7b6"]
+
+[node name="Potion" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="DrinkTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DrinkSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sounds"

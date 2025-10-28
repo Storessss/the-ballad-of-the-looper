@@ -1,7 +1,7 @@
 extends Node2D
 
 var can_interact: bool
-var pickupable_scene: PackedScene = preload("res://scenes/weapons/pickupable_item.tscn")
+var pickupable_scene: PackedScene = preload("res://scenes/items/pickupable_item.tscn")
 
 func _process(_delta):
 	if can_interact and Input.is_action_just_pressed("interact") and $AnimatedSprite2D.animation == "closed":

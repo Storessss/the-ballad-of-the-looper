@@ -14,6 +14,8 @@ class_name Bullet
 @export var homing: bool
 @export var bullet_ring_count: int
 @export var bullet_ring_scene: PackedScene
+@export var destroy_sound: String
+@export var bounce_sound: String
 
 var angle: float
 var damage: int
@@ -72,6 +74,8 @@ func _process(delta: float) -> void:
 				else:
 					angle = -angle
 				$BounceTimer.start()
+				if bounce_sound:
+					MusicPlayer.call(bounce_sound)
 				
 	if destructive:
 		#transparent = true
@@ -80,18 +84,14 @@ func _process(delta: float) -> void:
 		if hit_wall:
 			pierce -= 1
 			if pierce <= 0:
-				if bullet_ring_count > 0 and bullet_ring_scene:
-					call_deferred("bullet_ring")
-				queue_free()
+				destroy()
 				
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and player_bullet:
 		body.take_damage(damage)
 		pierce -= 1
 		if pierce <= 0:
-			if bullet_ring_count > 0 and bullet_ring_scene:
-				call_deferred("bullet_ring")
-			queue_free()
+			destroy()
 	elif body.is_in_group("players") and not player_bullet:
 		body.take_damage()
 		queue_free()
@@ -144,4 +144,10 @@ func bullet_ring():
 		bullet.player_bullet = player_bullet
 		bullet.damage = effect_damage
 		get_tree().current_scene.add_child(bullet)
-	MusicPlayer.wall_break()
+
+func destroy() -> void:
+	if bullet_ring_count > 0 and bullet_ring_scene:
+		call_deferred("bullet_ring")
+	if destroy_sound:
+		MusicPlayer.call(destroy_sound)
+	queue_free()

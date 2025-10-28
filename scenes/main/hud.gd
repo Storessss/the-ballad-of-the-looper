@@ -7,7 +7,7 @@ var skip_text: bool
 var choice_button: PackedScene = preload("res://dialogue/choice_button.tscn")
 
 func _ready() -> void:
-	GlobalVariables.player_hit.connect(Callable(self, "_on_player_hit"))
+	GlobalVariables.player_health_changed.connect(Callable(self, "_on_player_health_changed"))
 	update_health()
 	
 	DialogueManager.show_dialogue.connect(Callable(self, "_on_dialogue_show"))
@@ -32,7 +32,8 @@ func update_health() -> void:
 		heart.texture = preload("res://sprites/heart_empty.png")
 		$HealthBar.add_child(heart)
 
-func _on_player_hit() -> void:
+func _on_player_health_changed() -> void:
+	GlobalVariables.player_health = min(GlobalVariables.player_health, GlobalVariables.player_max_health)
 	update_health()
 
 func _on_dialogue_show(character_name: String, image: Texture, text: String, choices: Array, \
@@ -66,8 +67,6 @@ func _process(_delta: float) -> void:
 	
 	if GlobalVariables.weapon_full_durability:
 		$WeaponDurability.value = GlobalVariables.weapon_durability * 100 / GlobalVariables.weapon_full_durability
-	if GlobalVariables.weapon_durability == INF:
-		$WeaponDurability.value = $WeaponDurability.max_value
 		
 func show_choices(choices: Array):
 	if choices:

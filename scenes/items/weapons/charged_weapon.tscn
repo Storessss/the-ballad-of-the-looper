@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://4lfdmwtiwq14"]
 
-[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/weapons/weapon.tscn" id="1_g2lqr"]
-[ext_resource type="Script" uid="uid://by17wjew6csw1" path="res://scenes/weapons/ChargedWeapon.gd" id="2_gtqge"]
+[ext_resource type="PackedScene" uid="uid://sr8qaslbc8im" path="res://scenes/items/weapons/weapon.tscn" id="1_g2lqr"]
+[ext_resource type="Script" uid="uid://by17wjew6csw1" path="res://scenes/items/weapons/ChargedWeapon.gd" id="2_gtqge"]
 
 [node name="ChargedWeapon" instance=ExtResource("1_g2lqr")]
 script = ExtResource("2_gtqge")

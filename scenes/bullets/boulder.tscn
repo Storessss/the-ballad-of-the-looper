@@ -17,6 +17,7 @@ transparent = true
 destructive = true
 bullet_ring_count = 10
 bullet_ring_scene = ExtResource("2_4xy7m")
+destroy_sound = "wall_break"
 
 [node name="Sprite2D" parent="." index="0"]
 scale = Vector2(0.75, 0.75)

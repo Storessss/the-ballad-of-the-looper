@@ -10,6 +10,8 @@ class_name Weapon
 @export var bullet_scene: PackedScene
 @export var deflective_shots: bool
 @export var full_durability: int = 1000000
+@export var automatic: bool = true
+@export var break_sound: String = "weapon_break"
 var durability: int
 
 var reticle_position: Vector2
@@ -23,7 +25,7 @@ func _ready():
 		$FireRateTimer.stop()
 
 func shoot() -> void:
-	$FireRateTimer.start(fire_rate / GlobalVariables.fire_rate_multiplier)
+	$FireRateTimer.start(fire_rate)
 	var pos = round(-bullet_spread * (bullet_count / 2))
 	for i in range(bullet_count):
 		var bullet = bullet_scene.instantiate()
@@ -35,7 +37,6 @@ func shoot() -> void:
 		bullet.angle = point.angle() + deg_to_rad(pos)
 		bullet.global_position = $CastPoint.global_position
 		pos += bullet_spread
-		# TODO: remove dmg multiplier
 		bullet.damage = damage
 		bullet.effect_damage = effect_damage
 		bullet.player_bullet = true
@@ -46,7 +47,9 @@ func shoot() -> void:
 	durability -= 1
 	
 func _process(_delta: float) -> void:
-	if Input.is_action_pressed("attack") and $FireRateTimer.is_stopped():
+	if Input.is_action_pressed("attack") and $FireRateTimer.is_stopped() and automatic:
+		shoot()
+	elif Input.is_action_just_pressed("attack") and $FireRateTimer.is_stopped() and not automatic:
 		shoot()
 	previous_reload_time = $FireRateTimer.time_left
 	
@@ -56,10 +59,9 @@ func weapon_durability_manager() -> void:
 	GlobalVariables.weapon_full_durability = full_durability
 	GlobalVariables.weapon_durability = durability
 	if durability <= 0:
-		GlobalVariables.inventory.pop_at(GlobalVariables.inventory_index)
-		GlobalVariables.weapon_states.pop_at(GlobalVariables.inventory_index)
-		GlobalVariables.inventory_index_rounder = -1
-		queue_free()
+		if break_sound:
+			MusicPlayer.call(break_sound)
+		GlobalVariables.remove_from_inventory(self)
 	
 func line_of_sight(from: Vector2, to: Vector2) -> bool:
 	var space_state = get_world_2d().direct_space_state

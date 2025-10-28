@@ -30,7 +30,7 @@ func _ready() -> void:
 		for item_scene in starting_inventory:
 			GlobalVariables.append_to_inventory(item_scene)
 	
-	instantiate_weapon()
+	instantiate_item()
 	
 	DialogueManager.show_dialogue.connect(Callable(self, "_on_dialogue_show"))
 	DialogueManager.hide_dialogue.connect(Callable(self, "_on_dialogue_hide"))
@@ -91,21 +91,21 @@ func _process(delta: float) -> void:
 		$Reticle.visible = false
 	else:
 		$Reticle.visible = true
-	$Weapon.rotation = angle + PI / 2
+	$Item.rotation = angle + PI / 2
 	
 	# INVENTORY ------------------------------------------------------------------------------------
-	if Input.is_action_just_pressed("next_weapon"):
+	if Input.is_action_just_pressed("next_item"):
 		GlobalVariables.previous_inventory_index = GlobalVariables.inventory_index
 		GlobalVariables.inventory_index = ((GlobalVariables.inventory_index + 1 + GlobalVariables.inventory_index_rounder) % \
 		GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
 		GlobalVariables.inventory_index_rounder = 0
-		instantiate_weapon()
-	elif Input.is_action_just_pressed("previous_weapon"):
+		instantiate_item()
+	elif Input.is_action_just_pressed("previous_item"):
 		GlobalVariables.previous_inventory_index = GlobalVariables.inventory_index
 		GlobalVariables.inventory_index = ((GlobalVariables.inventory_index - 1) % \
 		GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
 		GlobalVariables.inventory_index_rounder = 0
-		instantiate_weapon()
+		instantiate_item()
 		
 	# CAMERA ---------------------------------------------------------------------------------------
 	camera.limit_right = GlobalVariables.right
@@ -129,21 +129,23 @@ func take_damage(damage: int = 1):
 		GlobalVariables.player_health -= damage
 		$IFrames.start()
 		$HitSound.play()
-		GlobalVariables.player_hit.emit()
+		GlobalVariables.player_health_changed.emit()
 		
-func instantiate_weapon():
-	for child: Weapon in $Weapon/Point.get_children():
-		GlobalVariables.weapon_states[GlobalVariables.previous_inventory_index] = {
-			"previous_reload_time": child.previous_reload_time,
-			"previous_durability": child.durability,
-		}
+func instantiate_item():
+	for child: Node2D in $Item/Point.get_children():
+		if child is Weapon:
+			GlobalVariables.weapon_states[GlobalVariables.previous_inventory_index] = {
+				"previous_reload_time": child.previous_reload_time,
+				"previous_durability": child.durability,
+			}
 		child.queue_free()
-	var weapon: Weapon = GlobalVariables.inventory[GlobalVariables.inventory_index].instantiate()
-	weapon.previous_reload_time = \
-	GlobalVariables.weapon_states[GlobalVariables.inventory_index]["previous_reload_time"]
-	weapon.durability = \
-	GlobalVariables.weapon_states[GlobalVariables.inventory_index]["previous_durability"]
-	$Weapon/Point.add_child(weapon)
+	var item: Node2D = GlobalVariables.inventory[GlobalVariables.inventory_index].instantiate()
+	if item is Weapon:
+		item.previous_reload_time = \
+		GlobalVariables.weapon_states[GlobalVariables.inventory_index]["previous_reload_time"]
+		item.durability = \
+		GlobalVariables.weapon_states[GlobalVariables.inventory_index]["previous_durability"]
+	$Item/Point.add_child(item)
 	
 func _on_dialogue_show(_character_name: String, _image: Texture, _text: String, _choices: Array, \
 _font: FontFile):
