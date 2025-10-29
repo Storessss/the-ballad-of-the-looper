@@ -134,17 +134,15 @@ func take_damage(damage: int = 1):
 func instantiate_item():
 	for child: Node2D in $Item/Point.get_children():
 		if child is Weapon:
-			GlobalVariables.weapon_states[GlobalVariables.previous_inventory_index] = {
-				"previous_reload_time": child.previous_reload_time,
-				"previous_durability": child.durability,
-			}
+			GlobalVariables.weapon_states[GlobalVariables.previous_inventory_index]\
+			["reload_time"] = child.previous_reload_time
 		child.queue_free()
 	var item: Node2D = GlobalVariables.inventory[GlobalVariables.inventory_index].instantiate()
 	if item is Weapon:
 		item.previous_reload_time = \
-		GlobalVariables.weapon_states[GlobalVariables.inventory_index]["previous_reload_time"]
+		GlobalVariables.weapon_states[GlobalVariables.inventory_index]["reload_time"]
 		item.durability = \
-		GlobalVariables.weapon_states[GlobalVariables.inventory_index]["previous_durability"]
+		GlobalVariables.weapon_states[GlobalVariables.inventory_index]["durability"]
 	$Item/Point.add_child(item)
 	
 func _on_dialogue_show(_character_name: String, _image: Texture, _text: String, _choices: Array, \

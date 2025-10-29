@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://6sitm52h3u18"]
+
+[ext_resource type="Script" uid="uid://d3gwhpo2f6m" path="res://scenes/particles/aim_line.gd" id="1_1slj7"]
+
+[node name="AimLine" type="Line2D"]
+visible = false
+points = PackedVector2Array(0, 0, 0, 0)
+width = 0.5
+default_color = Color(1, 0, 0, 1)
+script = ExtResource("1_1slj7")

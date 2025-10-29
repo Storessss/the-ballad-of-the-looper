@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://6wkw1e4btx03"]
+[gd_scene load_steps=16 format=3 uid="uid://6wkw1e4btx03"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_rcqcm"]
 [ext_resource type="Texture2D" uid="uid://cr4yd0rilg13s" path="res://sprites/triple_shooter_attack.png" id="3_rcqcm"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://cyfscne6ig5vy" path="res://scenes/enemies/state_machine/states/ChasePlayer.gd" id="9_2eh3v"]
 [ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="9_qalqy"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="10_335cq"]
-[ext_resource type="AudioStream" uid="uid://sgq3k0voumip" path="res://sounds/shoot.wav" id="11_yxoso"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u88rj"]
 animations = [{
@@ -121,16 +120,12 @@ state_duration_max = 0.7
 animation = "attack"
 next_state = NodePath("../ShootBullet")
 
-[node name="ShootBullet" type="Node" parent="FSM" index="5" node_paths=PackedStringArray("sound", "next_state")]
+[node name="ShootBullet" type="Node" parent="FSM" index="5" node_paths=PackedStringArray("next_state")]
 script = ExtResource("9_qalqy")
 bullet_scene = ExtResource("10_335cq")
 bullet_count = 3
 bullet_spread = 7
 animation = "attack"
-sound = NodePath("../../ShootSound")
+sound = "shoot"
 final_frame = 5
 next_state = NodePath("../IfInRange")
-
-[node name="ShootSound" type="AudioStreamPlayer2D" parent="." index="7"]
-stream = ExtResource("11_yxoso")
-bus = &"Sounds"

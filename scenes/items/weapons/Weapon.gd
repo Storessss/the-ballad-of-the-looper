@@ -45,6 +45,7 @@ func shoot() -> void:
 		if self is not ChargedWeapon:
 			$AttackSound.play()
 	durability -= 1
+	GlobalVariables.weapon_states[GlobalVariables.inventory_index]["durability"] = durability
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("attack") and $FireRateTimer.is_stopped() and automatic:

@@ -4,5 +4,5 @@
 [ext_resource type="PackedScene" uid="uid://evc1ltd7g5va" path="res://scenes/particles/explosion_particles.tscn" id="2_di23g"]
 
 [node name="SmallExplosion" instance=ExtResource("1_77wmm")]
-radius = 1
 particle_scene = ExtResource("2_di23g")
+explosion_sound = "explosion"

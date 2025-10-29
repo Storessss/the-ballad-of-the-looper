@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://h0e5hwjddjht"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_hsrla"]
+[ext_resource type="Texture2D" uid="uid://cbh13ktrbb7cl" path="res://sprites/bullet.png" id="2_hsrla"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hsrla"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_21kos"]
+radius = 11.0
+
+[node name="SniperBullet" instance=ExtResource("1_hsrla")]
+speed = 350
+destroy_time = 5.0
+pierce = 3
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hsrla")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_hsrla")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_21kos")

@@ -133,7 +133,6 @@ func explode():
 	area_damage.global_position = global_position
 	area_damage.damage = effect_damage
 	get_tree().current_scene.call_deferred("add_child", area_damage)
-	MusicPlayer.explosion_sound()
 	
 func bullet_ring():
 	for i in range(bullet_ring_count):

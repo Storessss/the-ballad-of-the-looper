@@ -58,7 +58,7 @@ offset_right = -9360.0
 offset_bottom = -9640.0
 color = Color(0, 0, 0, 1)
 
-[node name="ProgressCamera" type="Camera2D" parent="Loading"]
+[node name="LoadingCamera" type="Camera2D" parent="Loading"]
 position = Vector2(-10000, -10000)
 
 [node name="ProgressLabel" type="RichTextLabel" parent="Loading"]

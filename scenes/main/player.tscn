@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ddufykptqanl7"]
+[gd_scene load_steps=16 format=3 uid="uid://ddufykptqanl7"]
 
 [ext_resource type="Script" uid="uid://b4c8q2fvhicv8" path="res://scenes/main/player.gd" id="1_68xwl"]
 [ext_resource type="Texture2D" uid="uid://c5thlea8t0ru3" path="res://sprites/zaine_idle1.png" id="1_nybob"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bfv2ipk7utf85" path="res://sprites/zaine_walk1.png" id="3_wwvfn"]
 [ext_resource type="PackedScene" uid="uid://dqrkwtoin7ekt" path="res://scenes/items/weapons/earth_staff.tscn" id="4_0r2ug"]
 [ext_resource type="Texture2D" uid="uid://rh38gmteeaha" path="res://sprites/zaine_walk2.png" id="4_t8yk2"]
+[ext_resource type="PackedScene" uid="uid://cdln2cmlx5g2q" path="res://scenes/items/weapons/fire_staff.tscn" id="5_wwhpq"]
 [ext_resource type="Texture2D" uid="uid://rs3clmqas3l3" path="res://sprites/crosshair.png" id="7_t8yk2"]
 [ext_resource type="AudioStream" uid="uid://c2atch7yv2q1u" path="res://sounds/dash_sound.wav" id="8_3vq1g"]
 [ext_resource type="AudioStream" uid="uid://cx6qnqe40wotv" path="res://sounds/hit.wav" id="10_bnwh7"]
@@ -56,7 +57,7 @@ radius = 4.0
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_68xwl")
-starting_inventory = Array[PackedScene]([ExtResource("2_m5ugi"), ExtResource("3_0f7gw"), ExtResource("4_0r2ug")])
+starting_inventory = Array[PackedScene]([ExtResource("2_m5ugi"), ExtResource("3_0f7gw"), ExtResource("4_0r2ug"), ExtResource("5_wwhpq")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)

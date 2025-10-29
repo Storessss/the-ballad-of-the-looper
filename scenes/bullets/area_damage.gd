@@ -2,7 +2,7 @@ extends Area2D
 
 class_name AreaDamage
 
-@export var radius: int
+@export var radius: float = 1.0
 var damage: int
 var destroy_time: float = 0.5
 @export var explosion: bool = true
@@ -11,6 +11,7 @@ var destroy_time: float = 0.5
 @export var damages_enemies: bool = true
 @export var damage_time: float
 @export var particle_scene: PackedScene
+@export var explosion_sound: String
 
 var in_area: Array[CharacterBody2D]
 
@@ -30,6 +31,8 @@ func _ready() -> void:
 			particles.global_position = global_position
 			particles.radius = radius
 			get_tree().current_scene.add_child(particles)
+			if explosion_sound:
+				MusicPlayer.call(explosion_sound)
 		else:
 			var particles = particle_scene.instantiate()
 			particles.radius = radius
@@ -77,7 +80,7 @@ func break_walls():
 	var cell: Vector2i = GlobalVariables.tilemap.local_to_map(GlobalVariables.tilemap.to_local(global_position))
 	for i in area:
 		for j in area:
-			GlobalVariables.tilemap.set_floor(Vector2i(cell.x + i, cell.y + j))
+			GlobalVariables.tilemap.set_floor_at_runtime(Vector2i(cell.x + i, cell.y + j))
 
 func _on_destroy_timer_timeout() -> void:
 	queue_free()

@@ -18,8 +18,8 @@ func append_to_inventory(item_scene: PackedScene) -> void:
 	var item: Node2D = item_scene.instantiate()
 	if item is Weapon:
 		weapon_states.append({
-			"previous_reload_time": 0.0,
-			"previous_durability": item.full_durability,
+			"reload_time": 0.0,
+			"durability": item.full_durability,
 		})
 	else:
 		weapon_states.append({})
@@ -33,8 +33,8 @@ func replace_in_inventory(item_scene: PackedScene, index: int = inventory_index)
 	var item: Node2D = item_scene.instantiate()
 	if item is Weapon:
 		weapon_states[index] = {
-			"previous_reload_time": 0.0,
-			"previous_durability": item.full_durability,
+			"reload_time": 0.0,
+			"durability": item.full_durability,
 		}
 	else:
 		weapon_states[index] = {}
@@ -71,3 +71,4 @@ func change_room():
 func _physics_process(delta: float) -> void:
 	# Global Debug
 	pass
+	print(MusicPlayer.sound_players)

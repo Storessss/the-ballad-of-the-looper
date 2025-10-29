@@ -1,0 +1,166 @@
+[gd_scene load_steps=22 format=3 uid="uid://bvuwgtqjeenfa"]
+
+[ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_4iai8"]
+[ext_resource type="Script" uid="uid://debhgyrfcx188" path="res://scenes/enemies/sniper.gd" id="2_1vbe8"]
+[ext_resource type="Texture2D" uid="uid://b56l00rji7muu" path="res://sprites/sniper_attack.png" id="2_30ryv"]
+[ext_resource type="Texture2D" uid="uid://csroa7rw4sokc" path="res://sprites/sniper_idle.png" id="2_hpwhl"]
+[ext_resource type="Texture2D" uid="uid://kdit2gaaye2a" path="res://sprites/sniper_take_aim1.png" id="3_dfeq1"]
+[ext_resource type="Texture2D" uid="uid://budswck7kh0ov" path="res://sprites/sniper_take_aim2.png" id="4_5hruf"]
+[ext_resource type="Texture2D" uid="uid://dk5xgq5yukk24" path="res://sprites/sniper_take_aim3.png" id="5_ni60s"]
+[ext_resource type="Texture2D" uid="uid://cfns3goqjox1h" path="res://sprites/sniper_walk1.png" id="7_qp1k8"]
+[ext_resource type="Texture2D" uid="uid://dg0pha0ltsu2a" path="res://sprites/sniper_walk2.png" id="8_30ryv"]
+[ext_resource type="Script" uid="uid://bkkn2clcmg5f2" path="res://scenes/enemies/state_machine/states/Wander.gd" id="9_hod1b"]
+[ext_resource type="Script" uid="uid://cqkeqr7xu6xqo" path="res://scenes/enemies/state_machine/states/IfPlayerSpotted.gd" id="10_8hi7t"]
+[ext_resource type="Script" uid="uid://cyfscne6ig5vy" path="res://scenes/enemies/state_machine/states/ChasePlayer.gd" id="11_1vbe8"]
+[ext_resource type="Script" uid="uid://dlg1ayvyypn8j" path="res://scenes/enemies/state_machine/states/IfInRange.gd" id="12_jy7fq"]
+[ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="13_e78lt"]
+[ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="14_4f07o"]
+[ext_resource type="Script" uid="uid://yywyoj1sf4rg" path="res://scenes/enemies/state_machine/states/PlayAnimation.gd" id="14_hod1b"]
+[ext_resource type="PackedScene" uid="uid://h0e5hwjddjht" path="res://scenes/bullets/sniper_bullet.tscn" id="15_30ryv"]
+[ext_resource type="PackedScene" uid="uid://6sitm52h3u18" path="res://scenes/particles/aim_line.tscn" id="17_8hi7t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hod1b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_30ryv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_30ryv")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hpwhl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hpwhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dfeq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5hruf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ni60s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ni60s")
+}],
+"loop": true,
+"name": &"take_aim",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qp1k8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_30ryv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8hi7t"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1vbe8"]
+radius = 5.0
+
+[node name="Sniper" instance=ExtResource("1_4iai8")]
+script = ExtResource("2_1vbe8")
+health = 10
+speed = 50
+contact_damage = true
+max_dim_drop = 5
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_hod1b")
+animation = &"take_aim"
+frame_progress = 0.8206455
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_8hi7t")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_1vbe8")
+
+[node name="CastPoint" parent="." index="4"]
+position = Vector2(2.5, 0)
+
+[node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Wander")
+
+[node name="Wander" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_hod1b")
+animation = "walk"
+next_state = NodePath("../IfPlayerSpotted")
+
+[node name="IfPlayerSpotted" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("10_8hi7t")
+state_duration_min = 1.5
+state_duration_max = 3.5
+animation = "idle"
+next_state = NodePath("../ChasePlayer")
+exit_state = NodePath("../Wander")
+
+[node name="ChasePlayer" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("11_1vbe8")
+state_duration_min = 0.5
+state_duration_max = 0.5
+animation = "walk"
+next_state = NodePath("../IfInRange")
+exit_state = NodePath("../IfPlayerSpotted")
+
+[node name="IfInRange" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("12_jy7fq")
+trigger_distance = 150
+exit_distance = 200
+next_state = NodePath("../Idle1")
+exit_state = NodePath("../ChasePlayer")
+
+[node name="Idle1" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_e78lt")
+state_duration_min = 0.5
+state_duration_max = 0.5
+animation = "idle"
+next_state = NodePath("../PlayAnimation")
+
+[node name="PlayAnimation" type="Node" parent="FSM" index="5" node_paths=PackedStringArray("aim_line", "next_state")]
+script = ExtResource("14_hod1b")
+animation = "take_aim"
+final_frame = 4
+sound = "beeping"
+aim_line = NodePath("../../AimLine")
+next_state = NodePath("../ShootBullet")
+
+[node name="ShootBullet" type="Node" parent="FSM" index="6" node_paths=PackedStringArray("next_state")]
+script = ExtResource("14_4f07o")
+bullet_scene = ExtResource("15_30ryv")
+bullet_count = 5
+bullet_spread = 2
+animation = "attack"
+sound = "deep_shoot"
+final_frame = 1
+next_state = NodePath("../Idle2")
+
+[node name="Idle2" type="Node" parent="FSM" index="7" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_e78lt")
+state_duration_min = 0.5
+state_duration_max = 0.5
+animation = "idle"
+next_state = NodePath("../IfInRange")
+
+[node name="AimLine" parent="." index="7" instance=ExtResource("17_8hi7t")]
