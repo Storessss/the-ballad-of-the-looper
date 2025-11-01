@@ -1,0 +1,115 @@
+[gd_scene load_steps=15 format=3 uid="uid://dqmy7tlr1ujtt"]
+
+[ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_k8ma1"]
+[ext_resource type="Texture2D" uid="uid://7dq7l6l4ep38" path="res://sprites/gold_pot_idle_green.png" id="2_3m6k4"]
+[ext_resource type="Texture2D" uid="uid://c3lxixgrgwv07" path="res://sprites/gold_pot_idle_red.png" id="3_orgw3"]
+[ext_resource type="Texture2D" uid="uid://bucrc06waagq7" path="res://sprites/gold_pot_walk1_green.png" id="4_o8oj8"]
+[ext_resource type="Texture2D" uid="uid://dak88y0551fjj" path="res://sprites/gold_pot_walk2_green.png" id="5_8v7ap"]
+[ext_resource type="Texture2D" uid="uid://b8akvuj6j3kqk" path="res://sprites/gold_pot_walk1_red.png" id="6_3jeti"]
+[ext_resource type="Texture2D" uid="uid://cc3jyjqatmfsp" path="res://sprites/gold_pot_walk2_red.png" id="7_xwrcw"]
+[ext_resource type="Script" uid="uid://bkkn2clcmg5f2" path="res://scenes/enemies/state_machine/states/Wander.gd" id="8_o8oj8"]
+[ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="9_3jeti"]
+[ext_resource type="Script" uid="uid://cyfscne6ig5vy" path="res://scenes/enemies/state_machine/states/ChasePlayer.gd" id="9_8v7ap"]
+[ext_resource type="Script" uid="uid://cm2qwd3qkoyso" path="res://scenes/enemies/state_machine/states/PickRandomNextState.gd" id="9_xwrcw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l6iy1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3m6k4")
+}],
+"loop": true,
+"name": &"idle_green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_orgw3")
+}],
+"loop": true,
+"name": &"idle_red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_o8oj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8v7ap")
+}],
+"loop": true,
+"name": &"walk_green",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_3jeti")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xwrcw")
+}],
+"loop": true,
+"name": &"walk_red",
+"speed": 2.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3m6k4"]
+radius = 2.236068
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_orgw3"]
+radius = 5.0
+
+[node name="GoldPot" instance=ExtResource("1_k8ma1")]
+health = 150
+speed = 190
+contact_damage = true
+min_dim_drop = 3
+max_dim_drop = 4
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_l6iy1")
+animation = &"walk_green"
+frame_progress = 0.549748
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_3m6k4")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_orgw3")
+
+[node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Wander")
+
+[node name="Wander" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("8_o8oj8")
+distance_max = 250
+speed_multiplier = 0.4
+animation = "walk_red"
+next_state = NodePath("../PickRandomNextState")
+
+[node name="PickRandomNextState" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("states")]
+script = ExtResource("9_xwrcw")
+states = [NodePath("../Wander"), NodePath("../Wander"), NodePath("../Idle1")]
+
+[node name="Idle1" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_3jeti")
+state_duration_min = 1.0
+state_duration_max = 1.0
+animation = "idle_red"
+next_state = NodePath("../ChasePlayer")
+
+[node name="ChasePlayer" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state", "exit_state")]
+script = ExtResource("9_8v7ap")
+state_duration_min = 5.0
+state_duration_max = 8.0
+animation = "walk_green"
+next_state = NodePath("../Idle2")
+exit_state = NodePath("../Idle2")
+
+[node name="Idle2" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_3jeti")
+state_duration_min = 1.0
+state_duration_max = 1.0
+animation = "idle_red"
+next_state = NodePath("../Wander")

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://g0fk0hu5n86m"]
+
+[ext_resource type="PackedScene" uid="uid://blcb6chjtxvt1" path="res://scenes/bullets/bullet.tscn" id="1_51e6n"]
+[ext_resource type="Texture2D" uid="uid://dqbt6o1bwu1fj" path="res://sprites/black_bullet.png" id="2_d47j1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d47j1"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7314s"]
+radius = 2.0
+
+[node name="BlackBullet" instance=ExtResource("1_51e6n")]
+speed = 130
+destroy_time = 5.0
+deflectable = false
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_d47j1")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_d47j1")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_7314s")

@@ -5,6 +5,7 @@ class_name Wander
 @onready var enemy: Enemy = get_parent().get_parent()
 @export var distance_min: int = 20
 @export var distance_max: int = 100
+@export var speed_multiplier: float = 1.0
 @export var animation: String
 @export var next_state: State
 
@@ -28,4 +29,4 @@ func Physics_Update(_delta: float) -> void:
 		Transitioned.emit(self, next_state)
 	else:
 		var next_position = enemy.nav.get_next_path_position()
-		enemy.direction = (next_position - enemy.global_position).normalized()
+		enemy.direction = (next_position - enemy.global_position).normalized() * speed_multiplier

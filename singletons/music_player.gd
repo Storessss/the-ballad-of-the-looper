@@ -5,7 +5,7 @@ var sound_players: Array[AudioStreamPlayer]
 
 func _ready() -> void:
 	music_player.bus = "Music"
-	music_player.volume_db = -10
+	music_player.volume_db = -5
 	add_child(music_player)
 	change_music(preload("res://music/Of Days Long Past.ogg"))
 
@@ -29,7 +29,7 @@ func change_music(music: AudioStream):
 		music_player.play()
 
 func enemy_defeat() -> AudioStreamPlayer:
-	var sound_player = new_sound_player(-5)
+	var sound_player = new_sound_player(-8)
 	sound_player.stream = preload("res://sounds/enemy_defeat.wav")
 	sound_player.play()
 	return sound_player
@@ -73,7 +73,7 @@ func text() -> AudioStreamPlayer:
 	return sound_player
 
 func explosion() -> AudioStreamPlayer:
-	var sound_player = MusicPlayer.new_sound_player(3)
+	var sound_player = MusicPlayer.new_sound_player(-3)
 	sound_player.stream = preload("res://sounds/explosion.wav")
 	sound_player.play()
 	return sound_player
@@ -86,7 +86,7 @@ func dim_get() -> AudioStreamPlayer:
 	return sound_player
 
 func wall_break() -> AudioStreamPlayer:
-	var sound_player = new_sound_player(1)
+	var sound_player = new_sound_player(-5)
 	sound_player.stream = preload("res://sounds/wall_break.mp3")
 	sound_player.play()
 	return sound_player
@@ -105,7 +105,7 @@ func item_throw() -> AudioStreamPlayer:
 	return sound_player
 
 func item_get() -> AudioStreamPlayer:
-	var sound_player = new_sound_player(3)
+	var sound_player = new_sound_player(-4)
 	sound_player.stream = preload("res://sounds/item_get.mp3")
 	sound_player.play()
 	return sound_player
@@ -141,9 +141,16 @@ func beeping() -> AudioStreamPlayer:
 	sound_player.play()
 	return sound_player
 
-func deep_shoot() -> AudioStreamPlayer:
+func heavy_shoot() -> AudioStreamPlayer:
 	var sound_player = new_sound_player(0)
 	sound_player.stream = preload("res://sounds/shoot.wav")
 	sound_player.pitch_scale = 0.87
+	sound_player.play()
+	return sound_player
+
+func heavier_shoot() -> AudioStreamPlayer:
+	var sound_player = new_sound_player(0)
+	sound_player.stream = preload("res://sounds/shoot.wav")
+	sound_player.pitch_scale = 0.7
 	sound_player.play()
 	return sound_player

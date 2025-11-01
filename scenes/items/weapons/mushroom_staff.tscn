@@ -7,7 +7,7 @@
 
 [node name="MushroomStaff" instance=ExtResource("1_di2d1")]
 fire_rate = 1.0
-effect_damage = 65
+effect_damage = 40
 bullet_scene = ExtResource("2_jeuxo")
 full_durability = 30
 

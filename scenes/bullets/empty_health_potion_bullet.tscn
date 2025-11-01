@@ -4,21 +4,22 @@
 [ext_resource type="Texture2D" uid="uid://spr2kj6huo61" path="res://sprites/health_potion_empty.png" id="2_xibht"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_56hmb"]
-radius = 3.0
+radius = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xmim7"]
-radius = 6.0827627
+radius = 5.0
 
 [node name="EmptyHealthPotionBullet" instance=ExtResource("1_aj58d")]
 speed = 300
-destroy_time = 5.0
+destroy_time = 10.0
 bouncing = true
 destroy_sound = "weapon_break"
 bounce_sound = "metal_hit"
 
 [node name="Sprite2D" parent="." index="0"]
-position = Vector2(0, 3)
+position = Vector2(0, 2.5)
 rotation = 3.1415927
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_xibht")
 
 [node name="CollisionShape2D" parent="." index="1"]

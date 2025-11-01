@@ -1,0 +1,151 @@
+[gd_scene load_steps=18 format=3 uid="uid://dkllfql1yyhn0"]
+
+[ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_j7uq5"]
+[ext_resource type="Script" uid="uid://c8jl3ihahdvgv" path="res://scenes/enemies/bosses/dungeon_core.gd" id="2_kblgd"]
+[ext_resource type="Texture2D" uid="uid://ckcnmgivf2al2" path="res://sprites/dungeon_core_empty.png" id="3_5av3b"]
+[ext_resource type="Texture2D" uid="uid://dlt1ksl8qcgj7" path="res://sprites/pupil.png" id="4_aqa0c"]
+[ext_resource type="Texture2D" uid="uid://buwgp2bvi0o7d" path="res://sprites/dungeon_core_invincible.png" id="4_yawtp"]
+[ext_resource type="Script" uid="uid://cm2qwd3qkoyso" path="res://scenes/enemies/state_machine/states/PickRandomNextState.gd" id="5_0tacs"]
+[ext_resource type="Script" uid="uid://cwt5obbui16uh" path="res://scenes/enemies/state_machine/states/Repeat.gd" id="6_knck3"]
+[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="6_vbn3r"]
+[ext_resource type="PackedScene" uid="uid://vphukb2po6r7" path="res://scenes/bullets/fast_red_bullet.tscn" id="8_i08rf"]
+[ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="8_rytud"]
+[ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="9_bq328"]
+[ext_resource type="PackedScene" uid="uid://g0fk0hu5n86m" path="res://scenes/bullets/black_bullet.tscn" id="11_bq328"]
+[ext_resource type="Script" uid="uid://cufrwcyr1jai8" path="res://scenes/enemies/state_machine/state_machine.gd" id="12_i08rf"]
+[ext_resource type="Script" uid="uid://oli7prhhfeqv" path="res://scenes/enemies/state_machine/states/ApplyEffect.gd" id="13_mnnx5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0tacs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5av3b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_yawtp")
+}],
+"loop": true,
+"name": &"invincible",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5av3b"]
+radius = 77.00649
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aqa0c"]
+radius = 77.0
+
+[node name="DungeonCore" instance=ExtResource("1_j7uq5")]
+script = ExtResource("2_kblgd")
+health = 10000
+contact_damage = true
+boss = true
+min_dim_drop = 0
+max_dim_drop = 0
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(5.5, 5.5)
+sprite_frames = SubResource("SpriteFrames_0tacs")
+animation = &"invincible"
+autoplay = "default"
+
+[node name="Pupil" type="Sprite2D" parent="AnimatedSprite2D" index="0"]
+texture = ExtResource("4_aqa0c")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_5av3b")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_aqa0c")
+
+[node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("PickRandomNextState")
+
+[node name="PickRandomNextState" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("states")]
+script = ExtResource("5_0tacs")
+states = [NodePath("../Repeat"), NodePath("../ShootBullet")]
+
+[node name="Repeat" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("repeat_state", "exit_state")]
+script = ExtResource("6_knck3")
+repeat_for_min = 1
+repeat_for_max = 6
+state_duration_min = 0.3
+state_duration_max = 0.8
+repeat_state = NodePath("../ShootRing")
+exit_state = NodePath("../PickRandomNextState")
+
+[node name="ShootRing" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_vbn3r")
+bullet_scene = ExtResource("8_i08rf")
+bullet_count = 20
+sound = "heavy_shoot"
+next_state = NodePath("../Idle")
+bullet_count_min = 10
+bullet_count_max = 40
+random_offset = true
+
+[node name="ShootBullet" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state")]
+script = ExtResource("8_rytud")
+bullet_scene = ExtResource("11_bq328")
+bullet_count = 30
+bullet_spread = 3
+sound = "heavier_shoot"
+next_state = NodePath("../Idle")
+
+[node name="Idle" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_bq328")
+state_duration_min = 0.7
+state_duration_max = 0.7
+next_state = NodePath("../PickRandomNextState")
+
+[node name="FSM2" type="Node" parent="." index="7" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("12_i08rf")
+initial_state = NodePath("ShootBullet")
+
+[node name="ShootBullet" type="Node" parent="FSM2" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("8_rytud")
+bullet_scene = ExtResource("11_bq328")
+bullet_count = 7
+bullet_spread = 10
+sound = "heavier_shoot"
+next_state = NodePath("../Idle")
+random_shoot_direction = true
+
+[node name="Idle" type="Node" parent="FSM2" index="1" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_bq328")
+state_duration_min = 0.2
+state_duration_max = 0.7
+next_state = NodePath("../ShootBullet")
+
+[node name="FSM3" type="Node" parent="." index="8" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("12_i08rf")
+initial_state = NodePath("ApplyEffect")
+
+[node name="Idle" type="Node" parent="FSM3" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_bq328")
+state_duration_min = 2.0
+state_duration_max = 15.0
+next_state = NodePath("../ApplyEffect")
+
+[node name="ApplyEffect" type="Node" parent="FSM3" index="1" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_mnnx5")
+effect = "NON_INVINCIBLE"
+animation = "default"
+next_state = NodePath("../Idle2")
+
+[node name="Idle2" type="Node" parent="FSM3" index="2" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_bq328")
+state_duration_min = 2.0
+state_duration_max = 15.0
+next_state = NodePath("../ApplyEffect2")
+
+[node name="ApplyEffect2" type="Node" parent="FSM3" index="3" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_mnnx5")
+effect = "INVINCIBLE"
+animation = "invincible"
+next_state = NodePath("../Idle")

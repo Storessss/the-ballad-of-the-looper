@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dxpn5t75q52xf"
+path="res://.godot/imported/DUNGEON KILLER.ogg-f76d61211d280be09b72e1dfaf332d6a.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/DUNGEON KILLER.ogg"
+dest_files=["res://.godot/imported/DUNGEON KILLER.ogg-f76d61211d280be09b72e1dfaf332d6a.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

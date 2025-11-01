@@ -4,9 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dehv0o75pw6ui" path="res://scenes/particles/mushroom_spores_particles.tscn" id="2_urb7f"]
 
 [node name="MushroomDamagingAura" instance=ExtResource("1_hnnwt")]
-radius = 1
 explosion = false
 destructive = false
 damages_player = false
-damage_time = 0.3
+damage_time = 0.5
 particle_scene = ExtResource("2_urb7f")

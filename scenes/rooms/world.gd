@@ -22,6 +22,7 @@ var enemies: Dictionary = {
 	preload("res://scenes/enemies/dungeon_flower.tscn"): 5,
 	preload("res://scenes/enemies/spingling.tscn"): 3,
 	preload("res://scenes/enemies/sniper.tscn"): 3,
+	preload("res://scenes/enemies/gold_pot.tscn"): 1,
 }
 var bosses := [
 	preload("res://scenes/enemies/bosses/little_devil.tscn"),

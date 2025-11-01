@@ -137,6 +137,8 @@ func instantiate_item():
 			GlobalVariables.weapon_states[GlobalVariables.previous_inventory_index]\
 			["reload_time"] = child.previous_reload_time
 		child.queue_free()
+	if GlobalVariables.inventory_index >= GlobalVariables.inventory.size():
+		GlobalVariables.inventory_index = 0
 	var item: Node2D = GlobalVariables.inventory[GlobalVariables.inventory_index].instantiate()
 	if item is Weapon:
 		item.previous_reload_time = \

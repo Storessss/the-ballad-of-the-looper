@@ -21,6 +21,8 @@ var death_particles_scene = preload("res://scenes/particles/death_particles.tscn
 
 var default_modulate: Color = Color.WHITE
 
+var invincible: bool
+
 func _ready() -> void:
 	$ModulateTimer.connect("timeout", Callable(self, "_on_modulate_timer_timeout"))
 	$Area2D.connect("body_entered", Callable(self, "_on_area_2d_body_entered"))
@@ -30,12 +32,13 @@ func _ready() -> void:
 	
 
 func take_damage(damage: int) -> void:
-	health -= damage
-	if health <= 0:
-		die()
-	modulate = Color(5,5,5,1)
-	$ModulateTimer.start()
-	MusicPlayer.enemy_hit()
+	if not invincible:
+		health -= damage
+		if health <= 0:
+			die()
+		modulate = Color(5,5,5,1)
+		$ModulateTimer.start()
+		MusicPlayer.enemy_hit()
 		
 func _on_modulate_timer_timeout() -> void:
 	modulate = default_modulate

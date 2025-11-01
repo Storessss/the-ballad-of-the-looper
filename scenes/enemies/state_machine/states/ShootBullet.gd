@@ -10,6 +10,10 @@ class_name ShootBullet
 @export var sound: String
 @export var final_frame: int
 @export var next_state: State
+@export_category("Optional Randomness")
+@export var random_shoot_direction: bool
+@export var unified_direction: bool = true
+var random_unified_angle: float
 
 func shoot() -> void:
 	var pos = round(-bullet_spread * (bullet_count / 2))
@@ -17,6 +21,11 @@ func shoot() -> void:
 		var bullet = bullet_scene.instantiate()
 		var point = GlobalVariables.player_position - enemy.cast_point.global_position
 		bullet.angle = point.angle() + deg_to_rad(pos)
+		if random_shoot_direction:
+			if unified_direction:
+				bullet.angle = random_unified_angle + deg_to_rad(pos)
+			else:
+				bullet.angle = randf() * TAU + deg_to_rad(pos)
 		bullet.global_position = enemy.cast_point.global_position
 		pos += bullet_spread
 		get_tree().current_scene.add_child(bullet)
@@ -31,7 +40,12 @@ func Enter() -> void:
 			enemy.animations.play(animation)
 	else:
 		Transitioned.emit(self, next_state)
+	if random_shoot_direction and unified_direction:
+		random_unified_angle = randf() * TAU
 	
 func Update(_delta: float) -> void:
-	if enemy.animations.frame == final_frame:
+	if enemy.animations.animation == animation:
+		if enemy.animations.frame == final_frame:
+			Transitioned.emit(self, next_state)
+	else:
 		Transitioned.emit(self, next_state)

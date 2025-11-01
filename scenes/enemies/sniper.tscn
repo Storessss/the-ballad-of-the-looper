@@ -89,7 +89,8 @@ max_dim_drop = 5
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_hod1b")
 animation = &"take_aim"
-frame_progress = 0.8206455
+frame = 4
+frame_progress = 0.9116529
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_8hi7t")
@@ -126,8 +127,8 @@ exit_state = NodePath("../IfPlayerSpotted")
 
 [node name="IfInRange" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state", "exit_state")]
 script = ExtResource("12_jy7fq")
-trigger_distance = 150
-exit_distance = 200
+trigger_distance = 190
+exit_distance = 220
 next_state = NodePath("../Idle1")
 exit_state = NodePath("../ChasePlayer")
 
@@ -150,9 +151,9 @@ next_state = NodePath("../ShootBullet")
 script = ExtResource("14_4f07o")
 bullet_scene = ExtResource("15_30ryv")
 bullet_count = 5
-bullet_spread = 2
+bullet_spread = 1
 animation = "attack"
-sound = "deep_shoot"
+sound = "heavy_shoot"
 final_frame = 1
 next_state = NodePath("../Idle2")
 
@@ -164,3 +165,4 @@ animation = "idle"
 next_state = NodePath("../IfInRange")
 
 [node name="AimLine" parent="." index="7" instance=ExtResource("17_8hi7t")]
+points = PackedVector2Array(2.5, 0, 0, 0)

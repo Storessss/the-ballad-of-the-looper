@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bnaimfjpbepxi"]
+[gd_scene load_steps=21 format=3 uid="uid://bnaimfjpbepxi"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_vc5lh"]
 [ext_resource type="Texture2D" uid="uid://bnm2wx28ie32o" path="res://sprites/little_devil_idle.png" id="2_xrbsi"]
@@ -17,7 +17,6 @@
 [ext_resource type="Script" uid="uid://cwt5obbui16uh" path="res://scenes/enemies/state_machine/states/Repeat.gd" id="13_v0s08"]
 [ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="14_8jr78"]
 [ext_resource type="Script" uid="uid://b8kcb0me7xcl0" path="res://scenes/enemies/state_machine/states/Wait.gd" id="16_66c2w"]
-[ext_resource type="AudioStream" uid="uid://sgq3k0voumip" path="res://sounds/shoot.wav" id="20_kkx77"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mic2l"]
 animations = [{
@@ -115,13 +114,13 @@ distance_max = 200
 animation = "walk"
 next_state = NodePath("../ShootBullet")
 
-[node name="ShootBullet" type="Node" parent="FSM" index="5" node_paths=PackedStringArray("sound", "next_state")]
+[node name="ShootBullet" type="Node" parent="FSM" index="5" node_paths=PackedStringArray("next_state")]
 script = ExtResource("11_v0s08")
 bullet_scene = ExtResource("12_ycu62")
 bullet_count = 10
 bullet_spread = 10
 animation = "idle"
-sound = NodePath("../../ShootSound")
+sound = "shoot"
 next_state = NodePath("../Idle2")
 
 [node name="Idle2" type="Node" parent="FSM" index="6" node_paths=PackedStringArray("next_state")]
@@ -173,12 +172,11 @@ state_duration_max = 0.05
 repeat_state = NodePath("../IfStateIsActive")
 exit_state = NodePath("../ShootRing")
 
-[node name="ShootRing" type="Node" parent="FSM2" index="3" node_paths=PackedStringArray("sound", "next_state")]
+[node name="ShootRing" type="Node" parent="FSM2" index="3" node_paths=PackedStringArray("next_state")]
 script = ExtResource("14_8jr78")
 bullet_scene = ExtResource("12_ycu62")
 bullet_count = 25
 animation = "walk"
-sound = NodePath("../../ShootSound")
 next_state = NodePath("../ShootBullet")
 
 [node name="Wait" type="Node" parent="FSM2" index="4" node_paths=PackedStringArray("next_state")]
@@ -192,7 +190,3 @@ script = ExtResource("16_66c2w")
 state_duration_min = 1.0
 state_duration_max = 1.0
 next_state = NodePath("../IfStateIsActive")
-
-[node name="ShootSound" type="AudioStreamPlayer2D" parent="." index="8"]
-stream = ExtResource("20_kkx77")
-bus = &"Sounds"

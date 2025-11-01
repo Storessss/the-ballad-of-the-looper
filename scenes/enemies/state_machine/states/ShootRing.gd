@@ -10,6 +10,10 @@ class_name ShootRing
 @export var sound: String
 @export var final_frame: int
 @export var next_state: State
+@export_category("Optional Randomness")
+@export var bullet_count_min: int
+@export var bullet_count_max: int
+@export var random_offset: bool
 
 var can_attack: bool
 
@@ -28,6 +32,10 @@ func bullet_ring():
 
 func Enter() -> void:
 	can_attack = true
+	if bullet_count_min != 0 and bullet_count_max != 0:
+		bullet_count = randi_range(bullet_count_min, bullet_count_max)
+	if random_offset:
+		offset = randi_range(1, 360)
 	
 func Update(_delta: float) -> void:
 	enemy.nav.target_position = GlobalVariables.player_position
@@ -41,3 +49,5 @@ func Update(_delta: float) -> void:
 	if enemy.animations.animation == animation:
 		if enemy.animations.frame == final_frame:
 			Transitioned.emit(self, next_state)
+	else:
+		Transitioned.emit(self, next_state)

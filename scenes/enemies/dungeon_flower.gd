@@ -12,7 +12,7 @@ func bind() -> void:
 	else:
 		target_ally = GlobalVariables.dungeon_flower_targets.pick_random()
 		GlobalVariables.dungeon_flower_targets.erase(target_ally)
-		target_ally.health = 1000000
+		target_ally.invincible = true
 		var color = Color(randf(), randf(), randf(), 1.0)
 		var mark_flower = mark_flower_scene.instantiate()
 		mark_flower.color = color

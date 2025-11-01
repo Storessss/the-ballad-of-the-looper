@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://hdyymp4tfp5u"]
+[gd_scene load_steps=7 format=4 uid="uid://bma7x8j1v04f"]
 
 [ext_resource type="Script" uid="uid://b71sbhy8sb1sg" path="res://scenes/rooms/room.gd" id="1_48f77"]
 [ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://tilemap.tscn" id="2_ms3in"]

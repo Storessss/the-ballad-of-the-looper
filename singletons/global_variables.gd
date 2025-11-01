@@ -71,4 +71,3 @@ func change_room():
 func _physics_process(delta: float) -> void:
 	# Global Debug
 	pass
-	print(MusicPlayer.sound_players)
