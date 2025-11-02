@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://dqbt6o1bwu1fj" path="res://sprites/black_bullet.png" id="2_d47j1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d47j1"]
-radius = 3.0
+radius = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7314s"]
-radius = 2.0
+radius = 3.0
 
 [node name="BlackBullet" instance=ExtResource("1_51e6n")]
 speed = 130

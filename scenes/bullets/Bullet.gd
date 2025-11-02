@@ -7,6 +7,8 @@ class_name Bullet
 @export var bouncing: bool
 @export var transparent: bool
 @export var deflectable: bool = true
+@export var bonus_deflect_damage: int
+@export var back_to_sender_deflect: bool
 @export var pierce: int = 1
 @export var destructive: bool
 @export var explosive: bool
@@ -101,9 +103,11 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	elif body.is_in_group("bullets") and deflective:
 		if body.player_bullet != player_bullet:
 			if body.deflectable:
-				body.angle = angle
-				#body.angle -= PI
-				body.damage = effect_damage
+				if body.back_to_sender_deflect:
+					body.angle -= PI
+				else:
+					body.angle = angle
+				body.damage = effect_damage + bonus_deflect_damage
 				body.speed *= 2
 				MusicPlayer.bullet_deflect()
 				body.change_alignment()

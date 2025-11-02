@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dqmy7tlr1ujtt"]
+[gd_scene load_steps=16 format=3 uid="uid://dqmy7tlr1ujtt"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_k8ma1"]
 [ext_resource type="Texture2D" uid="uid://7dq7l6l4ep38" path="res://sprites/gold_pot_idle_green.png" id="2_3m6k4"]
@@ -9,26 +9,33 @@
 [ext_resource type="Texture2D" uid="uid://cc3jyjqatmfsp" path="res://sprites/gold_pot_walk2_red.png" id="7_xwrcw"]
 [ext_resource type="Script" uid="uid://bkkn2clcmg5f2" path="res://scenes/enemies/state_machine/states/Wander.gd" id="8_o8oj8"]
 [ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="9_3jeti"]
-[ext_resource type="Script" uid="uid://cyfscne6ig5vy" path="res://scenes/enemies/state_machine/states/ChasePlayer.gd" id="9_8v7ap"]
 [ext_resource type="Script" uid="uid://cm2qwd3qkoyso" path="res://scenes/enemies/state_machine/states/PickRandomNextState.gd" id="9_xwrcw"]
+[ext_resource type="Script" uid="uid://yywyoj1sf4rg" path="res://scenes/enemies/state_machine/states/PlayAnimation.gd" id="10_3jeti"]
+[ext_resource type="Script" uid="uid://b7rm1wc1o05fq" path="res://scenes/enemies/state_machine/states/FollowPlayer.gd" id="12_xwrcw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l6iy1"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_3m6k4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_3m6k4")
 }],
 "loop": true,
 "name": &"idle_green",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_orgw3")
+}, {
 "duration": 1.0,
 "texture": ExtResource("3_orgw3")
 }],
 "loop": true,
 "name": &"idle_red",
-"speed": 5.0
+"speed": 1.5
 }, {
 "frames": [{
 "duration": 1.0,
@@ -63,14 +70,15 @@ radius = 5.0
 health = 150
 speed = 190
 contact_damage = true
+nav_agent_movement = false
 min_dim_drop = 3
 max_dim_drop = 4
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_l6iy1")
-animation = &"walk_green"
-frame_progress = 0.549748
+animation = &"idle_green"
+frame_progress = 0.10940348
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_3m6k4")
@@ -90,26 +98,39 @@ next_state = NodePath("../PickRandomNextState")
 
 [node name="PickRandomNextState" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("states")]
 script = ExtResource("9_xwrcw")
-states = [NodePath("../Wander"), NodePath("../Wander"), NodePath("../Idle1")]
+states = [NodePath("../Wander"), NodePath("../Wander"), NodePath("../Idle")]
 
-[node name="Idle1" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
+[node name="Idle" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("next_state")]
 script = ExtResource("9_3jeti")
-state_duration_min = 1.0
-state_duration_max = 1.0
+state_duration_min = 0.6
+state_duration_max = 0.6
 animation = "idle_red"
-next_state = NodePath("../ChasePlayer")
+next_state = NodePath("../PlayAnimation")
 
-[node name="ChasePlayer" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state", "exit_state")]
-script = ExtResource("9_8v7ap")
-state_duration_min = 5.0
-state_duration_max = 8.0
+[node name="PlayAnimation" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_3jeti")
+animation = "idle_green"
+final_frame = 1
+sound = "radio_activate"
+next_state = NodePath("../FollowPlayer")
+
+[node name="FollowPlayer" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
+script = ExtResource("12_xwrcw")
+state_duration_min = 4.5
+state_duration_max = 7.0
 animation = "walk_green"
 next_state = NodePath("../Idle2")
-exit_state = NodePath("../Idle2")
 
-[node name="Idle2" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
+[node name="Idle2" type="Node" parent="FSM" index="5" node_paths=PackedStringArray("next_state")]
 script = ExtResource("9_3jeti")
-state_duration_min = 1.0
-state_duration_max = 1.0
+state_duration_min = 0.6
+state_duration_max = 0.6
+animation = "idle_green"
+next_state = NodePath("../PlayAnimation2")
+
+[node name="PlayAnimation2" type="Node" parent="FSM" index="6" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_3jeti")
 animation = "idle_red"
+final_frame = 1
+sound = "radio_deactivate"
 next_state = NodePath("../Wander")

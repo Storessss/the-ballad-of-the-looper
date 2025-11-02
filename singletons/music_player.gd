@@ -154,3 +154,15 @@ func heavier_shoot() -> AudioStreamPlayer:
 	sound_player.pitch_scale = 0.7
 	sound_player.play()
 	return sound_player
+
+func radio_activate() -> AudioStreamPlayer:
+	var sound_player = new_sound_player(0)
+	sound_player.stream = preload("res://sounds/radio_activate.wav")
+	sound_player.play()
+	return sound_player
+
+func radio_deactivate() -> AudioStreamPlayer:
+	var sound_player = new_sound_player(0)
+	sound_player.stream = preload("res://sounds/radio_deactivate.wav")
+	sound_player.play()
+	return sound_player

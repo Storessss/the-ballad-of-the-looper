@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dkllfql1yyhn0"]
+[gd_scene load_steps=25 format=3 uid="uid://dkllfql1yyhn0"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_j7uq5"]
 [ext_resource type="Script" uid="uid://c8jl3ihahdvgv" path="res://scenes/enemies/bosses/dungeon_core.gd" id="2_kblgd"]
@@ -13,7 +13,14 @@
 [ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="9_bq328"]
 [ext_resource type="PackedScene" uid="uid://g0fk0hu5n86m" path="res://scenes/bullets/black_bullet.tscn" id="11_bq328"]
 [ext_resource type="Script" uid="uid://cufrwcyr1jai8" path="res://scenes/enemies/state_machine/state_machine.gd" id="12_i08rf"]
+[ext_resource type="Script" uid="uid://cj45kwgsxfhd2" path="res://scenes/enemies/state_machine/states/SpawnEnemy.gd" id="13_12did"]
 [ext_resource type="Script" uid="uid://oli7prhhfeqv" path="res://scenes/enemies/state_machine/states/ApplyEffect.gd" id="13_mnnx5"]
+[ext_resource type="PackedScene" uid="uid://cktbiwo0swu6l" path="res://scenes/bullets/stronger_deflected_red_bullet.tscn" id="13_uofn0"]
+[ext_resource type="PackedScene" uid="uid://6wkw1e4btx03" path="res://scenes/enemies/triple_shooter.tscn" id="14_2swnx"]
+[ext_resource type="PackedScene" uid="uid://bo3w7ojote3p3" path="res://scenes/enemies/slime.tscn" id="14_rp4ph"]
+[ext_resource type="PackedScene" uid="uid://cdk5w7djq0rc0" path="res://scenes/enemies/spitter.tscn" id="15_uofn0"]
+[ext_resource type="PackedScene" uid="uid://bvuwgtqjeenfa" path="res://scenes/enemies/sniper.tscn" id="17_q4bgg"]
+[ext_resource type="PackedScene" uid="uid://dqmy7tlr1ujtt" path="res://scenes/enemies/gold_pot.tscn" id="18_obrvg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0tacs"]
 animations = [{
@@ -44,6 +51,7 @@ radius = 77.0
 script = ExtResource("2_kblgd")
 health = 10000
 contact_damage = true
+nav_agent_movement = false
 boss = true
 min_dim_drop = 0
 max_dim_drop = 0
@@ -68,7 +76,7 @@ initial_state = NodePath("PickRandomNextState")
 
 [node name="PickRandomNextState" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("states")]
 script = ExtResource("5_0tacs")
-states = [NodePath("../Repeat"), NodePath("../ShootBullet")]
+states = [NodePath("../Repeat"), NodePath("../ShootBullet"), NodePath("../SpawnEnemy")]
 
 [node name="Repeat" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("repeat_state", "exit_state")]
 script = ExtResource("6_knck3")
@@ -99,8 +107,48 @@ next_state = NodePath("../Idle")
 
 [node name="Idle" type="Node" parent="FSM" index="4" node_paths=PackedStringArray("next_state")]
 script = ExtResource("9_bq328")
+state_duration_min = 1.2
+state_duration_max = 1.2
+next_state = NodePath("../ShootBullet2")
+
+[node name="ShootBullet2" type="Node" parent="FSM" index="5" node_paths=PackedStringArray("next_state")]
+script = ExtResource("8_rytud")
+bullet_scene = ExtResource("13_uofn0")
+bullet_count = 30
+bullet_spread = 1
+sound = "heavier_shoot"
+next_state = NodePath("../Idle2")
+
+[node name="Idle2" type="Node" parent="FSM" index="6" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_bq328")
 state_duration_min = 0.7
 state_duration_max = 0.7
+next_state = NodePath("../PickRandomNextState")
+
+[node name="SpawnEnemy" type="Node" parent="FSM" index="7" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_12did")
+enemy_scenes = Array[PackedScene]([ExtResource("14_rp4ph"), ExtResource("15_uofn0"), ExtResource("14_2swnx"), ExtResource("17_q4bgg"), ExtResource("18_obrvg")])
+enemy_count_min = 1
+enemy_count_max = 5
+disable_enemy_avoidance = true
+next_state = NodePath("../ApplyEffect")
+
+[node name="ApplyEffect" type="Node" parent="FSM" index="8" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_mnnx5")
+effect = "INVINCIBLE"
+animation = "invincible"
+next_state = NodePath("../Idle3")
+
+[node name="Idle3" type="Node" parent="FSM" index="9" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_bq328")
+state_duration_min = 4.0
+state_duration_max = 7.0
+next_state = NodePath("../ApplyEffect2")
+
+[node name="ApplyEffect2" type="Node" parent="FSM" index="10" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_mnnx5")
+effect = "NON_INVINCIBLE"
+animation = "default"
 next_state = NodePath("../PickRandomNextState")
 
 [node name="FSM2" type="Node" parent="." index="7" node_paths=PackedStringArray("initial_state")]
@@ -122,9 +170,8 @@ state_duration_min = 0.2
 state_duration_max = 0.7
 next_state = NodePath("../ShootBullet")
 
-[node name="FSM3" type="Node" parent="." index="8" node_paths=PackedStringArray("initial_state")]
+[node name="FSM3" type="Node" parent="." index="8"]
 script = ExtResource("12_i08rf")
-initial_state = NodePath("ApplyEffect")
 
 [node name="Idle" type="Node" parent="FSM3" index="0" node_paths=PackedStringArray("next_state")]
 script = ExtResource("9_bq328")

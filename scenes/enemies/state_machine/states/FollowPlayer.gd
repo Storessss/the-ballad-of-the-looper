@@ -23,8 +23,8 @@ func Update(delta: float) -> void:
 		enemy.animations.play(animation)
 
 func Physics_Update(_delta: float) -> void:
+	enemy.nav.target_position = GlobalVariables.player_position
 	if enemy.nav.is_navigation_finished():
 		return
-	enemy.nav.target_position = GlobalVariables.player_position
 	var next_position = enemy.nav.get_next_path_position()
 	enemy.direction = (next_position - enemy.global_position).normalized()

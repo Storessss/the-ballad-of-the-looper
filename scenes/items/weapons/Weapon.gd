@@ -9,7 +9,7 @@ class_name Weapon
 @export var bullet_spread: int = 5
 @export var bullet_scene: PackedScene
 @export var deflective_shots: bool
-@export var full_durability: int = 1000000
+@export var full_durability: int = 1000000000
 @export var automatic: bool = true
 @export var break_sound: String = "weapon_break"
 var durability: int
