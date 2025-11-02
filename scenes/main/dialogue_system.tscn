@@ -1,0 +1,120 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5uieu5jmalj7"]
+
+[ext_resource type="Script" uid="uid://b0h37uok7pgv1" path="res://scenes/main/dialogue_system.gd" id="1_nis2w"]
+[ext_resource type="Texture2D" uid="uid://dqcara34n6cs3" path="res://sprites/dialogue_box.png" id="1_qaojf"]
+[ext_resource type="Texture2D" uid="uid://dlil2t2rc1p55" path="res://sprites/dungeon_floor_brown.png" id="3_3ciiw"]
+[ext_resource type="FontFile" uid="uid://b4fgfncmcslf6" path="res://styles/Retro Gaming.ttf" id="3_w145u"]
+
+[node name="DialogueSystem" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nis2w")
+
+[node name="DialogueBox" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 340.0
+offset_top = 495.0
+offset_right = 940.0
+offset_bottom = 720.0
+texture = ExtResource("1_qaojf")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="Background" type="TextureRect" parent="DialogueBox"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 48.0
+offset_right = 177.0
+offset_bottom = 224.0
+texture = ExtResource("3_3ciiw")
+flip_v = true
+
+[node name="Name" type="RichTextLabel" parent="DialogueBox"]
+layout_mode = 0
+offset_left = 7.0
+offset_right = 994.0
+offset_bottom = 97.0
+scale = Vector2(0.6, 0.6)
+theme_override_fonts/normal_font = ExtResource("3_w145u")
+theme_override_fonts/bold_font = ExtResource("3_w145u")
+theme_override_fonts/bold_italics_font = ExtResource("3_w145u")
+theme_override_fonts/italics_font = ExtResource("3_w145u")
+theme_override_fonts/mono_font = ExtResource("3_w145u")
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
+bbcode_enabled = true
+fit_content = true
+vertical_alignment = 1
+
+[node name="Text" type="RichTextLabel" parent="DialogueBox"]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 57.0
+offset_right = 886.0
+offset_bottom = 335.0
+scale = Vector2(0.6, 0.6)
+theme_override_fonts/normal_font = ExtResource("3_w145u")
+theme_override_fonts/bold_font = ExtResource("3_w145u")
+theme_override_fonts/bold_italics_font = ExtResource("3_w145u")
+theme_override_fonts/italics_font = ExtResource("3_w145u")
+theme_override_fonts/mono_font = ExtResource("3_w145u")
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
+bbcode_enabled = true
+fit_content = true
+
+[node name="Image" type="TextureRect" parent="DialogueBox"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 59.0
+offset_right = 166.0
+offset_bottom = 224.0
+expand_mode = 1
+
+[node name="FullWidthText" type="RichTextLabel" parent="DialogueBox"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 998.0
+offset_bottom = 372.0
+scale = Vector2(0.6, 0.6)
+theme_override_fonts/normal_font = ExtResource("3_w145u")
+theme_override_fonts/bold_font = ExtResource("3_w145u")
+theme_override_fonts/bold_italics_font = ExtResource("3_w145u")
+theme_override_fonts/italics_font = ExtResource("3_w145u")
+theme_override_fonts/mono_font = ExtResource("3_w145u")
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Choices" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 600.0
+offset_top = 320.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25

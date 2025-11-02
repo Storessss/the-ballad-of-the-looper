@@ -1,16 +1,27 @@
 extends TileMapLayer
 
-var new_walls: Texture = preload("res://sprites/dungeon_tileset2.png")
-var new_floor: Texture = preload("res://sprites/dungeon_floor2.png")
+var new_walls: Array[Texture] = [
+	preload("res://sprites/dungeon_tileset_gray.png"),
+	preload("res://sprites/dungeon_tileset_brown.png"),
+	preload("res://sprites/dungeon_tileset_purple.png"),
+	preload("res://sprites/dungeon_tileset_abyss.png")
+]
+var new_floors: Array[Texture] = [
+	preload("res://sprites/dungeon_floor_gray.png"),
+	preload("res://sprites/dungeon_floor_brown.png"),
+	preload("res://sprites/dungeon_floor_purple.png"),
+	preload("res://sprites/dungeon_floor_abyss.png"),
+]
+var new_tiles_index: int = 2
 
 func swap_tiles():
-	tile_set.get_source(6).texture = new_walls
-	tile_set.get_source(7).texture = new_floor
+	new_tiles_index += 1
+	tile_set.get_source(6).texture = new_walls[new_tiles_index]
+	tile_set.get_source(7).texture = new_floors[new_tiles_index]
 
 func _ready():
 	swap_tiles()
-	pass
-		
+	
 var map: Array[Vector2i]
 		
 var cells_to_set: Array[Vector2i]

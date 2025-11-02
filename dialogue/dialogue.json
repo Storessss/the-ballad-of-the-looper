@@ -1,0 +1,15 @@
+{
+	"abbie_test": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"Hello, this is a test",
+			"ABC 123"
+		],
+		"choices": [
+			{
+				"text": "Bye",
+			},
+		]
+	},
+}

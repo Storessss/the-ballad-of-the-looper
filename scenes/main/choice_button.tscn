@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpaeiqy0xhtfa"]
+
+[ext_resource type="FontFile" uid="uid://b4fgfncmcslf6" path="res://styles/Retro Gaming.ttf" id="1_uyf6i"]
+[ext_resource type="Script" uid="uid://b4wmdjp2xukty" path="res://scenes/main/choice_button.gd" id="2_wbrvo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlhl6"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wbrvo"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[node name="ChoiceButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("1_uyf6i")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_jlhl6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_wbrvo")
+script = ExtResource("2_wbrvo")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -14,6 +14,3 @@ func _process(delta: float) -> void:
 
 func _exit_tree() -> void:
 	MusicPlayer.change_music(preload("res://music/A Safe Place.ogg"))
-
-func _physics_process(delta: float) -> void:
-	print(health)

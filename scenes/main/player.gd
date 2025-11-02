@@ -146,10 +146,3 @@ func instantiate_item():
 		item.durability = \
 		GlobalVariables.weapon_states[GlobalVariables.inventory_index]["durability"]
 	$Item/Point.add_child(item)
-	
-func _on_dialogue_show(_character_name: String, _image: Texture, _text: String, _choices: Array, \
-_font: FontFile):
-	movement_enabled = false
-	
-func _on_dialogue_hide():
-	movement_enabled = true
