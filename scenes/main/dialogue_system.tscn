@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0h37uok7pgv1" path="res://scenes/main/dialogue_system.gd" id="1_nis2w"]
 [ext_resource type="Texture2D" uid="uid://dqcara34n6cs3" path="res://sprites/dialogue_box.png" id="1_qaojf"]
-[ext_resource type="Texture2D" uid="uid://dlil2t2rc1p55" path="res://sprites/dungeon_floor_brown.png" id="3_3ciiw"]
+[ext_resource type="Texture2D" uid="uid://cpo37p6xqe1a7" path="res://sprites/background_floor.png" id="3_3ciiw"]
 [ext_resource type="FontFile" uid="uid://b4fgfncmcslf6" path="res://styles/Retro Gaming.ttf" id="3_w145u"]
 
 [node name="DialogueSystem" type="Control"]
@@ -56,10 +56,10 @@ vertical_alignment = 1
 
 [node name="Text" type="RichTextLabel" parent="DialogueBox"]
 layout_mode = 0
-offset_left = 169.0
-offset_top = 57.0
-offset_right = 886.0
-offset_bottom = 335.0
+offset_left = 188.00002
+offset_top = 48.999977
+offset_right = 864.6666
+offset_bottom = 340.33334
 scale = Vector2(0.6, 0.6)
 theme_override_fonts/normal_font = ExtResource("3_w145u")
 theme_override_fonts/bold_font = ExtResource("3_w145u")
@@ -77,8 +77,8 @@ fit_content = true
 [node name="Image" type="TextureRect" parent="DialogueBox"]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 59.0
-offset_right = 166.0
+offset_top = 48.0
+offset_right = 176.0
 offset_bottom = 224.0
 expand_mode = 1
 

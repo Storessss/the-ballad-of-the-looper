@@ -1,7 +1,9 @@
 extends Node
 
 var dialogue: Dictionary
-var dialogue_variables: Dictionary
+var dialogue_variables: Dictionary = {
+	"abbie1_loop": false
+}
 var dialogue_index: int
 var previous_event: String
 
@@ -27,7 +29,7 @@ func _on_play_dialogue(event: String):
 			var op = branch["operator"]
 			var value = branch["value"]
 			if dialogue_variables.has(var_name):
-				if _check_branch_condition(dialogue_variables[var_name], op, value):
+				if check_branch_condition(dialogue_variables[var_name], op, value):
 					play_dialogue.emit(branch["next"])
 					return
 	var character_name = selected_dialogue.get("name", "")
@@ -35,8 +37,9 @@ func _on_play_dialogue(event: String):
 	if selected_dialogue.has("image"):
 		image = load("res://sprites/" + selected_dialogue["image"])
 	var text = selected_dialogue.get("text", [""])
-	var text_speed: float = selected_dialogue.get("text_speed", 0.025)
+	var text_speed: float = selected_dialogue.get("text_speed", 0.045)
 	if dialogue_index != text.size():
+		text[dialogue_index] = replace_keywords(text[dialogue_index])
 		show_dialogue.emit(character_name, image, text[dialogue_index], text_speed)
 		dialogue_index += 1
 	else:
@@ -62,7 +65,7 @@ func _on_next_dialogue(choice: Dictionary = {}):
 		else:
 			hide_dialogue.emit()
 
-func _check_branch_condition(lhs, op: String, rhs) -> bool:
+func check_branch_condition(lhs, op: String, rhs) -> bool:
 	match op:
 		"==": return lhs == rhs
 		"!=": return lhs != rhs
@@ -71,3 +74,12 @@ func _check_branch_condition(lhs, op: String, rhs) -> bool:
 		">":  return lhs > rhs
 		">=": return lhs >= rhs
 		_:    return false
+
+var keywords: Dictionary = {
+	"{dims}": GlobalVariables.dims,
+}
+func replace_keywords(text: String):
+	for key in keywords.keys():
+		text = text.replace(key, str(keywords[key]))
+	return text
+	

@@ -12,7 +12,7 @@ var new_floors: Array[Texture] = [
 	preload("res://sprites/dungeon_floor_purple.png"),
 	preload("res://sprites/dungeon_floor_abyss.png"),
 ]
-var new_tiles_index: int = 2
+var new_tiles_index: int = -1
 
 func swap_tiles():
 	new_tiles_index += 1

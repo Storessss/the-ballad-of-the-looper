@@ -1,15 +1,244 @@
 {
-	"abbie_test": {
+	"abbie1": {
+		"branches": [
+			{ "var": "abbie1_loop", "operator": "==", "value": false, "next": "abbie_intro1" },
+			{ "var": "abbie1_loop", "operator": "==", "value": true, "next": "abbie_talk1_abbie10" },
+		],
+	},
+	
+	"abbie_intro1": {
 		"name": "Abbie",
 		"image": "abbie.png",
 		"text": [
-			"Hello, this is a test",
-			"ABC 123"
+			"Hey... Welcome to the shop...",
+			"...Buy something or leave..."
 		],
 		"choices": [
+			{
+					"text": "Talk",
+					"set_var": {
+						"abbie1_loop": true,
+					},
+					"next": "abbie_talk1_zaine1",
+			},
 			{
 				"text": "Bye",
 			},
 		]
+	},
+	
+	"abbie_talk1_zaine1": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"You don't seem in a very good mood",
+			"Is everything alright?"
+		],
+		"next": "abbie_talk1_abbie1"
+	},
+	
+	"abbie_talk1_abbie1": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"I don't talk to loopers.",
+			"Buy something or leave."
+		],
+		"next": "abbie_talk1_zaine2"
+	},
+	
+	"abbie_talk1_zaine2": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"I don't really know what a looper is... Sorry...",
+		],
+		"next": "abbie_talk1_abbie2"
+	},
+	
+	"abbie_talk1_abbie2": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"Loopers are the ones seeking the [rainbow freq=1.5, sat=1.5, val=1.5]ARTIFACT[/rainbow] at the bottom of the dungeon",
+			"Are you not here looking for [rainbow freq=1.5, sat=1.5, val=1.5]IT[/rainbow]?",
+		],
+		"next": "abbie_talk1_zaine3"
+	},
+	
+	"abbie_talk1_zaine3": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"Well...",
+		],
+		"next": "abbie_talk1_abbie3"
+	},
+	
+	"abbie_talk1_abbie3": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"Yeah that's what I thought.",
+		],
+		"next": "abbie_talk1_zaine4"
+	},
+	
+	"abbie_talk1_zaine4": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"But what did loopers do to you anyway?",
+		],
+		"next": "abbie_talk1_abbie4"
+	},
+	
+	"abbie_talk1_abbie4": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"You [tornado]ALL[/tornado] come in here being [tornado]nice[/tornado] and [tornado]friendly[/tornado] and then you get [shake]WEIRD[/shake].",
+			"I'm tired of putting my emotions on the line just to be treated like that...",
+		],
+		"next": "abbie_talk1_zaine5"
+	},
+	
+	"abbie_talk1_zaine5": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"What do you mean by weird?",
+		],
+		"next": "abbie_talk1_abbie5"
+	},
+	
+	"abbie_talk1_abbie5": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"After a while they eventually come back chanting some strange stuff...",
+			"...And they try to steal or they attack me.",
+			"All without telling me what I did to deserve that.",
+			"Of course I can defend myself...",
+			"...But fighting back still makes me feel a certain way...",
+		],
+		"next": "abbie_talk1_zaine6"
+	},
+	
+	"abbie_talk1_zaine6": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"Oh... I'm sorry about that...",
+			"...",
+			"I don't really think that will happen to me though",
+			"I mean...",
+			"It hasn't happened yet, right?",
+			"Whatever it is I'm sure I can deal with it",
+		],
+		"next": "abbie_talk1_abbie6"
+	},
+	
+	"abbie_talk1_abbie6": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"hahaha...",
+			"Do you think that is the first time I hear that from someone, looper?",
+		],
+		"next": "abbie_talk1_zaine7"
+	},
+	
+	"abbie_talk1_zaine7": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"...",
+			"Why do you keep yourself here if you have to deal with that every day?",
+			"It sounds rough...",
+		],
+		"next": "abbie_talk1_abbie7"
+	},
+	
+	"abbie_talk1_abbie7": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"Oh, it is.",
+			"I just stay here because I make a [tornado]loooooot[/tornado] of [color=yellow]money[/color]",
+			"I make low quality, simple to make weapons that break easily for a huge markup and loopers just eat them up",
+			"But yeah... I probably should get out of this place eventually...",
+			"It's hard to track time here but I think it's already been...",
+			"...Three...",
+			"...Years...?",
+			"...",
+		],
+		"next": "abbie_talk1_zaine8"
+	},
+	
+	"abbie_talk1_zaine8": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"..",
+			"...",
+			"I have an idea!",
+			"How about a bet?",
+		],
+		"next": "abbie_talk1_abbie8"
+	},
+	
+	"abbie_talk1_abbie8": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"...",
+			"I'm listening...",
+		],
+		"next": "abbie_talk1_zaine9"
+	},
+	
+	"abbie_talk1_zaine9": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"{dims} Dims on if I go insane or not",
+		],
+		"next": "abbie_talk1_abbie9"
+	},
+	
+	"abbie_talk1_abbie9": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"...",
+			"Sure, why not",
+			"Maybe that'll reduce your chances of turning out like the others",
+			"And if it doesn't...",
+			"...",
+			"I guess I get some [color=red]money[/color]",
+			"...",
+			"I'm Abbie by the way",
+		],
+		"next": "abbie_talk1_zaine10"
+	},
+	
+	"abbie_talk1_zaine10": {
+		"name": "Zaine",
+		"image": "zaine_idle1.png",
+		"text": [
+			"Zaine",
+			"Thanks for talking",
+		],
+		"next": "abbie_talk1_abbie10"
+	},
+	
+	"abbie_talk1_abbie10": {
+		"name": "Abbie",
+		"image": "abbie.png",
+		"text": [
+			"Okay...",
+			"Now buy something though",
+		],
 	},
 }

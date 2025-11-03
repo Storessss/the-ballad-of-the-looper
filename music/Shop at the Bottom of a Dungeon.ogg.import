@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://7fstsq5g7drx"
+path="res://.godot/imported/Shop at the Bottom of a Dungeon.ogg-1ce4d48175ebdccf4051dedde7409b0c.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/Shop at the Bottom of a Dungeon.ogg"
+dest_files=["res://.godot/imported/Shop at the Bottom of a Dungeon.ogg-1ce4d48175ebdccf4051dedde7409b0c.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
