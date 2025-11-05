@@ -73,7 +73,7 @@ func text() -> AudioStreamPlayer:
 	return sound_player
 
 func explosion() -> AudioStreamPlayer:
-	var sound_player = MusicPlayer.new_sound_player(-3)
+	var sound_player = MusicPlayer.new_sound_player(-7)
 	sound_player.stream = preload("res://sounds/explosion.wav")
 	sound_player.play()
 	return sound_player
@@ -164,5 +164,11 @@ func radio_activate() -> AudioStreamPlayer:
 func radio_deactivate() -> AudioStreamPlayer:
 	var sound_player = new_sound_player(0)
 	sound_player.stream = preload("res://sounds/radio_deactivate.wav")
+	sound_player.play()
+	return sound_player
+
+func whispers() -> AudioStreamPlayer:
+	var sound_player = new_sound_player(3)
+	sound_player.stream = preload("res://sounds/whispers.mp3")
 	sound_player.play()
 	return sound_player

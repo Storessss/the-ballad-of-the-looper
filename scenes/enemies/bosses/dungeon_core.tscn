@@ -81,7 +81,7 @@ states = [NodePath("../Repeat"), NodePath("../ShootBullet"), NodePath("../SpawnE
 [node name="Repeat" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("repeat_state", "exit_state")]
 script = ExtResource("6_knck3")
 repeat_for_min = 1
-repeat_for_max = 6
+repeat_for_max = 5
 state_duration_min = 0.3
 state_duration_max = 0.8
 repeat_state = NodePath("../ShootRing")
@@ -94,7 +94,7 @@ bullet_count = 20
 sound = "heavy_shoot"
 next_state = NodePath("../Idle")
 bullet_count_min = 10
-bullet_count_max = 40
+bullet_count_max = 80
 random_offset = true
 
 [node name="ShootBullet" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state")]
@@ -121,8 +121,8 @@ next_state = NodePath("../Idle2")
 
 [node name="Idle2" type="Node" parent="FSM" index="6" node_paths=PackedStringArray("next_state")]
 script = ExtResource("9_bq328")
-state_duration_min = 0.7
-state_duration_max = 0.7
+state_duration_min = 2.5
+state_duration_max = 2.5
 next_state = NodePath("../PickRandomNextState")
 
 [node name="SpawnEnemy" type="Node" parent="FSM" index="7" node_paths=PackedStringArray("next_state")]
@@ -142,7 +142,7 @@ next_state = NodePath("../Idle3")
 [node name="Idle3" type="Node" parent="FSM" index="9" node_paths=PackedStringArray("next_state")]
 script = ExtResource("9_bq328")
 state_duration_min = 2.0
-state_duration_max = 5.0
+state_duration_max = 4.0
 next_state = NodePath("../ApplyEffect2")
 
 [node name="ApplyEffect2" type="Node" parent="FSM" index="10" node_paths=PackedStringArray("next_state")]

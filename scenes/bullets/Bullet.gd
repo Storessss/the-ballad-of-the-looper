@@ -107,7 +107,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 					body.angle -= PI
 				else:
 					body.angle = angle
-				body.damage = effect_damage + bonus_deflect_damage
+				body.damage = effect_damage + body.bonus_deflect_damage
 				body.speed *= 2
 				MusicPlayer.bullet_deflect()
 				body.change_alignment()

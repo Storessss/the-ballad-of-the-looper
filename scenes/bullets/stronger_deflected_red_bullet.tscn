@@ -12,7 +12,7 @@ radius = 4.0
 [node name="StrongerDeflectedRedBullet" instance=ExtResource("1_eivcx")]
 speed = 150
 destroy_time = 20.0
-bonus_deflect_damage = 70
+bonus_deflect_damage = 25
 back_to_sender_deflect = true
 pierce = 10
 

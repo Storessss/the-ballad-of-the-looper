@@ -15,7 +15,7 @@
 		],
 		"choices": [
 			{
-					"text": "Talk",
+					"text": "Talk (long)",
 					"set_var": {
 						"abbie1_loop": true,
 					},
@@ -97,7 +97,7 @@
 		"name": "Abbie",
 		"image": "abbie.png",
 		"text": [
-			"You [tornado]ALL[/tornado] come in here being [tornado]nice[/tornado] and [tornado]friendly[/tornado] and then you get [shake]WEIRD[/shake].",
+			"You [tornado radius=7 freq=3.0]ALL[/tornado] come in here being [tornado radius=7 freq=3.0]nice[/tornado] and [tornado radius=7 freq=3.0]friendly[/tornado] and then you get [shake rate=20.0 level=15]WEIRD[/shake].",
 			"I'm tired of putting my emotions on the line just to be treated like that...",
 		],
 		"next": "abbie_talk1_zaine5"
@@ -165,7 +165,7 @@
 		"image": "abbie.png",
 		"text": [
 			"Oh, it is.",
-			"I just stay here because I make a [tornado]loooooot[/tornado] of [color=yellow]money[/color]",
+			"I just stay here because I make a [tornado radius=7 freq=3.0]loooooot[/tornado] of [color=yellow]money[/color]",
 			"I make low quality, simple to make weapons that break easily for a huge markup and loopers just eat them up",
 			"But yeah... I probably should get out of this place eventually...",
 			"It's hard to track time here but I think it's already been...",

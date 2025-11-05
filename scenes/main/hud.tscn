@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bqtlvw35y5ta3" path="res://sprites/dim.png" id="3_8m1vl"]
 [ext_resource type="FontFile" uid="uid://b4fgfncmcslf6" path="res://styles/Retro Gaming.ttf" id="4_xu0sl"]
 [ext_resource type="Texture2D" uid="uid://mtedxqjm1b3a" path="res://sprites/bar.png" id="6_bhafg"]
-[ext_resource type="PackedScene" uid="uid://c5uieu5jmalj7" path="res://scenes/main/dialogue_system.tscn" id="7_cad0p"]
+[ext_resource type="PackedScene" uid="uid://c5uieu5jmalj7" path="res://scenes/dialogue/dialogue_system.tscn" id="7_cad0p"]
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_77e6q")
