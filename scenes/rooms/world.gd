@@ -26,7 +26,7 @@ var enemies: Dictionary = {
 }
 var bosses := [
 	preload("res://scenes/enemies/bosses/little_devil.tscn"),
-	#preload("res://scenes/enemies/bosses/spingus.tscn"),
+	preload("res://scenes/enemies/bosses/spingus.tscn"),
 ]
 var boss_spawn_percentage: int = 50
 var can_spawn_boss: bool = true
@@ -88,6 +88,7 @@ var current_cell: Vector2i
 var generation_quota: int
 
 func _process(_delta: float) -> void:
+	
 	if generation_progress == 0:
 		
 		step_progress = float(y * map_size.x + x) / float(map_size.x * map_size.y) * step_percentage

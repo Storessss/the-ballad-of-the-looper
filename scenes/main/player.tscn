@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ddufykptqanl7"]
+[gd_scene load_steps=20 format=3 uid="uid://ddufykptqanl7"]
 
 [ext_resource type="Script" uid="uid://b4c8q2fvhicv8" path="res://scenes/main/player.gd" id="1_68xwl"]
 [ext_resource type="Texture2D" uid="uid://c5thlea8t0ru3" path="res://sprites/zaine_idle1.png" id="1_nybob"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://rs3clmqas3l3" path="res://sprites/crosshair.png" id="7_t8yk2"]
 [ext_resource type="AudioStream" uid="uid://c2atch7yv2q1u" path="res://sounds/dash_sound.wav" id="8_3vq1g"]
 [ext_resource type="AudioStream" uid="uid://cx6qnqe40wotv" path="res://sounds/hit.wav" id="10_bnwh7"]
+[ext_resource type="Texture2D" uid="uid://bti8hssy40ds6" path="res://sprites/health_potion_full.png" id="12_0r2ug"]
+[ext_resource type="Shader" uid="uid://bn8l5q3ifu3wt" path="res://styles/outline_blue.gdshader" id="16_i4vh7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m5ugi"]
 animations = [{
@@ -54,11 +56,19 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vq1g"]
 radius = 4.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mrsny"]
+shader = ExtResource("16_i4vh7")
+shader_parameter/intensity = 50
+shader_parameter/precision = 0.02
+shader_parameter/flipColors = false
+shader_parameter/use_outline_uv = false
+shader_parameter/useTexture = false
+
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_68xwl")
-starting_inventory = Array[PackedScene]([ExtResource("2_m5ugi"), ExtResource("3_0f7gw"), ExtResource("4_5d4y1"), ExtResource("5_ov6ka"), ExtResource("6_i4vh7")])
+starting_inventory = Array[PackedScene]([ExtResource("2_m5ugi"), ExtResource("3_0f7gw"), ExtResource("6_i4vh7"), ExtResource("4_5d4y1"), ExtResource("5_ov6ka")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
@@ -108,3 +118,46 @@ bus = &"Sounds"
 zoom = Vector2(2, 2)
 limit_left = 0
 limit_top = 0
+
+[node name="Hotbar" type="HBoxContainer" parent="."]
+visible = false
+offset_left = -64.0
+offset_top = -49.0
+offset_right = 64.0
+offset_bottom = -9.0
+theme_override_constants/separation = -62
+alignment = 1
+
+[node name="Item" type="TextureRect" parent="Hotbar"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("12_0r2ug")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Item2" type="TextureRect" parent="Hotbar"]
+material = SubResource("ShaderMaterial_mrsny")
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("12_0r2ug")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Item3" type="TextureRect" parent="Hotbar"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("12_0r2ug")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HotbarTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="timeout" from="HotbarTimer" to="." method="_on_hotbar_timer_timeout"]

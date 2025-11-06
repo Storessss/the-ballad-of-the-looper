@@ -95,8 +95,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if pierce <= 0:
 			destroy()
 	elif body.is_in_group("players") and not player_bullet:
-		body.take_damage()
-		queue_free()
+		var player_damaged: bool = body.take_damage()
+		if player_damaged:
+			queue_free()
 	elif body is TileMapLayer or body is StaticBody2D:
 		if not bouncing and not transparent:
 			queue_free()

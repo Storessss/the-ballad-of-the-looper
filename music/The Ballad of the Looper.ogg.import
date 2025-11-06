@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c77pursmdqe5v"
+path="res://.godot/imported/The Ballad of the Looper.ogg-631c4dd99236e2c48b26a0eee9bb339e.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/The Ballad of the Looper.ogg"
+dest_files=["res://.godot/imported/The Ballad of the Looper.ogg-631c4dd99236e2c48b26a0eee9bb339e.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

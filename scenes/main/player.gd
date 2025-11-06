@@ -100,12 +100,14 @@ func _process(delta: float) -> void:
 		GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
 		GlobalVariables.inventory_index_rounder = 0
 		instantiate_item()
+		show_hotbar()
 	elif Input.is_action_just_pressed("previous_item"):
 		GlobalVariables.previous_inventory_index = GlobalVariables.inventory_index
 		GlobalVariables.inventory_index = ((GlobalVariables.inventory_index - 1) % \
 		GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
 		GlobalVariables.inventory_index_rounder = 0
 		instantiate_item()
+		show_hotbar()
 		
 	# CAMERA ---------------------------------------------------------------------------------------
 	camera.limit_right = GlobalVariables.right
@@ -124,12 +126,14 @@ func apply_shake():
 func randomOffset():
 	return Vector2(rnd.randf_range(- shake_strength, shake_strength), randf_range(- shake_strength, shake_strength))
 	
-func take_damage(damage: int = 1):
+func take_damage(damage: int = 1) -> bool:
 	if $IFrames.is_stopped() and not GlobalVariables.dashing and not GlobalVariables.graced:
 		GlobalVariables.player_health -= damage
 		$IFrames.start()
 		$HitSound.play()
 		GlobalVariables.player_health_changed.emit()
+		return true
+	return false
 		
 func instantiate_item():
 	for child: Node2D in $Item/Point.get_children():
@@ -146,3 +150,19 @@ func instantiate_item():
 		item.durability = \
 		GlobalVariables.weapon_states[GlobalVariables.inventory_index]["durability"]
 	$Item/Point.add_child(item)
+
+func show_hotbar() -> void:
+	$HotbarTimer.start()
+	$Hotbar.visible = true
+	Engine.time_scale = 0.4
+	for i in [-1, 0, 1]:
+		var index: int = ((GlobalVariables.inventory_index + i + GlobalVariables.inventory_index_rounder) % \
+		GlobalVariables.inventory.size() + GlobalVariables.inventory.size()) % GlobalVariables.inventory.size()
+		var item: Node2D = GlobalVariables.inventory[index].instantiate()
+		var sprite: Sprite2D = item.get_node("Sprite2D")
+		var texture: Texture = sprite.texture
+		$Hotbar.get_child(i + 1).texture = texture
+
+func _on_hotbar_timer_timeout() -> void:
+	$Hotbar.visible = false
+	Engine.time_scale = 1.0

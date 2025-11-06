@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmbobydrvynfv"]
+
+[ext_resource type="Script" uid="uid://d1purm5vfcmck" path="res://scenes/main/party_lights.gd" id="1_tael1"]
+
+[node name="PartyLights" type="CanvasModulate"]
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_tael1")

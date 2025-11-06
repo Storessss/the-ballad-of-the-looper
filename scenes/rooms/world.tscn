@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://l5adx18ypeds"]
+[gd_scene load_steps=10 format=3 uid="uid://l5adx18ypeds"]
 
 [ext_resource type="Script" uid="uid://dhte48hbwvhkt" path="res://scenes/rooms/world.gd" id="1_o8w3y"]
 [ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://tilemap.tscn" id="2_5y5h7"]
 [ext_resource type="FontFile" uid="uid://b4fgfncmcslf6" path="res://styles/Retro Gaming.ttf" id="4_c6cjb"]
 [ext_resource type="PackedScene" uid="uid://lidthfxyvbu6" path="res://scenes/main/hud.tscn" id="4_m775c"]
+[ext_resource type="PackedScene" uid="uid://dmbobydrvynfv" path="res://scenes/main/party_lights.tscn" id="5_c6cjb"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_m775c"]
 normal = Vector2(1, 0)
@@ -86,3 +87,7 @@ text = "Beautiful [rainbow freq=1.5, sat=1.5, val=1.5]DISENGAGER[/rainbow]"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PartyLights" parent="." instance=ExtResource("5_c6cjb")]
+visible = false
+color = Color(1, 1, 1, 1)
