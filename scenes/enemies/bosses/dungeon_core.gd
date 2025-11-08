@@ -53,27 +53,34 @@ func _ready() -> void:
 	MusicPlayer.music_player.stop()
 	super._ready()
 	starting_cutscene_open_eye = true
+	$AnimatedSprite2D.play("closed_eye")
+	await get_tree().create_timer(2.5).timeout
 	$AnimatedSprite2D.play("eye_open")
 	await $AnimatedSprite2D.animation_looped
+	$AnimatedSprite2D.play("opened_eye")
+	await get_tree().create_timer(0.7).timeout
 	$AnimatedSprite2D.play("blink")
 	await $AnimatedSprite2D.animation_looped
-	$AnimatedSprite2D.play("full_eye")
-	await get_tree().create_timer(0.4).timeout
+	$AnimatedSprite2D.play("opened_eye")
+	await get_tree().create_timer(0.7).timeout
 	$AnimatedSprite2D.play("blink")
 	await $AnimatedSprite2D.animation_looped
-	$AnimatedSprite2D.play("full_eye")
-	await get_tree().create_timer(0.2).timeout
+	$AnimatedSprite2D.play("opened_eye")
+	await get_tree().create_timer(2.0).timeout
 	$AnimatedSprite2D.play("empty_eye")
 	starting_cutscene_open_eye = false
 	starting_cutscene_look = true
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(1.2).timeout
 	starting_cutscene_look = false
 	starting_cutscene_roar = true
 	$AnimatedSprite2D/Pupil.texture = preload("res://sprites/wide_pupil.png")
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(1.2).timeout
 	MusicPlayer.dungeon_roar()
 	await get_tree().create_timer(2.0).timeout
 	GlobalVariables.shake_camera.emit(30.0, 0.8)
+	# TODO: add detection to know if player is playing with controller or keyboard
+	# So the controller doesn't vibrate if the player is playing with M&K
+	Input.start_joy_vibration(0, 1.0, 1.0, 3.5)
 	await get_tree().create_timer(5.0).timeout
 	starting_cutscene_roar = false
 	starting_cutscene_finished = true

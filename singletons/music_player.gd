@@ -5,7 +5,7 @@ var sound_players: Array[AudioStreamPlayer]
 
 func _ready() -> void:
 	music_player.bus = "Music"
-	music_player.volume_db = -2
+	music_player.volume_db = -6.5
 	add_child(music_player)
 	change_music(preload("res://music/Of Days Long Past.ogg"))
 
