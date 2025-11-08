@@ -62,7 +62,7 @@ texture = ExtResource("2_g7de3")
 
 [node name="DialogueTrigger" parent="Abbie" index="0" instance=ExtResource("3_pli5l")]
 position = Vector2(0, 4.0000076)
-event = "abbie1"
+event = "abbie_talk1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Abbie/DialogueTrigger" index="0"]
 shape = SubResource("CircleShape2D_pli5l")

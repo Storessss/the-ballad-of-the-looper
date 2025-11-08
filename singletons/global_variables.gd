@@ -44,6 +44,7 @@ var player_position: Vector2
 var player_max_health: int = 6
 var player_health: int = player_max_health
 signal player_health_changed
+signal shake_camera(random_strength: float, shake_fade: float)
 
 var left: int
 var top: int

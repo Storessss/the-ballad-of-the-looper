@@ -2,7 +2,7 @@ extends Node
 
 var dialogue: Dictionary
 var dialogue_variables: Dictionary = {
-	"abbie1_loop": false
+	"abbie_talk1_progress_dialogue": false
 }
 var dialogue_index: int
 var previous_event: String

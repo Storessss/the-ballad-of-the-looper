@@ -172,3 +172,9 @@ func whispers() -> AudioStreamPlayer:
 	sound_player.stream = preload("res://sounds/whispers.mp3")
 	sound_player.play()
 	return sound_player
+
+func dungeon_roar() -> AudioStreamPlayer:
+	var sound_player = new_sound_player(6)
+	sound_player.stream = preload("res://sounds/dungeon_roar.mp3")
+	sound_player.play()
+	return sound_player

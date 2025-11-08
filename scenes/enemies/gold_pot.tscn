@@ -61,14 +61,14 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3m6k4"]
-radius = 2.236068
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_orgw3"]
 radius = 5.0
 
 [node name="GoldPot" instance=ExtResource("1_k8ma1")]
 health = 150
-speed = 190
+speed = 175
 contact_damage = true
 nav_agent_movement = false
 min_dim_drop = 3

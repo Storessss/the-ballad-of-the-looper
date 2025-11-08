@@ -32,3 +32,7 @@ func _on_child_transition(state: State, new_state: State) -> void:
 		current_state.Exit()
 	current_state = new_state
 	current_state.Enter()
+
+func play_state(state: State) -> void:
+	state.Enter()
+	current_state = state

@@ -8,16 +8,16 @@ var small_explosion_scene: PackedScene = preload("res://scenes/bullets/small_exp
 func _process(delta: float) -> void:
 	super._process(delta)
 	pupil_direction = (GlobalVariables.player_position - global_position).normalized()
-	if can_die:
+	if (can_die and starting_cutscene_finished) or (starting_cutscene_look and not starting_cutscene_roar):
 		pupil.position = pupil_direction * 0.9
 	else:
 		var angle = randf() * TAU
 		var offset = Vector2(cos(angle), sin(angle))
 		pupil.position = pupil_direction * 0.9 + offset * 0.2
-	if invincible:
-		pupil.visible = false
-	else:
+	if not invincible or starting_cutscene_look or starting_cutscene_roar:
 		pupil.visible = true
+	else:
+		pupil.visible = false
 
 func die() -> void:
 	if can_die:
@@ -26,7 +26,6 @@ func die() -> void:
 			enemy.die()
 		$FSM.queue_free()
 		$FSM2.queue_free()
-		$FSM3.queue_free()
 		$AnimatedSprite2D/Pupil.texture = preload("res://sprites/wide_pupil.png")
 		var sound_player: AudioStreamPlayer = MusicPlayer.whispers()
 		MusicPlayer.music_player.stop()
@@ -44,3 +43,42 @@ func die() -> void:
 
 func _exit_tree() -> void:
 	MusicPlayer.change_music(preload("res://music/A Safe Place.ogg"))
+
+var starting_cutscene_open_eye: bool
+var starting_cutscene_look: bool
+var starting_cutscene_roar: bool
+var starting_cutscene_finished: bool
+func _ready() -> void:
+	invincible = true
+	MusicPlayer.music_player.stop()
+	super._ready()
+	starting_cutscene_open_eye = true
+	$AnimatedSprite2D.play("eye_open")
+	await $AnimatedSprite2D.animation_looped
+	$AnimatedSprite2D.play("blink")
+	await $AnimatedSprite2D.animation_looped
+	$AnimatedSprite2D.play("full_eye")
+	await get_tree().create_timer(0.4).timeout
+	$AnimatedSprite2D.play("blink")
+	await $AnimatedSprite2D.animation_looped
+	$AnimatedSprite2D.play("full_eye")
+	await get_tree().create_timer(0.2).timeout
+	$AnimatedSprite2D.play("empty_eye")
+	starting_cutscene_open_eye = false
+	starting_cutscene_look = true
+	await get_tree().create_timer(0.8).timeout
+	starting_cutscene_look = false
+	starting_cutscene_roar = true
+	$AnimatedSprite2D/Pupil.texture = preload("res://sprites/wide_pupil.png")
+	await get_tree().create_timer(1.0).timeout
+	MusicPlayer.dungeon_roar()
+	await get_tree().create_timer(2.0).timeout
+	GlobalVariables.shake_camera.emit(30.0, 0.8)
+	await get_tree().create_timer(5.0).timeout
+	starting_cutscene_roar = false
+	starting_cutscene_finished = true
+	invincible = false
+	$FSM.play_state($FSM/PickRandomNextState)
+	$FSM2.play_state($FSM2/ShootBullet)
+	$AnimatedSprite2D/Pupil.texture = preload("res://sprites/pupil.png")
+	MusicPlayer.change_music(preload("res://music/DUNGEON KILLER.ogg"))

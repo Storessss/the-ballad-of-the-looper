@@ -9,7 +9,7 @@ func _process(_delta):
 func _on_opening_timer_timeout():
 	$CollisionShape2D.disabled = false
 	$AnimatedSprite2D.play("open")
-	GlobalVariables.player.shake = true
+	GlobalVariables.shake_camera.emit(30.0, 5.0)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):

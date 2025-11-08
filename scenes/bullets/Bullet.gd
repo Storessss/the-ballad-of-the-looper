@@ -97,10 +97,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	elif body.is_in_group("players") and not player_bullet:
 		var player_damaged: bool = body.take_damage()
 		if player_damaged:
-			queue_free()
+			#queue_free()
+			destroy()
 	elif body is TileMapLayer or body is StaticBody2D:
 		if not bouncing and not transparent:
-			queue_free()
+			#queue_free()
+			destroy()
 	elif body.is_in_group("bullets") and deflective:
 		if body.player_bullet != player_bullet:
 			if body.deflectable:
@@ -118,9 +120,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			explode()
 
 func _on_destroy_timer_timeout() -> void:
-	if area_damage_scene and explosive:
-		explode()
-	queue_free()
+	#if area_damage_scene and explosive:
+		#explode()
+	#queue_free()
+	destroy()
 
 func change_alignment() -> void:
 	if not deflected:
@@ -150,6 +153,8 @@ func bullet_ring():
 		get_tree().current_scene.add_child(bullet)
 
 func destroy() -> void:
+	if area_damage_scene and explosive:
+		explode()
 	if bullet_ring_count > 0 and bullet_ring_scene:
 		call_deferred("bullet_ring")
 	if destroy_sound:

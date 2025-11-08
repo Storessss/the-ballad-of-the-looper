@@ -8,4 +8,3 @@ func _ready() -> void:
 	GlobalVariables.bottom = 720
 	for cell in tilemap.get_used_cells():
 		GlobalVariables.tilemap.map.append(cell)
-	MusicPlayer.change_music(preload("res://music/DUNGEON KILLER.ogg"))
