@@ -1,0 +1,90 @@
+[gd_scene load_steps=14 format=3 uid="uid://b8ay5ps2r7pg2"]
+
+[ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_37k07"]
+[ext_resource type="Texture2D" uid="uid://b8lfbl247exhf" path="res://sprites/fire_imp_idle.png" id="2_85ked"]
+[ext_resource type="Texture2D" uid="uid://csy7u1dv0und0" path="res://sprites/fire_imp_walk1.png" id="3_igjb0"]
+[ext_resource type="Texture2D" uid="uid://b0y6wefhfrw7o" path="res://sprites/fire_imp_walk2.png" id="4_snllp"]
+[ext_resource type="Script" uid="uid://bkkn2clcmg5f2" path="res://scenes/enemies/state_machine/states/Wander.gd" id="5_snllp"]
+[ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="6_x1y5h"]
+[ext_resource type="Script" uid="uid://cufrwcyr1jai8" path="res://scenes/enemies/state_machine/state_machine.gd" id="7_x1y5h"]
+[ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="8_phe3d"]
+[ext_resource type="PackedScene" uid="uid://cn3a1p8x1we6r" path="res://scenes/bullets/fire_wall.tscn" id="9_bk1s2"]
+[ext_resource type="Script" uid="uid://b8kcb0me7xcl0" path="res://scenes/enemies/state_machine/states/Wait.gd" id="9_sxvpw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x1y5h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_85ked")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_igjb0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_snllp")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_85ked"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_igjb0"]
+radius = 4.0
+
+[node name="FireImp" instance=ExtResource("1_37k07")]
+health = 90
+speed = 120
+contact_damage = true
+min_dim_drop = 4
+max_dim_drop = 4
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+z_index = 5
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_x1y5h")
+animation = &"walk"
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_85ked")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_igjb0")
+
+[node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Wander")
+
+[node name="Wander" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_snllp")
+distance_max = 200
+animation = "walk"
+next_state = NodePath("../Idle")
+
+[node name="Idle" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_x1y5h")
+state_duration_min = 0.2
+state_duration_max = 2.0
+animation = "idle"
+next_state = NodePath("../Wander")
+
+[node name="FSM2" type="Node" parent="." index="7" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("7_x1y5h")
+initial_state = NodePath("ShootBullet")
+
+[node name="ShootBullet" type="Node" parent="FSM2" index="0" node_paths=PackedStringArray("next_state")]
+script = ExtResource("8_phe3d")
+bullet_scene = ExtResource("9_bk1s2")
+next_state = NodePath("../Wait")
+
+[node name="Wait" type="Node" parent="FSM2" index="1" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_sxvpw")
+state_duration_min = 0.2
+state_duration_max = 0.2
+next_state = NodePath("../ShootBullet")

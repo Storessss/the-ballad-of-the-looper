@@ -88,4 +88,5 @@ func _ready() -> void:
 	$FSM.play_state($FSM/PickRandomNextState)
 	$FSM2.play_state($FSM2/ShootBullet)
 	$AnimatedSprite2D/Pupil.texture = preload("res://sprites/pupil.png")
-	MusicPlayer.change_music(preload("res://music/DUNGEON KILLER.ogg"))
+	#MusicPlayer.change_music(preload("res://music/DUNGEON KILLER.ogg"))
+	MusicPlayer.change_music(preload("res://music/Nuclear-Throne-OST：-The-Nuclear-Throne-Theme.ogg"))
