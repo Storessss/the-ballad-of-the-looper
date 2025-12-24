@@ -20,8 +20,8 @@ func new_sound_player(db: int = 0) -> AudioStreamPlayer:
 func _process(_delta: float) -> void:
 	for sound_player: AudioStreamPlayer in sound_players:
 		if not sound_player.playing:
-			sound_player.queue_free()
 			sound_players.erase(sound_player)
+			sound_player.queue_free()
 			
 func change_music(music: AudioStream):
 	if music_player.stream != music:

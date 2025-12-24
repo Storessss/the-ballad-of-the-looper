@@ -31,8 +31,6 @@ func _ready() -> void:
 	
 	instantiate_item()
 	
-	#DialogueManager.show_dialogue.connect(Callable(self, "_on_dialogue_show"))
-	#DialogueManager.hide_dialogue.connect(Callable(self, "_on_dialogue_hide"))
 	GlobalVariables.shake_camera.connect(Callable(self, "_on_camera_shake"))
 	
 func _process(delta: float) -> void:

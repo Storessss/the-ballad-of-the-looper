@@ -2,13 +2,13 @@ extends Node
 
 var dialogue: Dictionary
 var dialogue_variables: Dictionary = {
-	"abbie_talk1_progress_dialogue": false
+	
 }
 var dialogue_index: int
 var previous_event: String
 
 signal play_dialogue(event: String)
-signal show_dialogue(character_name: String, image: Texture, text: String, text_speed: float)
+signal show_dialogue(character_name: String, portrait: Texture, text: String, text_speed: float)
 signal hide_dialogue
 signal next_dialogue
 signal show_choices(choices: Array)
@@ -33,14 +33,14 @@ func _on_play_dialogue(event: String):
 					play_dialogue.emit(branch["next"])
 					return
 	var character_name = selected_dialogue.get("name", "")
-	var image: Texture = null
-	if selected_dialogue.has("image"):
-		image = load("res://sprites/" + selected_dialogue["image"])
+	var portrait: Texture = null
+	if selected_dialogue.has("portrait"):
+		portrait = load("res://sprites/" + selected_dialogue["portrait"])
 	var text = selected_dialogue.get("text", [""])
 	var text_speed: float = selected_dialogue.get("text_speed", 0.045)
 	if dialogue_index != text.size():
 		text[dialogue_index] = replace_keywords(text[dialogue_index])
-		show_dialogue.emit(character_name, image, text[dialogue_index], text_speed)
+		show_dialogue.emit(character_name, portrait, text[dialogue_index], text_speed)
 		dialogue_index += 1
 	else:
 		dialogue_index = 0

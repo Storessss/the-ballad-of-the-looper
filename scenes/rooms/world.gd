@@ -58,6 +58,7 @@ var loading_tips: Array[String] = [
 var chest_scene: PackedScene = preload("res://scenes/props/chest.tscn")
 
 func _ready() -> void:
+	#seed(25)
 	GlobalVariables.tilemap = tilemap
 	
 	var border_size: Vector2 = Vector2(map_size.x * 16 - 1, map_size.y * 16 - 1)

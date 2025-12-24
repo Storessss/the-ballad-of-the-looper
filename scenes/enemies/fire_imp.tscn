@@ -47,7 +47,6 @@ min_dim_drop = 4
 max_dim_drop = 4
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-z_index = 5
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_x1y5h")
 animation = &"walk"

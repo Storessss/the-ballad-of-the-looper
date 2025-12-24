@@ -53,6 +53,35 @@ var bottom: int
 
 var tilemap: TileMapLayer
 var room: int = 1
+var rooms: Array[PackedScene] = [
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/shop_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/shop_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/shop_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/shop_room.tscn"),
+	# DISENGAGER
+]
 
 var dims: int
 
@@ -67,7 +96,8 @@ func change_room():
 	room += 1
 	for dim in get_tree().get_nodes_in_group("dims"):
 		GlobalVariables.dims += 1
-	get_tree().call_deferred("reload_current_scene")
+		
+	get_tree().change_scene_to_packed(rooms[room])
 
 func _physics_process(delta: float) -> void:
 	# Global Debug

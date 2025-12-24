@@ -12,11 +12,11 @@ func _ready() -> void:
 	DialogueManager.hide_dialogue.connect(Callable(self, "_on_hide_dialogue"))
 	DialogueManager.show_choices.connect(Callable(self, "_on_show_choices"))
 
-func _on_show_dialogue(character_name: String, image: Texture, text: String, text_speed: float):
+func _on_show_dialogue(character_name: String, portrait: Texture, text: String, text_speed: float):
 	$DialogueBox.visible = true
 	$DialogueBox/Name.text = character_name
-	if image:
-		$DialogueBox/Image.texture = image
+	if portrait:
+		$DialogueBox/Portrait.texture = portrait
 		$DialogueBox/Background.visible = true
 		text_box = $DialogueBox/Text
 	else:
@@ -40,6 +40,8 @@ func type_text(text: String, text_speed: float = 0.025) -> void:
 	tween.tween_property(text_box, "visible_characters", total_chars, duration).from(0.0)
 
 	while tween.is_running():
+		if not get_tree():
+			return
 		await get_tree().process_frame
 		if text_box.visible_characters > last_visible_chars:
 			last_visible_chars = text_box.visible_characters
@@ -48,7 +50,6 @@ func type_text(text: String, text_speed: float = 0.025) -> void:
 			tween.kill()
 			text_box.visible_characters = -1
 			break
-		
 	typing = false
 	
 func _process(_delta: float) -> void:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dhp6m7bd1qk4o"]
 
-[ext_resource type="PackedScene" uid="uid://cbf68ue0uj35b" path="res://scenes/rooms/empty_small_room.tscn" id="1_je2p2"]
+[ext_resource type="PackedScene" uid="uid://cbf68ue0uj35b" path="res://scenes/rooms/safe_place.tscn" id="1_je2p2"]
 [ext_resource type="Texture2D" uid="uid://c77s47c8ops0y" path="res://sprites/abbie.png" id="2_g7de3"]
 [ext_resource type="AudioStream" uid="uid://7fstsq5g7drx" path="res://music/Shop at the Bottom of a Dungeon.ogg" id="2_v2v41"]
 [ext_resource type="PackedScene" uid="uid://b131k714aba0c" path="res://scenes/dialogue/dialogue_trigger.tscn" id="3_pli5l"]
