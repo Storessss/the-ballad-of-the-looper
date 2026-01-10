@@ -1,7 +1,5 @@
 extends SafePlace
 
-var loop_event: String
-
 func _ready() -> void:
 	super._ready()
 	
@@ -9,4 +7,11 @@ func _ready() -> void:
 		$Jackie/Jackie/DialogueTrigger.event = "jackie1_1"
 	elif GlobalVariables.fight_room_index == 4:
 		$Jackie/Jackie/DialogueTrigger.event = "jackie2_1"
-	loop_event = "jackie_loop1"
+	elif GlobalVariables.fight_room_index == 6:
+		$Jackie/Jackie/DialogueTrigger.event = "jackie3_1"
+	elif GlobalVariables.fight_room_index == 8:
+		$Jackie/Jackie/DialogueTrigger.event = "jackie4_1"
+	elif GlobalVariables.fight_room_index == 10:
+		$Jackie/Jackie/DialogueTrigger.event = "jackie5_1"
+	elif GlobalVariables.fight_room_index == 12:
+		$Jackie/Jackie/DialogueTrigger.event = "jackie6_1"

@@ -7,6 +7,14 @@
 		],
 	},
 	
+	"abbie_loop1": {
+		"name": "Abbie",
+		"portrait": "abbie_portrait.png",
+		"text": [
+			"..."
+		],
+	},
+	
 	"jackie1_1": {
 		"name": "Jackie",
 		"portrait": "jackie_portrait.png",
@@ -190,7 +198,7 @@
 		"portrait": "zaine_portrait.png",
 		"text": [
 			"It must be a bustling business...",
-			"...It would be really bad if someone snatched the artifact this dungeon became devoid of people...",
+			"...It would be really bad if someone snatched the artifact and this dungeon became devoid of people...",
 			"...Wouldn't it?"
 		],
 		"next": "abbie1_14"
@@ -245,8 +253,8 @@
 		"next": "abbie1_19"
 	},
 	"abbie1_19": {
-		"name": "Abbie",
-		"portrait": "abbie_portrait.png",
+		"name": "Zaine",
+		"portrait": "zaine_portrait.png",
 		"text": [
 			"I think this conversation lasted long enough.",
 			"Farewell."

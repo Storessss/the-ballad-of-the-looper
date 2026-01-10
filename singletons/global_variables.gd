@@ -99,7 +99,7 @@ func change_room():
 		fight_room_index += 1
 	for dim in get_tree().get_nodes_in_group("dims"):
 		GlobalVariables.dims += 1
-		
+	DialogueManager.hide_dialogue.emit()
 	get_tree().call_deferred("change_scene_to_packed", rooms[room_index])
 
 func _physics_process(delta: float) -> void:

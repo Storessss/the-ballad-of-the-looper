@@ -55,13 +55,16 @@ func type_text(text: String, text_speed: float = 0.025) -> void:
 func _process(_delta: float) -> void:
 	if typing and Input.is_action_just_pressed("interact"):
 		skip_text = true
-	if not typing and Input.is_action_just_pressed("interact"):
+	if not typing and Input.is_action_just_pressed("interact") and $DialogueBox.visible:
+		$DialogueBox/Text.text = ""
+		$DialogueBox/FullWidthText.text = ""
 		DialogueManager.next_dialogue.emit()
 		
 func _on_hide_dialogue() -> void:
 	$DialogueBox/Text.text = ""
 	$DialogueBox/FullWidthText.text = ""
 	$DialogueBox.visible = false
+	DialogueManager.dialogue_index = 0
 
 func _on_show_choices(choices: Array):
 	for choice in choices:

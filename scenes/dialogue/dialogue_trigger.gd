@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var event: String
-@export var one_time: bool
+@export var loop_event: String
 var index: int
 var can_interact: bool
 var already_playing: bool
@@ -28,5 +28,5 @@ func _on_hide_dialogue() -> void:
 func _process(_delta: float) -> void:
 	if can_interact and Input.is_action_just_pressed("interact") and not already_playing:
 		DialogueManager.play_dialogue.emit(event)
-		if one_time:
-			event = get_tree().current_scene.loop_event
+		if loop_event:
+			event = loop_event

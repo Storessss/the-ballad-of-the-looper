@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dhp6m7bd1qk4o"]
+[gd_scene load_steps=10 format=3 uid="uid://dhp6m7bd1qk4o"]
 
 [ext_resource type="PackedScene" uid="uid://cbf68ue0uj35b" path="res://scenes/rooms/safe_place.tscn" id="1_je2p2"]
 [ext_resource type="Texture2D" uid="uid://c77s47c8ops0y" path="res://sprites/abbie.png" id="2_g7de3"]
-[ext_resource type="AudioStream" uid="uid://7fstsq5g7drx" path="res://music/Shop at the Bottom of a Dungeon.ogg" id="2_v2v41"]
+[ext_resource type="Script" uid="uid://cbf1extduwack" path="res://scenes/rooms/shop_room.gd" id="2_v2v41"]
+[ext_resource type="AudioStream" uid="uid://7fstsq5g7drx" path="res://music/Shop at the Bottom of a Dungeon.ogg" id="3_b5oy7"]
 [ext_resource type="PackedScene" uid="uid://b131k714aba0c" path="res://scenes/dialogue/dialogue_trigger.tscn" id="3_pli5l"]
 
 [sub_resource type="Animation" id="Animation_44mus"]
@@ -47,7 +48,8 @@ _data = {
 radius = 22.000175
 
 [node name="ShopRoom" instance=ExtResource("1_je2p2")]
-music = ExtResource("2_v2v41")
+script = ExtResource("2_v2v41")
+music = ExtResource("3_b5oy7")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {
@@ -62,7 +64,7 @@ texture = ExtResource("2_g7de3")
 
 [node name="DialogueTrigger" parent="Abbie" index="0" instance=ExtResource("3_pli5l")]
 position = Vector2(0, 4.0000076)
-event = "abbie_talk1"
+loop_event = "abbie_loop1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Abbie/DialogueTrigger" index="0"]
 shape = SubResource("CircleShape2D_pli5l")

@@ -58,6 +58,7 @@ var loading_tips: Array[String] = [
 var chest_scene: PackedScene = preload("res://scenes/props/chest.tscn")
 
 func _ready() -> void:
+	MusicPlayer.change_music(preload("res://music/Of Days Long Past.ogg"))
 	#seed(25)
 	GlobalVariables.tilemap = tilemap
 	
