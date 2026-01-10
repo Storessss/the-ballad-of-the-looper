@@ -67,8 +67,8 @@ next_state = NodePath("../IfInRange")
 
 [node name="IfInRange" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "exit_state")]
 script = ExtResource("5_w2i2w")
-trigger_distance = 110
-exit_distance = 120
+trigger_distance = 170
+exit_distance = 200
 next_state = NodePath("../Idle2")
 exit_state = NodePath("../Idle")
 

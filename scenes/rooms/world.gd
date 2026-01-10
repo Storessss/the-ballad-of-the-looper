@@ -52,7 +52,7 @@ var loading_tips: Array[String] = [
 	"[shake]The Ballad of the Looper Never Stops.[/shake]",
 	"Trust the [color=green]Thoughts[/color] ignore the [color=red]Mind[/color]",
 	"[rainbow freq=1.5, sat=1.5, val=1.5]THE DISENGAGER[/rainbow] will fix everything",
-	"Next room is room " + str(GlobalVariables.room),
+	"Next room is room " + str(GlobalVariables.fight_room_index),
 ]
 
 var chest_scene: PackedScene = preload("res://scenes/props/chest.tscn")
@@ -201,7 +201,7 @@ func _process(_delta: float) -> void:
 		
 	elif generation_progress == 5:
 		var boss_threshold: int = int(enemy_count * boss_spawn_percentage / 100.0)
-		if GlobalVariables.room % 3 == 0 and get_tree().get_nodes_in_group("enemies").size() <= boss_threshold and \
+		if GlobalVariables.fight_room_index % 4 == 0 and get_tree().get_nodes_in_group("enemies").size() <= boss_threshold and \
 		can_spawn_boss:
 			can_spawn_boss = false
 			generate_boss()

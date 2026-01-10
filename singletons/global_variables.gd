@@ -52,7 +52,8 @@ var right: int
 var bottom: int
 
 var tilemap: TileMapLayer
-var room: int = 1
+var room_index: int
+var fight_room_index: int = 1
 var rooms: Array[PackedScene] = [
 	preload("res://scenes/rooms/world.tscn"),
 	preload("res://scenes/rooms/world.tscn"),
@@ -93,11 +94,13 @@ func _process(delta: float) -> void:
 		player_position = player.global_position
 
 func change_room():
-	room += 1
+	room_index += 1
+	if rooms[room_index] == preload("res://scenes/rooms/world.tscn"):
+		fight_room_index += 1
 	for dim in get_tree().get_nodes_in_group("dims"):
 		GlobalVariables.dims += 1
 		
-	get_tree().change_scene_to_packed(rooms[room])
+	get_tree().call_deferred("change_scene_to_packed", rooms[room_index])
 
 func _physics_process(delta: float) -> void:
 	# Global Debug

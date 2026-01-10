@@ -22,11 +22,11 @@ func _on_show_dialogue(character_name: String, portrait: Texture, text: String, 
 	already_playing = true
 
 func _on_hide_dialogue() -> void:
+	await get_tree().create_timer(0.5).timeout
 	already_playing = false
-	if one_time:
-		queue_free()
 
 func _process(_delta: float) -> void:
 	if can_interact and Input.is_action_just_pressed("interact") and not already_playing:
 		DialogueManager.play_dialogue.emit(event)
-			
+		if one_time:
+			event = get_tree().current_scene.loop_event

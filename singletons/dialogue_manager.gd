@@ -1,9 +1,6 @@
 extends Node
 
 var dialogue: Dictionary
-var dialogue_variables: Dictionary = {
-	
-}
 var dialogue_index: int
 var previous_event: String
 
@@ -23,15 +20,6 @@ func _ready() -> void:
 func _on_play_dialogue(event: String):
 	previous_event = event
 	var selected_dialogue = dialogue[event]
-	if selected_dialogue.has("branches"):
-		for branch in selected_dialogue["branches"]:
-			var var_name = branch["var"]
-			var op = branch["operator"]
-			var value = branch["value"]
-			if dialogue_variables.has(var_name):
-				if check_branch_condition(dialogue_variables[var_name], op, value):
-					play_dialogue.emit(branch["next"])
-					return
 	var character_name = selected_dialogue.get("name", "")
 	var portrait: Texture = null
 	if selected_dialogue.has("portrait"):
@@ -56,24 +44,10 @@ func _on_next_dialogue(choice: Dictionary = {}):
 	if dialogue_index != 0:
 		play_dialogue.emit(previous_event)
 	elif choice != {}:
-		if choice.has("set_var"):
-			var set_var = choice["set_var"]
-			for key in set_var.keys():
-				dialogue_variables[key] = set_var[key]
 		if choice.has("next"):
 			play_dialogue.emit(choice["next"])
 		else:
 			hide_dialogue.emit()
-
-func check_branch_condition(lhs, op: String, rhs) -> bool:
-	match op:
-		"==": return lhs == rhs
-		"!=": return lhs != rhs
-		"<":  return lhs < rhs
-		"<=": return lhs <= rhs
-		">":  return lhs > rhs
-		">=": return lhs >= rhs
-		_:    return false
 
 var keywords: Dictionary = {
 	"{dims}": GlobalVariables.dims,

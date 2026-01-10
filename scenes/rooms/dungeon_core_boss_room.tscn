@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=4 uid="uid://ccc6vp32wdnhu"]
 
 [ext_resource type="Script" uid="uid://dwpv5sax3yu3q" path="res://scenes/rooms/dungeon_core_boss_room.gd" id="1_1fbcm"]
-[ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://tilemap.tscn" id="2_fdf7x"]
+[ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://scenes/main/tilemap.tscn" id="2_fdf7x"]
 [ext_resource type="PackedScene" uid="uid://ddufykptqanl7" path="res://scenes/main/player.tscn" id="3_mjaox"]
 [ext_resource type="PackedScene" uid="uid://dkllfql1yyhn0" path="res://scenes/enemies/bosses/dungeon_core.tscn" id="4_r84lh"]
 [ext_resource type="PackedScene" uid="uid://lidthfxyvbu6" path="res://scenes/main/hud.tscn" id="5_fdf7x"]

@@ -1,4 +1,12 @@
 {
+	"jackie_loop1": {
+		"name": "Jackie",
+		"portrait": "jackie_portrait.png",
+		"text": [
+			"..."
+		],
+	},
+	
 	"jackie1_1": {
 		"name": "Jackie",
 		"portrait": "jackie_portrait.png",

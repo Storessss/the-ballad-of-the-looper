@@ -1,11 +1,12 @@
 extends SafePlace
 
+var loop_event: String
+
 func _ready() -> void:
 	super._ready()
 	
-	if GlobalVariables.room == 2:
+	if GlobalVariables.fight_room_index == 2:
 		$Jackie/Jackie/DialogueTrigger.event = "jackie1_1"
-	elif GlobalVariables.room == 4:
+	elif GlobalVariables.fight_room_index == 4:
 		$Jackie/Jackie/DialogueTrigger.event = "jackie2_1"
-		
-	GlobalVariables.room -= 1
+	loop_event = "jackie_loop1"

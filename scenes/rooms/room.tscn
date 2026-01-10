@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://bma7x8j1v04f"]
 
-[ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://tilemap.tscn" id="2_ms3in"]
+[ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://scenes/main/tilemap.tscn" id="2_ms3in"]
 [ext_resource type="PackedScene" uid="uid://ddufykptqanl7" path="res://scenes/main/player.tscn" id="3_3pgh2"]
 [ext_resource type="PackedScene" uid="uid://lidthfxyvbu6" path="res://scenes/main/hud.tscn" id="4_bxelx"]
 [ext_resource type="PackedScene" uid="uid://lihuro2y1afi" path="res://scenes/props/wooden_trapdoor.tscn" id="5_3nht7"]

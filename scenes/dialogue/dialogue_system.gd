@@ -59,6 +59,8 @@ func _process(_delta: float) -> void:
 		DialogueManager.next_dialogue.emit()
 		
 func _on_hide_dialogue() -> void:
+	$DialogueBox/Text.text = ""
+	$DialogueBox/FullWidthText.text = ""
 	$DialogueBox.visible = false
 
 func _on_show_choices(choices: Array):

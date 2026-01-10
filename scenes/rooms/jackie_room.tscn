@@ -30,6 +30,7 @@ radius = 35.83224
 script = ExtResource("2_4pw51")
 
 [node name="Jackie" type="Node2D" parent="." index="4"]
+z_index = -5
 
 [node name="Blanket" type="Sprite2D" parent="Jackie" index="0"]
 position = Vector2(376, 112.00001)

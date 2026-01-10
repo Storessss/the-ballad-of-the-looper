@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://cbf68ue0uj35b"]
+[gd_scene load_steps=6 format=4 uid="uid://cbf68ue0uj35b"]
 
 [ext_resource type="Script" uid="uid://dgh131slowmr7" path="res://scenes/rooms/safe_place.gd" id="1_3rwdw"]
-[ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://tilemap.tscn" id="2_ki08u"]
+[ext_resource type="PackedScene" uid="uid://dgbrryrr7gpbw" path="res://scenes/main/tilemap.tscn" id="2_ki08u"]
 [ext_resource type="PackedScene" uid="uid://lidthfxyvbu6" path="res://scenes/main/hud.tscn" id="3_vnr61"]
 [ext_resource type="PackedScene" uid="uid://ddufykptqanl7" path="res://scenes/main/player.tscn" id="4_2cham"]
+[ext_resource type="PackedScene" uid="uid://boq58nd0x7yl2" path="res://scenes/main/world_environment.tscn" id="5_ki08u"]
 
 [node name="SafePlace" type="Node2D"]
 script = ExtResource("1_3rwdw")
@@ -19,3 +20,5 @@ position = Vector2(43, 134)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(216, 120)
 zoom = Vector2(3, 3)
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("5_ki08u")]
