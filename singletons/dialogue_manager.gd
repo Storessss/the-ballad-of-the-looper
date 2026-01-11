@@ -1,59 +1,75 @@
 extends Node
 
-var dialogue: Dictionary
+#var dialogue: Dictionary
+#var dialogue_index: int
+#var previous_event: String
+
+var dialogue_file: FileAccess
 var dialogue_index: int
-var previous_event: String
+var line_index: int
+var characters: Dictionary = {
+	"zaine": {
+		"name": "Zaine",
+		"portrait": "zaine_portrait.png"
+	},
+	"jackie": {
+		"name": "Jackie",
+		"portrait": "jackie_portrait.png"
+	},
+	"abbie": {
+		"name": "Abbie",
+		"portrait": "abbie_portrait.png"
+	},
+	"tom": {
+		"name": "Tom",
+		"portrait": "tom_portrait.png"
+	},
+}
+var character_name: String
+var portrait: Texture
+var text: String 
 
 signal play_dialogue(event: String)
 signal show_dialogue(character_name: String, portrait: Texture, text: String, text_speed: float)
 signal hide_dialogue
-signal next_dialogue
-signal show_choices(choices: Array)
 
 func _ready() -> void:
-	var dialogue_file = FileAccess.open("res://dialogue/dialogue.json", FileAccess.READ)
-	dialogue = JSON.parse_string(dialogue_file.get_as_text())
+	dialogue_file = FileAccess.open("res://dialogue/dialogue.txt", FileAccess.READ)
 	
 	play_dialogue.connect(Callable(self, "_on_play_dialogue"))
-	next_dialogue.connect(Callable(self, "_on_next_dialogue"))
+	hide_dialogue.connect(Callable(self, "_on_hide_dialogue"))
 	
-func _on_play_dialogue(event: String):
-	previous_event = event
-	var selected_dialogue = dialogue[event]
-	var character_name = selected_dialogue.get("name", "")
-	var portrait: Texture = null
-	if selected_dialogue.has("portrait"):
-		portrait = load("res://sprites/" + selected_dialogue["portrait"])
-	var text = selected_dialogue.get("text", [""])
-	var text_speed: float = selected_dialogue.get("text_speed", 0.045)
-	if dialogue_index != text.size():
-		text[dialogue_index] = replace_keywords(text[dialogue_index])
-		show_dialogue.emit(character_name, portrait, text[dialogue_index], text_speed)
-		dialogue_index += 1
-	else:
-		dialogue_index = 0
-		if not selected_dialogue.has("choices"):
-			if selected_dialogue.has("next"):
-				play_dialogue.emit(selected_dialogue["next"])
-			else:
-				hide_dialogue.emit()
-		else:
-			show_choices.emit(selected_dialogue["choices"])
-		
-func _on_next_dialogue(choice: Dictionary = {}):
-	if dialogue_index != 0:
-		play_dialogue.emit(previous_event)
-	elif choice != {}:
-		if choice.has("next"):
-			play_dialogue.emit(choice["next"])
-		else:
-			hide_dialogue.emit()
+func _on_play_dialogue(event: String = ""):
+	dialogue_file.seek(0)
+	if event:
+		while not dialogue_file.eof_reached():
+			dialogue_index += 1
+			var line: String = dialogue_file.get_line().strip_edges()
+			if line.is_empty():
+				continue
+			if line == event + "//":
+				break
+	dialogue_file.seek(0)
+	for i in range(dialogue_index + line_index):
+		if dialogue_file.eof_reached():
+			break
+		dialogue_file.get_line()
+	var line = dialogue_file.get_line()
+	line_index += 1
+	if line == "//":
+		hide_dialogue.emit()
+		return
+	elif line.is_empty():
+		play_dialogue.emit()
+		return
+	text = line
+	for key in characters.keys():
+		if line.begins_with(key + "/"):
+			character_name = characters[key]["name"]
+			portrait = load("res://sprites/" + characters[key]["portrait"])
+			text = line.split("/", false, 1)[1]
+	show_dialogue.emit(character_name, portrait, text, 0.045)
 
-var keywords: Dictionary = {
-	"{dims}": GlobalVariables.dims,
-}
-func replace_keywords(text: String):
-	for key in keywords.keys():
-		text = text.replace(key, str(keywords[key]))
-	return text
-	
+func _on_hide_dialogue():
+	dialogue_index = 0
+	line_index = 0

@@ -10,7 +10,6 @@ const choice_button_scene: PackedScene = preload("res://scenes/main/choice_butto
 func _ready() -> void:
 	DialogueManager.show_dialogue.connect(Callable(self, "_on_show_dialogue"))
 	DialogueManager.hide_dialogue.connect(Callable(self, "_on_hide_dialogue"))
-	DialogueManager.show_choices.connect(Callable(self, "_on_show_choices"))
 
 func _on_show_dialogue(character_name: String, portrait: Texture, text: String, text_speed: float):
 	$DialogueBox.visible = true
@@ -58,18 +57,9 @@ func _process(_delta: float) -> void:
 	if not typing and Input.is_action_just_pressed("interact") and $DialogueBox.visible:
 		$DialogueBox/Text.text = ""
 		$DialogueBox/FullWidthText.text = ""
-		DialogueManager.next_dialogue.emit()
+		DialogueManager.play_dialogue.emit()
 		
 func _on_hide_dialogue() -> void:
 	$DialogueBox/Text.text = ""
 	$DialogueBox/FullWidthText.text = ""
 	$DialogueBox.visible = false
-	DialogueManager.dialogue_index = 0
-
-func _on_show_choices(choices: Array):
-	for choice in choices:
-		var choice_button = choice_button_scene.instantiate()
-		choice_button.text = choice["text"]
-		choice_button.choice_data = choice
-		$Choices.add_child(choice_button)
-	$Choices.get_child(0).grab_focus()
