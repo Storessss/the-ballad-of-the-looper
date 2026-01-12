@@ -1,26 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://cfcr3dt31j1o8"]
+[gd_scene load_steps=9 format=3 uid="uid://cfcr3dt31j1o8"]
 
-[ext_resource type="PackedScene" uid="uid://cbf68ue0uj35b" path="res://scenes/rooms/safe_place.tscn" id="1_p17nh"]
+[ext_resource type="PackedScene" uid="uid://cbf68ue0uj35b" path="res://scenes/rooms/room.tscn" id="1_p17nh"]
 [ext_resource type="Script" uid="uid://fjmln8gonilf" path="res://scenes/rooms/jackie_room.gd" id="2_4pw51"]
 [ext_resource type="Texture2D" uid="uid://b4n6utef6p66e" path="res://sprites/blanket.png" id="3_bi6un"]
 [ext_resource type="Texture2D" uid="uid://b6o13tv04dbgl" path="res://sprites/dagger.png" id="4_4pw51"]
 [ext_resource type="PackedScene" uid="uid://b131k714aba0c" path="res://scenes/dialogue/dialogue_trigger.tscn" id="4_bi6un"]
-[ext_resource type="Texture2D" uid="uid://cdq2eqsvdaonp" path="res://sprites/spitter_idle1.png" id="5_5wohq"]
-[ext_resource type="Texture2D" uid="uid://uelsj3fjor1a" path="res://sprites/spitter_idle2.png" id="6_ubpxb"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_bi6un"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_5wohq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_ubpxb")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 1.0
-}]
+[ext_resource type="PackedScene" uid="uid://umvut87glnn3" path="res://scenes/props/jackie_npc.tscn" id="5_bi6un"]
+[ext_resource type="PackedScene" uid="uid://lihuro2y1afi" path="res://scenes/props/wooden_trapdoor.tscn" id="8_4pw51"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4pw51"]
 radius = 35.83224
@@ -50,15 +36,14 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_4pw51")
 flip_h = true
 
-[node name="Jackie" type="AnimatedSprite2D" parent="Jackie" index="3"]
+[node name="Jackie" parent="Jackie" index="3" instance=ExtResource("5_bi6un")]
 position = Vector2(376, 108)
-scale = Vector2(0.9, 0.9)
-sprite_frames = SubResource("SpriteFrames_bi6un")
-animation = &"idle"
-autoplay = "idle"
 
 [node name="DialogueTrigger" parent="Jackie/Jackie" index="0" instance=ExtResource("4_bi6un")]
 loop_event = "jackie_loop1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Jackie/Jackie/DialogueTrigger" index="0"]
 shape = SubResource("CircleShape2D_4pw51")
+
+[node name="WoodenTrapdoor" parent="." index="6" instance=ExtResource("8_4pw51")]
+position = Vector2(64, 64)

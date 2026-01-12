@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://umvut87glnn3"]
+
+[ext_resource type="Texture2D" uid="uid://cdq2eqsvdaonp" path="res://sprites/spitter_idle1.png" id="1_8knen"]
+[ext_resource type="Texture2D" uid="uid://binygacra7xk5" path="res://sprites/jackie_admiring.png" id="1_okblb"]
+[ext_resource type="Texture2D" uid="uid://bamw44gackvir" path="res://sprites/jackie_admiring2.png" id="2_my3mv"]
+[ext_resource type="Texture2D" uid="uid://uelsj3fjor1a" path="res://sprites/spitter_idle2.png" id="2_okblb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bi6un"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_okblb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_my3mv")
+}],
+"loop": true,
+"name": &"admiring",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8knen")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_okblb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="Jackie" type="AnimatedSprite2D"]
+scale = Vector2(0.9, 0.9)
+sprite_frames = SubResource("SpriteFrames_bi6un")
+animation = &"admiring"
+autoplay = "idle"
+frame_progress = 0.8364971

@@ -81,7 +81,8 @@ var rooms: Array[PackedScene] = [
 	preload("res://scenes/rooms/world.tscn"),
 	preload("res://scenes/rooms/world.tscn"),
 	preload("res://scenes/rooms/shop_room.tscn"),
-	# DISENGAGER
+	preload("res://scenes/rooms/artifact_room.tscn"),
+	preload("res://scenes/rooms/world.tscn")
 ]
 
 var dims: int
@@ -100,8 +101,10 @@ func change_room():
 	for dim in get_tree().get_nodes_in_group("dims"):
 		GlobalVariables.dims += 1
 	DialogueManager.hide_dialogue.emit()
+	Engine.time_scale = 1.0
 	get_tree().call_deferred("change_scene_to_packed", rooms[room_index])
 
 func _physics_process(delta: float) -> void:
 	# Global Debug
+	print(room_index)
 	pass

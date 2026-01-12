@@ -1,9 +1,9 @@
 extends Node2D
 
-class_name SafePlace
+class_name Room
 
 @onready var tilemap: TileMapLayer = $Tilemap
-@export var music: AudioStream = preload("res://music/A Safe Place.ogg")
+@export var music: AudioStream = preload("res://music/Safe Place.ogg")
 
 func _ready() -> void:
 	GlobalVariables.tilemap = tilemap

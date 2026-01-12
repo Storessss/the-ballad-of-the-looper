@@ -24,6 +24,10 @@ var characters: Dictionary = {
 		"name": "Tom",
 		"portrait": "tom_portrait.png"
 	},
+	"jackie_error": {
+		"name": "LOOPER",
+		"portrait": "jackie_portrait_error.png"
+	},
 }
 var character_name: String
 var portrait: Texture
