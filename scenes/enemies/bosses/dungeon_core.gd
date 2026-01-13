@@ -42,7 +42,7 @@ func die() -> void:
 		super.die()
 
 func _exit_tree() -> void:
-	MusicPlayer.change_music(preload("res://music/A Safe Place.ogg"))
+	MusicPlayer.change_music(preload("res://music/Safe Place.ogg"))
 
 var starting_cutscene_open_eye: bool
 var starting_cutscene_look: bool

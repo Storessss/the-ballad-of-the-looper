@@ -58,7 +58,12 @@ var loading_tips: Array[String] = [
 var chest_scene: PackedScene = preload("res://scenes/props/chest.tscn")
 
 func _ready() -> void:
-	MusicPlayer.change_music(preload("res://music/Of Days Long Past.ogg"))
+	if GlobalVariables.fight_room_index > 16:
+		MusicPlayer.change_music(preload("res://music/Hall of Quitters.ogg"))
+		loading_tips = ["Are you a Quitter?"]
+	else:
+		MusicPlayer.change_music(preload("res://music/Of Days Long Past.ogg"))
+		
 	#seed(25)
 	GlobalVariables.tilemap = tilemap
 	
@@ -223,6 +228,9 @@ func finalize_generation() -> void:
 		if enemy is not DungeonFlower:
 			GlobalVariables.dungeon_flower_targets.append(enemy)
 			
+	if GlobalVariables.fight_room_index > 16:
+		generate_quitters()
+			
 	$Loading.queue_free()
 			
 	var player = player_scene.instantiate()
@@ -280,3 +288,23 @@ func generate_chests(chest_count: int) -> void:
 		var location = map.pop_back()
 		chest.global_position = tilemap.map_to_local(location)
 		add_child(chest)
+
+var quitters_count: int = 20
+var quitter_textures: Array[Texture] = [
+	preload("res://sprites/noose.png"),
+	preload("res://sprites/quitter1.png"),
+	preload("res://sprites/quitter2.png"),
+	preload("res://sprites/quitter3.png"),
+	preload("res://sprites/quitter4.png"),
+	preload("res://sprites/quitter5.png")
+]
+func generate_quitters() -> void:
+	for i in range(quitters_count):
+		var sprite: Sprite2D = Sprite2D.new()
+		sprite.texture = quitter_textures.pick_random()
+		sprite.global_position = tilemap.map_to_local(tilemap.map.pick_random())
+		var sprite_scale: float = randf_range(1.0, 2.0)
+		sprite.scale = Vector2(sprite_scale, sprite_scale)
+		sprite.z_index = 100
+		sprite.modulate.a = 0.75
+		add_child(sprite)

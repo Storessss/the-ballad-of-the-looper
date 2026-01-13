@@ -52,8 +52,8 @@ var right: int
 var bottom: int
 
 var tilemap: TileMapLayer
-var room_index: int
-var fight_room_index: int = 1
+var room_index: int = 25 #0
+var fight_room_index: int = 16 #1
 var rooms: Array[PackedScene] = [
 	preload("res://scenes/rooms/world.tscn"),
 	preload("res://scenes/rooms/world.tscn"),
@@ -82,6 +82,7 @@ var rooms: Array[PackedScene] = [
 	preload("res://scenes/rooms/world.tscn"),
 	preload("res://scenes/rooms/shop_room.tscn"),
 	preload("res://scenes/rooms/artifact_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
 	preload("res://scenes/rooms/world.tscn")
 ]
 
@@ -106,5 +107,4 @@ func change_room():
 
 func _physics_process(delta: float) -> void:
 	# Global Debug
-	print(room_index)
 	pass
