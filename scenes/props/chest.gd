@@ -2,6 +2,7 @@ extends Node2D
 
 var can_interact: bool
 var pickupable_scene: PackedScene = preload("res://scenes/items/pickupable_item.tscn")
+@export var override_item_drops: Array[PackedScene]
 
 func _process(_delta):
 	if can_interact and Input.is_action_just_pressed("interact") and $AnimatedSprite2D.animation == "closed":
@@ -11,6 +12,8 @@ func _process(_delta):
 		$AnimatedSprite2D.play("open")
 		var pickupable: Area2D = pickupable_scene.instantiate()
 		pickupable.global_position = global_position
+		if override_item_drops:
+			pickupable.items = override_item_drops
 		get_tree().current_scene.add_child(pickupable)
 		
 func _on_body_entered(body: Node2D) -> void:

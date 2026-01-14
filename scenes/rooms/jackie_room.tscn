@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b4n6utef6p66e" path="res://sprites/blanket.png" id="3_bi6un"]
 [ext_resource type="Texture2D" uid="uid://b6o13tv04dbgl" path="res://sprites/dagger.png" id="4_4pw51"]
 [ext_resource type="PackedScene" uid="uid://b131k714aba0c" path="res://scenes/dialogue/dialogue_trigger.tscn" id="4_bi6un"]
-[ext_resource type="PackedScene" uid="uid://umvut87glnn3" path="res://scenes/props/jackie_npc.tscn" id="5_bi6un"]
+[ext_resource type="PackedScene" uid="uid://umvut87glnn3" path="res://scenes/props/jackie.tscn" id="5_bi6un"]
 [ext_resource type="PackedScene" uid="uid://lihuro2y1afi" path="res://scenes/props/wooden_trapdoor.tscn" id="8_4pw51"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4pw51"]

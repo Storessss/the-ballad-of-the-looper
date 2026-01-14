@@ -35,3 +35,8 @@ func _process(_delta: float) -> void:
 	
 	if GlobalVariables.weapon_full_durability:
 		$WeaponDurability.value = GlobalVariables.weapon_durability * 100 / GlobalVariables.weapon_full_durability
+		
+func hide_stats() -> void:
+	$HealthBar.visible = false
+	$Dims.visible = false
+	$WeaponDurability.visible = false

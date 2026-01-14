@@ -9,3 +9,10 @@ func _ready() -> void:
 		$Abbie/DialogueTrigger.event = "abbie2"
 	elif GlobalVariables.fight_room_index == 12:
 		$Abbie/DialogueTrigger.event = "abbie3"
+	elif GlobalVariables.fight_room_index == 16:
+		$Abbie/DialogueTrigger.event = "jackie&abbie1"
+		$Jackie.visible = true
+		$Abbie.animation = "happy"
+		$Abbie/Halo.visible = true
+		$Abbie/AnimationPlayer.play("abbie")
+		MusicPlayer.change_music(preload("res://music/Safe Place.ogg"))

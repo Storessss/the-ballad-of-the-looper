@@ -1,74 +1,151 @@
-[gd_scene load_steps=11 format=3 uid="uid://dhp6m7bd1qk4o"]
+[gd_scene load_steps=20 format=3 uid="uid://dhp6m7bd1qk4o"]
 
 [ext_resource type="PackedScene" uid="uid://cbf68ue0uj35b" path="res://scenes/rooms/room.tscn" id="1_je2p2"]
-[ext_resource type="Texture2D" uid="uid://c77s47c8ops0y" path="res://sprites/abbie.png" id="2_g7de3"]
 [ext_resource type="Script" uid="uid://cbf1extduwack" path="res://scenes/rooms/shop_room.gd" id="2_v2v41"]
 [ext_resource type="AudioStream" uid="uid://7fstsq5g7drx" path="res://music/Shop at the Bottom of a Dungeon.ogg" id="3_b5oy7"]
 [ext_resource type="PackedScene" uid="uid://b131k714aba0c" path="res://scenes/dialogue/dialogue_trigger.tscn" id="3_pli5l"]
+[ext_resource type="Texture2D" uid="uid://dq0tefeu61v2t" path="res://sprites/abbie_resting1.png" id="4_7jh8p"]
+[ext_resource type="Texture2D" uid="uid://dpx28j2knst6e" path="res://sprites/abbie_happy.png" id="4_bfbjv"]
+[ext_resource type="Texture2D" uid="uid://csriguvgy8mfm" path="res://sprites/abbie_resting2.png" id="5_tme1m"]
+[ext_resource type="Texture2D" uid="uid://x00ch0niqk4a" path="res://sprites/abbie_resting3.png" id="6_0p1i7"]
 [ext_resource type="PackedScene" uid="uid://lihuro2y1afi" path="res://scenes/props/wooden_trapdoor.tscn" id="6_44mus"]
+[ext_resource type="Texture2D" uid="uid://cqhn1ad3ucf8b" path="res://sprites/abbie_resting4.png" id="7_nwps8"]
+[ext_resource type="Texture2D" uid="uid://bng0ruy7eihyx" path="res://sprites/halo.png" id="10_gpphb"]
+[ext_resource type="Texture2D" uid="uid://b4n6utef6p66e" path="res://sprites/blanket.png" id="10_nwps8"]
+[ext_resource type="Texture2D" uid="uid://b6o13tv04dbgl" path="res://sprites/dagger.png" id="11_aaxjd"]
+[ext_resource type="PackedScene" uid="uid://umvut87glnn3" path="res://scenes/props/jackie.tscn" id="12_bfbjv"]
 
-[sub_resource type="Animation" id="Animation_44mus"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_aaxjd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_bfbjv")
+}],
+"loop": true,
+"name": &"happy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 20.0,
+"texture": ExtResource("4_7jh8p")
+}, {
+"duration": 3.0,
+"texture": ExtResource("5_tme1m")
+}, {
+"duration": 3.0,
+"texture": ExtResource("6_0p1i7")
+}, {
+"duration": 20.0,
+"texture": ExtResource("7_nwps8")
+}, {
+"duration": 3.0,
+"texture": ExtResource("6_0p1i7")
+}, {
+"duration": 3.0,
+"texture": ExtResource("5_tme1m")
+}],
+"loop": true,
+"name": &"resting",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pli5l"]
+radius = 53.333313
+
+[sub_resource type="Animation" id="Animation_bfbjv"]
+resource_name = "halo"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Halo:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -10.5), Vector2(0, -12.5)]
+}
+
+[sub_resource type="Animation" id="Animation_gpphb"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Abbie:position")
+tracks/0/path = NodePath("Halo:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(174, 54)]
+"values": [Vector2(0, -10.5)]
 }
 
-[sub_resource type="Animation" id="Animation_b5oy7"]
-resource_name = "abbie"
-length = 4.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Abbie:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.9666667, 3.9666667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(351.5, 63), Vector2(351.5, 56), Vector2(351.5, 63)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_01urt"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y7qi6"]
 _data = {
-&"RESET": SubResource("Animation_44mus"),
-&"abbie": SubResource("Animation_b5oy7")
+&"RESET": SubResource("Animation_gpphb"),
+&"halo": SubResource("Animation_bfbjv")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_pli5l"]
-radius = 22.000175
 
 [node name="ShopRoom" instance=ExtResource("1_je2p2")]
 script = ExtResource("2_v2v41")
 music = ExtResource("3_b5oy7")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
-libraries = {
-&"": SubResource("AnimationLibrary_01urt")
-}
-autoplay = "abbie"
-
-[node name="Abbie" type="Sprite2D" parent="." index="4"]
-position = Vector2(174, 54)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("2_g7de3")
+[node name="Abbie" type="AnimatedSprite2D" parent="." index="4"]
+position = Vector2(320, 72)
+sprite_frames = SubResource("SpriteFrames_aaxjd")
+animation = &"happy"
+autoplay = "resting"
 
 [node name="DialogueTrigger" parent="Abbie" index="0" instance=ExtResource("3_pli5l")]
-position = Vector2(0, 4.0000076)
+scale = Vector2(0.75, 0.75)
 loop_event = "abbie_loop1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Abbie/DialogueTrigger" index="0"]
 shape = SubResource("CircleShape2D_pli5l")
 
-[node name="WoodenTrapdoor" parent="." index="7" instance=ExtResource("6_44mus")]
+[node name="Halo" type="Sprite2D" parent="Abbie" index="1"]
+visible = false
+position = Vector2(0, -10.5)
+texture = ExtResource("10_gpphb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Abbie" index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_y7qi6")
+}
+autoplay = "halo"
+
+[node name="WoodenTrapdoor" parent="." index="6" instance=ExtResource("6_44mus")]
 position = Vector2(64, 64)
+
+[node name="Jackie" type="Node2D" parent="." index="7"]
+visible = false
+position = Vector2(104, 40)
+scale = Vector2(0.75, 0.75)
+
+[node name="Blanket" type="Sprite2D" parent="Jackie" index="0"]
+position = Vector2(318.2714, 75.16543)
+rotation = -0.43633232
+scale = Vector2(1.7500002, 1.7500002)
+texture = ExtResource("10_nwps8")
+
+[node name="Dagger1" type="Sprite2D" parent="Jackie" index="1"]
+position = Vector2(315.19894, 101.276215)
+rotation = -2.1816616
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("11_aaxjd")
+
+[node name="Dagger2" type="Sprite2D" parent="Jackie" index="2"]
+position = Vector2(315.199, 94.276)
+rotation = -1.3089969
+scale = Vector2(0.8000001, 0.8000001)
+texture = ExtResource("11_aaxjd")
+flip_h = true
+
+[node name="Jackie" parent="Jackie" index="3" instance=ExtResource("12_bfbjv")]
+position = Vector2(315, 69.667)
+autoplay = "happy"
+frame_progress = 0.73435503

@@ -1,13 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://i8c1jq7tl1y3"]
+[gd_scene load_steps=16 format=3 uid="uid://i8c1jq7tl1y3"]
 
 [ext_resource type="PackedScene" uid="uid://cbf68ue0uj35b" path="res://scenes/rooms/room.tscn" id="1_crm3k"]
 [ext_resource type="AudioStream" uid="uid://cxheawo0kgwc7" path="res://music/disengage.ogg" id="2_romwo"]
 [ext_resource type="Script" uid="uid://dfj8lgwb1boq8" path="res://scenes/rooms/artifact_room.gd" id="2_v617m"]
 [ext_resource type="Texture2D" uid="uid://8fq5iy7ipjce" path="res://sprites/pedestal.png" id="2_w5aqr"]
 [ext_resource type="Texture2D" uid="uid://bx5nxunt1kip5" path="res://sprites/THE DISENGAGER.png" id="3_odn5q"]
-[ext_resource type="PackedScene" uid="uid://umvut87glnn3" path="res://scenes/props/jackie_npc.tscn" id="4_odn5q"]
+[ext_resource type="PackedScene" uid="uid://umvut87glnn3" path="res://scenes/props/jackie.tscn" id="4_odn5q"]
 [ext_resource type="PackedScene" uid="uid://b131k714aba0c" path="res://scenes/dialogue/dialogue_trigger.tscn" id="6_ytitg"]
 [ext_resource type="Texture2D" uid="uid://ctbwae51ygeoc" path="res://sprites/disengaged.png" id="8_y6uk0"]
+[ext_resource type="Texture2D" uid="uid://tip07jt88aj8" path="res://sprites/zaine_loop.png" id="9_drksc"]
+[ext_resource type="Texture2D" uid="uid://cw1vprgbor7lm" path="res://sprites/eye_of_the_looper.png" id="10_66x8y"]
+[ext_resource type="FontFile" uid="uid://b4fgfncmcslf6" path="res://styles/Retro Gaming.ttf" id="11_66x8y"]
 
 [sub_resource type="Animation" id="Animation_v617m"]
 length = 0.001
@@ -90,3 +93,86 @@ visible = false
 position = Vector2(215.99998, 120)
 scale = Vector2(0.185, 0.185)
 texture = ExtResource("8_y6uk0")
+
+[node name="LoopingCutscene" type="Node2D" parent="." index="11"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="LoopingCutscene" index="0"]
+offset_right = 432.0
+offset_bottom = 240.0
+color = Color(0, 0.2746039, 0.58475995, 1)
+
+[node name="ZaineLoop" type="Sprite2D" parent="LoopingCutscene" index="1"]
+position = Vector2(216, 160)
+scale = Vector2(5, 5)
+texture = ExtResource("9_drksc")
+
+[node name="EyeOfTheLooper" type="Sprite2D" parent="LoopingCutscene/ZaineLoop" index="0"]
+position = Vector2(-2.6000977, 2.6000977)
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("10_66x8y")
+
+[node name="EyeOfTheLooper2" type="Sprite2D" parent="LoopingCutscene/ZaineLoop" index="1"]
+position = Vector2(2.6000977, 2.6000977)
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("10_66x8y")
+
+[node name="Line2D" type="Line2D" parent="LoopingCutscene/ZaineLoop" index="2"]
+position = Vector2(-43.199997, -30.999989)
+scale = Vector2(0.19999999, 0.19999999)
+points = PackedVector2Array(186, 169, 201, 155)
+width = 1.5
+
+[node name="Line2D2" type="Line2D" parent="LoopingCutscene/ZaineLoop" index="3"]
+position = Vector2(-33.600002, -30.999989)
+scale = Vector2(0.19999999, 0.19999999)
+points = PackedVector2Array(198, 167, 184, 155)
+width = 1.5
+
+[node name="LoopedText" type="RichTextLabel" parent="LoopingCutscene" index="2"]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 679.3333
+offset_bottom = 110.0
+scale = Vector2(0.6, 0.6)
+theme_override_fonts/normal_font = ExtResource("11_66x8y")
+theme_override_fonts/bold_font = ExtResource("11_66x8y")
+theme_override_fonts/bold_italics_font = ExtResource("11_66x8y")
+theme_override_fonts/italics_font = ExtResource("11_66x8y")
+theme_override_fonts/mono_font = ExtResource("11_66x8y")
+theme_override_font_sizes/normal_font_size = 80
+theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
+bbcode_enabled = true
+text = "[tornado]LOOOOOOPED[/tornado]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="LoopsText" type="RichTextLabel" parent="LoopingCutscene" index="3"]
+offset_left = 16.0
+offset_top = 64.0
+offset_right = 682.6666
+offset_bottom = 103.99999
+scale = Vector2(0.6, 0.6)
+theme_override_fonts/normal_font = ExtResource("11_66x8y")
+theme_override_fonts/bold_font = ExtResource("11_66x8y")
+theme_override_fonts/bold_italics_font = ExtResource("11_66x8y")
+theme_override_fonts/italics_font = ExtResource("11_66x8y")
+theme_override_fonts/mono_font = ExtResource("11_66x8y")
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
+bbcode_enabled = true
+text = "Loop: 0"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoopsTextBlinkingTimer" type="Timer" parent="LoopingCutscene" index="4"]
+wait_time = 0.4
+
+[connection signal="timeout" from="LoopingCutscene/LoopsTextBlinkingTimer" to="." method="_on_loops_text_blinking_timer_timeout"]

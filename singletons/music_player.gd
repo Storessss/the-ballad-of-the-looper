@@ -111,7 +111,7 @@ func item_get() -> AudioStreamPlayer:
 	return sound_player
 
 func metal_hit() -> AudioStreamPlayer:
-	var sound_player = new_sound_player(-3)
+	var sound_player = new_sound_player(-9)
 	sound_player.stream = preload("res://sounds/metal_hit.wav")
 	sound_player.pitch_scale = 0.9
 	sound_player.play()
