@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 func _on_child_transition(state: State, new_state: State) -> void:
 	if state != current_state:
 		return
-	if new_state == null or not states.has(new_state):
+	if not new_state or not states.has(new_state):
 		return
 	if current_state:
 		current_state.Exit()

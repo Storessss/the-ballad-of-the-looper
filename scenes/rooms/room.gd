@@ -12,7 +12,8 @@ func _ready() -> void:
 	for cell in tilemap.get_used_cells():
 		GlobalVariables.tilemap.map.append(cell)
 	$Player.remove_child($Player.camera)
-	MusicPlayer.change_music(music)
+	if GlobalVariables.loop < 1:
+		MusicPlayer.change_music(music)
 	GlobalVariables.shake_camera.connect(Callable(self, "_on_camera_shake"))
 
 func _process(delta: float) -> void:

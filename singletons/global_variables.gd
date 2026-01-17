@@ -54,6 +54,9 @@ var bottom: int
 var tilemap: TileMapLayer
 var room_index: int = 25 #0
 var fight_room_index: int = 16 #1
+var loop: int
+var area_number: int
+var room_number: int
 var rooms: Array[PackedScene] = [
 	preload("res://scenes/rooms/world.tscn"),
 	preload("res://scenes/rooms/world.tscn"),
@@ -83,7 +86,31 @@ var rooms: Array[PackedScene] = [
 	preload("res://scenes/rooms/shop_room.tscn"),
 	preload("res://scenes/rooms/artifact_room.tscn"),
 	preload("res://scenes/rooms/world.tscn"),
-	preload("res://scenes/rooms/world.tscn")
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/shop_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/shop_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/shop_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/jackie_room.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/world.tscn"),
+	preload("res://scenes/rooms/shop_room.tscn"),
 ]
 
 var dims: int
@@ -94,6 +121,9 @@ func _process(delta: float) -> void:
 	player = get_tree().get_first_node_in_group("players")
 	if player:
 		player_position = player.global_position
+		
+	area_number = ((fight_room_index - 1) % 16) / 4
+	room_number = ((fight_room_index - 1) % 4) + 1
 
 func change_room():
 	room_index += 1

@@ -13,7 +13,7 @@ var map: Array[Vector2i]
 
 var player_scene: PackedScene = preload("res://scenes/main/player.tscn")
 
-var enemy_count: int = 15
+var enemy_count: int = 1#15
 var enemies: Dictionary = {
 	preload("res://scenes/enemies/slime.tscn"): INF,
 	preload("res://scenes/enemies/spitter.tscn"): INF,
@@ -58,7 +58,7 @@ var loading_tips: Array[String] = [
 var chest_scene: PackedScene = preload("res://scenes/props/chest.tscn")
 
 func _ready() -> void:
-	if GlobalVariables.fight_room_index > 16:
+	if GlobalVariables.loop > 0:
 		MusicPlayer.change_music(preload("res://music/Hall of Quitters.ogg"))
 		loading_tips = ["Are you a Quitter?"]
 	else:
@@ -210,7 +210,7 @@ func _process(_delta: float) -> void:
 		if GlobalVariables.fight_room_index % 4 == 0 and get_tree().get_nodes_in_group("enemies").size() <= boss_threshold and \
 		can_spawn_boss:
 			can_spawn_boss = false
-			generate_boss()
+			#generate_boss()
 		if get_tree().get_nodes_in_group("enemies").size() == 0 and can_spawn_trapdoor:
 			can_spawn_trapdoor = false
 			var trapdoor = trapdoor_scene.instantiate()
@@ -228,7 +228,7 @@ func finalize_generation() -> void:
 		if enemy is not DungeonFlower:
 			GlobalVariables.dungeon_flower_targets.append(enemy)
 			
-	if GlobalVariables.fight_room_index > 16:
+	if GlobalVariables.loop > 0:
 		generate_quitters()
 			
 	$Loading.queue_free()

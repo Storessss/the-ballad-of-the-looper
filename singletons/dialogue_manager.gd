@@ -1,9 +1,5 @@
 extends Node
 
-#var dialogue: Dictionary
-#var dialogue_index: int
-#var previous_event: String
-
 var dialogue_file: FileAccess
 var dialogue_index: int
 var line_index: int
@@ -22,11 +18,15 @@ var characters: Dictionary = {
 	},
 	"tom": {
 		"name": "Tom",
-		"portrait": "tom_portrait.png"
+		"portrait": "tom.png"
 	},
 	"jackie_error": {
 		"name": "LOOPER",
 		"portrait": "jackie_portrait_error.png"
+	},
+	"mind": {
+		"name": "",
+		"portrait": null
 	},
 }
 var character_name: String
@@ -70,7 +70,10 @@ func _on_play_dialogue(event: String = ""):
 	for key in characters.keys():
 		if line.begins_with(key + "/"):
 			character_name = characters[key]["name"]
-			portrait = load("res://sprites/" + characters[key]["portrait"])
+			if characters[key]["portrait"]:
+				portrait = load("res://sprites/" + characters[key]["portrait"])
+			else:
+				portrait = null
 			text = line.split("/", false, 1)[1]
 	show_dialogue.emit(character_name, portrait, text, 0.045)
 

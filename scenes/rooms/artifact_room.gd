@@ -23,8 +23,8 @@ func _process(delta: float) -> void:
 	if disengage_status >= 2:
 		$LoopingCutscene.visible = true
 		#$CanvasModulate.color = Color.WHITE
-		$LoopingCutscene/ZaineLoop/EyeOfTheLooper.rotation += delta * 2
-		$LoopingCutscene/ZaineLoop/EyeOfTheLooper2.rotation += delta * -2
+		$LoopingCutscene/ZaineLoop/EyeOfTheLooper.rotation += delta * 20
+		$LoopingCutscene/ZaineLoop/EyeOfTheLooper2.rotation += delta * -20
 		loop_counter += delta * 32000
 		loop_counter = min(loop_counter, moment_of_consciousness)
 		$LoopingCutscene/LoopsText.text = "Loop: " + str(loop_counter)
@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 	if loop_counter == moment_of_consciousness:
 		disengage_status += 1
 		await get_tree().create_timer(5.0).timeout
+		GlobalVariables.loop += 1
 		GlobalVariables.change_room()
 
 func _on_loops_text_blinking_timer_timeout() -> void:

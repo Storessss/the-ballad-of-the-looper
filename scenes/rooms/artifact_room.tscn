@@ -100,7 +100,7 @@ visible = false
 [node name="ColorRect" type="ColorRect" parent="LoopingCutscene" index="0"]
 offset_right = 432.0
 offset_bottom = 240.0
-color = Color(0, 0.2746039, 0.58475995, 1)
+color = Color(0, 0.22352941, 0.36862746, 1)
 
 [node name="ZaineLoop" type="Sprite2D" parent="LoopingCutscene" index="1"]
 position = Vector2(216, 160)

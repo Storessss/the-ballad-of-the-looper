@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccmu2fg0s4uy6"]
+
+[ext_resource type="Texture2D" uid="uid://b4n6utef6p66e" path="res://sprites/blanket.png" id="1_e6qr4"]
+[ext_resource type="Texture2D" uid="uid://b6o13tv04dbgl" path="res://sprites/dagger.png" id="2_kvsso"]
+
+[node name="JackieItems" type="Node2D"]
+z_index = -5
+
+[node name="Blanket" type="Sprite2D" parent="."]
+rotation = -0.03490658
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("1_e6qr4")
+
+[node name="Dagger1" type="Sprite2D" parent="."]
+position = Vector2(-16, 16)
+rotation = -2.1816616
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_kvsso")
+
+[node name="Dagger2" type="Sprite2D" parent="."]
+position = Vector2(-16, -16)
+rotation = -1.3089969
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_kvsso")
+flip_h = true

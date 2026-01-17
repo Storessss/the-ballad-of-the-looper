@@ -15,6 +15,10 @@ tom_loop1//
 tom/...
 //
 
+statue_loop1//
+mind/"I believe in you Zaine :) -Tom"
+//
+
 jackie1//
 jackie/Oh... Hello
 I'm Jackie, the intelligent spitter
