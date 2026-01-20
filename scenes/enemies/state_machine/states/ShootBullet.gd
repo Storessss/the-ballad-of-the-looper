@@ -10,11 +10,14 @@ class_name ShootBullet
 @export var animation: String
 @export var sound: String
 @export var final_frame: int
+@export var shoot_immediately: bool
 @export var next_state: State
 @export_category("Optional Randomness")
 @export var random_shoot_direction: bool
 @export var unified_direction: bool = true
 var random_unified_angle: float
+@export_category("Spawn on Child Nodes")
+@export var child_spawner: Node2D
 
 func shoot() -> void:
 	var pos = round(-bullet_spread * (bullet_count / 2))
@@ -27,17 +30,28 @@ func shoot() -> void:
 				bullet.angle = random_unified_angle + deg_to_rad(pos)
 			else:
 				bullet.angle = randf() * TAU + deg_to_rad(pos)
-		bullet.global_position = enemy.cast_point.global_position
+		if child_spawner:
+			for spawner: Node2D in child_spawner.spawners:
+				var spawner_bullet: CharacterBody2D = bullet.duplicate()
+				spawner_bullet.global_position = spawner.global_position
+				spawner_bullet.angle = (spawner.global_position - spawner.get_parent().global_position).angle()
+				get_tree().current_scene.add_child(spawner_bullet)
+		else:
+			bullet.global_position = enemy.cast_point.global_position
+			get_tree().current_scene.add_child(bullet)
 		pos += bullet_spread
-		get_tree().current_scene.add_child(bullet)
 	if sound:
 		MusicPlayer.call(sound)
-			
+
 func Enter() -> void:
 	await get_tree().process_frame
 	
 	if random_shoot_direction and unified_direction:
 		random_unified_angle = randf() * TAU
+		
+	if shoot_immediately:
+		shoot()
+		Transitioned.emit(self, next_state)
 		
 	if auto_target_player_before_shooting:
 		enemy.nav.target_position = GlobalVariables.player_position

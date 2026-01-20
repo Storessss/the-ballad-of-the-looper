@@ -1,0 +1,98 @@
+[gd_scene load_steps=10 format=3 uid="uid://dsotdpmnj5ms3"]
+
+[ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_3afmq"]
+[ext_resource type="Texture2D" uid="uid://dhod71bu7wbuh" path="res://icon.svg" id="2_niafq"]
+[ext_resource type="Script" uid="uid://cwt5obbui16uh" path="res://scenes/enemies/state_machine/states/Repeat.gd" id="3_rcljs"]
+[ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="3_tl16f"]
+[ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="4_rcljs"]
+[ext_resource type="PackedScene" uid="uid://duxo10mwqtvck" path="res://scenes/bullets/bullet_rotator.tscn" id="5_jfoj4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rpbf4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_niafq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tl16f"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rcljs"]
+
+[node name="Dummy" instance=ExtResource("1_3afmq")]
+health = 1000
+contact_damage = true
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_rpbf4")
+autoplay = "default"
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_tl16f")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_rcljs")
+
+[node name="FSM" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Repeat")
+
+[node name="Repeat" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("repeat_state", "exit_state")]
+script = ExtResource("3_rcljs")
+repeat_for_min = 50
+repeat_for_max = 100
+state_duration_max = 0.1
+repeat_state = NodePath("../ShootBullet")
+exit_state = NodePath("../Repeat2")
+
+[node name="ShootBullet" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state", "child_spawner")]
+script = ExtResource("3_tl16f")
+bullet_scene = ExtResource("4_rcljs")
+bullet_count = null
+bullet_spread = null
+auto_target_player_before_shooting = null
+animation = null
+sound = null
+final_frame = null
+shoot_immediately = true
+next_state = NodePath("../Repeat")
+random_shoot_direction = null
+unified_direction = null
+child_spawner = NodePath("../../BulletRotator")
+
+[node name="Repeat2" type="Node" parent="FSM" index="2" node_paths=PackedStringArray("repeat_state", "exit_state")]
+script = ExtResource("3_rcljs")
+repeat_for_min = 50
+repeat_for_max = 100
+state_duration_max = 0.1
+repeat_state = NodePath("../ShootBullet2")
+exit_state = NodePath("../Repeat")
+
+[node name="ShootBullet2" type="Node" parent="FSM" index="3" node_paths=PackedStringArray("next_state", "child_spawner")]
+script = ExtResource("3_tl16f")
+bullet_scene = ExtResource("4_rcljs")
+bullet_count = null
+bullet_spread = null
+auto_target_player_before_shooting = null
+animation = null
+sound = null
+final_frame = null
+shoot_immediately = true
+next_state = NodePath("../Repeat2")
+random_shoot_direction = null
+unified_direction = null
+child_spawner = NodePath("../../BulletRotator2")
+
+[node name="BulletRotator" parent="." index="7" instance=ExtResource("5_jfoj4")]
+spawner_count = 4
+spawner_distance = 5
+spawner_rotation_speed = 1.5
+
+[node name="BulletRotator2" parent="." index="8" instance=ExtResource("5_jfoj4")]
+spawner_count = 4
+spawner_distance = 5
+spawner_rotation_speed = -1.5

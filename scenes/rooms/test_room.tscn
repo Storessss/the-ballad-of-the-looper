@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmdwnchclfvcd"]
+
+[ext_resource type="PackedScene" uid="uid://cbf68ue0uj35b" path="res://scenes/rooms/room.tscn" id="1_mjm5x"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/dummy.tscn" id="2_fn815"]
+
+[node name="TestRoom" instance=ExtResource("1_mjm5x")]
+
+[node name="Dummy" parent="WorldEnvironment" index="0" instance=ExtResource("2_fn815")]
+position = Vector2(216, 120)

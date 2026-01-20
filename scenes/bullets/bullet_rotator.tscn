@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://duxo10mwqtvck"]
+
+[ext_resource type="Script" uid="uid://b87eav3qoesyc" path="res://scenes/bullets/bullet_rotator.gd" id="1_i08ur"]
+
+[node name="BulletRotator" type="Node2D"]
+script = ExtResource("1_i08ur")
