@@ -13,7 +13,7 @@ var map: Array[Vector2i]
 
 var player_scene: PackedScene = preload("res://scenes/main/player.tscn")
 
-var enemy_count: int = 1#15
+var enemy_count: int = 15
 var enemies: Dictionary = {
 	preload("res://scenes/enemies/slime.tscn"): INF,
 	preload("res://scenes/enemies/spitter.tscn"): INF,
