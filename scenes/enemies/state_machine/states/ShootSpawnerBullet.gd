@@ -11,7 +11,7 @@ class_name ShootSpawnerBullet
 
 func shoot() -> void:
 	for spawner: Node2D in spawner.spawners:
-		var bullet = bullet_scene.instantiate()
+		var bullet: Bullet = bullet_scene.instantiate()
 		bullet.global_position = spawner.global_position
 		bullet.angle = (spawner.global_position - spawner.get_parent().global_position).angle()
 		get_tree().current_scene.add_child(bullet)

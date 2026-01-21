@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://bh3y3p6ms0ngx" path="res://scenes/enemies/state_machine/states/ShootBullet.gd" id="11_v0s08"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="12_ycu62"]
 [ext_resource type="Script" uid="uid://cwt5obbui16uh" path="res://scenes/enemies/state_machine/states/Repeat.gd" id="13_v0s08"]
-[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="14_8jr78"]
+[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootBulletRing.gd" id="14_8jr78"]
 [ext_resource type="Script" uid="uid://b8kcb0me7xcl0" path="res://scenes/enemies/state_machine/states/Wait.gd" id="16_66c2w"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mic2l"]

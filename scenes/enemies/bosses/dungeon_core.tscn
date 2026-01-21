@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dpsy2umu43km" path="res://sprites/dungeon_core_eye_open4.png" id="5_vg2i8"]
 [ext_resource type="Texture2D" uid="uid://c7kyce14bwmit" path="res://sprites/dungeon_core_eye_open3.png" id="6_hugit"]
 [ext_resource type="Script" uid="uid://cwt5obbui16uh" path="res://scenes/enemies/state_machine/states/Repeat.gd" id="6_knck3"]
-[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="6_vbn3r"]
+[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootBulletRing.gd" id="6_vbn3r"]
 [ext_resource type="Texture2D" uid="uid://dsi5up13rtry8" path="res://sprites/dungeon_core_eye_open2.png" id="7_e4irp"]
 [ext_resource type="Texture2D" uid="uid://dy6w0ag6ppsou" path="res://sprites/dungeon_core_eye_open1.png" id="8_4rojq"]
 [ext_resource type="PackedScene" uid="uid://vphukb2po6r7" path="res://scenes/bullets/fast_red_bullet.tscn" id="8_i08rf"]

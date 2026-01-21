@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://7ujlrnd2erfb" path="res://sprites/crusher_idle.png" id="3_3vom7"]
 [ext_resource type="Script" uid="uid://br3jn01nyuwcx" path="res://scenes/enemies/state_machine/states/Idle.gd" id="5_cp7y7"]
 [ext_resource type="Script" uid="uid://dlg1ayvyypn8j" path="res://scenes/enemies/state_machine/states/IfInRange.gd" id="6_akuy1"]
-[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="6_ki70e"]
+[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootBulletRing.gd" id="6_ki70e"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="7_akuy1"]
 [ext_resource type="Script" uid="uid://7wbcyea43i6w" path="res://scenes/enemies/state_machine/states/IfEnemyGroupLeft.gd" id="9_byv07"]
 [ext_resource type="Script" uid="uid://oli7prhhfeqv" path="res://scenes/enemies/state_machine/states/ApplyEffect.gd" id="10_2hlko"]

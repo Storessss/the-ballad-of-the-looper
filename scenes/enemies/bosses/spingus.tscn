@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_7lrh4"]
 [ext_resource type="Texture2D" uid="uid://dkgy2fvgitjmo" path="res://sprites/spingus.png" id="2_hetc0"]
 [ext_resource type="Script" uid="uid://c18ewpx7fyfw8" path="res://scenes/enemies/state_machine/states/PingPong.gd" id="3_abb2f"]
-[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootRing.gd" id="4_f52pg"]
+[ext_resource type="Script" uid="uid://dyir4354x3xf1" path="res://scenes/enemies/state_machine/states/ShootBulletRing.gd" id="4_f52pg"]
 [ext_resource type="Script" uid="uid://cm2qwd3qkoyso" path="res://scenes/enemies/state_machine/states/PickRandomNextState.gd" id="4_vjxuv"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="5_dl7k7"]
 [ext_resource type="Script" uid="uid://cj45kwgsxfhd2" path="res://scenes/enemies/state_machine/states/SpawnEnemy.gd" id="7_pvio2"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dsotdpmnj5ms3"]
+[gd_scene load_steps=12 format=3 uid="uid://dsotdpmnj5ms3"]
 
 [ext_resource type="PackedScene" uid="uid://7vv71sj61141" path="res://scenes/enemies/enemy.tscn" id="1_3afmq"]
 [ext_resource type="Texture2D" uid="uid://dhod71bu7wbuh" path="res://icon.svg" id="2_niafq"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://c8rl3h17dao0" path="res://scenes/enemies/state_machine/states/ShootBulletSwarm.gd" id="4_jfoj4"]
 [ext_resource type="PackedScene" uid="uid://b7hpvroesff1n" path="res://scenes/bullets/red_bullet.tscn" id="4_rcljs"]
 [ext_resource type="PackedScene" uid="uid://duxo10mwqtvck" path="res://scenes/bullets/bullet_rotator.tscn" id="5_jfoj4"]
+[ext_resource type="Script" uid="uid://cufrwcyr1jai8" path="res://scenes/enemies/state_machine/state_machine.gd" id="6_5ixd7"]
+[ext_resource type="Script" uid="uid://c8k3ncnqtnrll" path="res://scenes/enemies/state_machine/states/ShootSpawnerBullet.gd" id="7_qql06"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rpbf4"]
 animations = [{
@@ -53,16 +55,51 @@ exit_state = NodePath(".")
 [node name="ShootBulletSwarm" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("next_state")]
 script = ExtResource("4_jfoj4")
 bullet_scene = ExtResource("4_rcljs")
-area = Vector2(100, 20)
+area = Vector2(30, 10)
 bullet_count = 100
+bullet_spawn_delay = 0.01
 next_state = NodePath("../Repeat")
 
-[node name="BulletRotator" parent="." index="7" instance=ExtResource("5_jfoj4")]
-spawner_count = 4
-spawner_distance = 5
-spawner_rotation_speed = 1.5
+[node name="FSM2" type="Node" parent="." index="7" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_5ixd7")
+initial_state = NodePath("Repeat")
 
-[node name="BulletRotator2" parent="." index="8" instance=ExtResource("5_jfoj4")]
+[node name="Repeat" type="Node" parent="FSM2" index="0" node_paths=PackedStringArray("repeat_state", "exit_state")]
+script = ExtResource("3_rcljs")
+repeat_for_min = 50
+repeat_for_max = 500
+state_duration_min = 0.01
+state_duration_max = 0.01
+repeat_state = NodePath("../ShootSpawnerBullet")
+exit_state = NodePath("../Repeat2")
+
+[node name="ShootSpawnerBullet" type="Node" parent="FSM2" index="1" node_paths=PackedStringArray("spawner", "next_state")]
+script = ExtResource("7_qql06")
+bullet_scene = ExtResource("4_rcljs")
+spawner = NodePath("../../BulletRotator")
+next_state = NodePath("../Repeat")
+
+[node name="Repeat2" type="Node" parent="FSM2" index="2" node_paths=PackedStringArray("repeat_state", "exit_state")]
+script = ExtResource("3_rcljs")
+repeat_for_min = 20
+repeat_for_max = 50
+state_duration_min = 0.01
+state_duration_max = 0.01
+repeat_state = NodePath("../ShootSpawnerBullet2")
+exit_state = NodePath("../Repeat")
+
+[node name="ShootSpawnerBullet2" type="Node" parent="FSM2" index="3" node_paths=PackedStringArray("spawner", "next_state")]
+script = ExtResource("7_qql06")
+bullet_scene = ExtResource("4_rcljs")
+spawner = NodePath("../../BulletRotator2")
+next_state = NodePath("../Repeat2")
+
+[node name="BulletRotator" parent="." index="8" instance=ExtResource("5_jfoj4")]
 spawner_count = 4
 spawner_distance = 5
-spawner_rotation_speed = -1.5
+spawner_rotation_speed = 1.0
+
+[node name="BulletRotator2" parent="." index="9" instance=ExtResource("5_jfoj4")]
+spawner_count = 4
+spawner_distance = 5
+spawner_rotation_speed = -15.0

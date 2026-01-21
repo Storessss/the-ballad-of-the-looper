@@ -1,6 +1,6 @@
 extends State
 
-class_name ShootRing
+class_name ShootBulletRing
 
 @onready var enemy: Enemy = get_parent().get_parent()
 @export var bullet_scene: PackedScene
